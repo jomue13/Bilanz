@@ -1,0 +1,30 @@
+{
+ "name": "Bilanz",
+ "short_name": "Bilanz",
+ "lang": "de",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#E8EDF1",
+ "theme_color": "#2F6FB8",
+ "description": "Training, Essen, Körper, Arbeit, Geld und mehr, offline auf dem Handy.",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
