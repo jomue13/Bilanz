@@ -1050,6 +1050,101 @@ button.st.half{background:linear-gradient(90deg,var(--sun) 50%,var(--line) 50%);
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--d-photo:#A8508F}}
 :root[data-theme="dark"]{--d-photo:#A8508F}
 
+
+/* ---------- v13: Gym-Modus (immer dunkel, Display bleibt an) ---------- */
+.sheet.gym{z-index:25;background:#0B1117;color:#EEF3F6;overscroll-behavior:contain;color-scheme:dark;
+  --g-card:#141E27;--g-card2:#1D2934;--g-line:#27343F;--g-mut:#93A1AC;--g-acc:#7AA4FF;--g-good:#4CC38A;--g-good-ink:#05140C}
+html.gym-on,html.gym-on body{overflow:hidden}
+.gy{max-width:560px;margin:0 auto;padding:4px 16px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+.gy svg{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.gy-top{display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:8px}
+.gy-ic{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:var(--g-mut);font-size:11px;font-weight:600;min-height:50px;padding:4px 0}
+.gy-ic svg{width:24px;height:24px;stroke-width:1.9}
+.gy-ic[aria-pressed="true"]{color:#EEF3F6}
+.gy-tt{text-align:center;min-width:0}
+.gy-tt b{display:block;font-size:14px;font-weight:600;color:var(--g-mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gy-tt span{display:block;font:700 26px/1.1 var(--font-c);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.gy-bars{display:flex;gap:4px;margin-top:-4px}
+.gy-bars button{flex:1;min-width:0;height:24px;border:0;padding:0;background:none;position:relative}
+.gy-bars button::before{content:"";position:absolute;left:0;right:0;top:9px;height:6px;border-radius:3px;background:var(--g-line)}
+.gy-bars i{position:absolute;left:0;top:9px;height:6px;border-radius:3px;background:var(--g-good)}
+.gy-bars button.on::after{content:"";position:absolute;left:0;right:0;top:6px;height:12px;border-radius:6px;box-shadow:0 0 0 2px var(--g-acc)}
+.gy-pos{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g-acc)}
+.gy-ex h2{margin:4px 0 0;font:700 30px/1.08 var(--font-c);letter-spacing:-.005em;overflow-wrap:anywhere}
+.gy-ex p{margin:6px 0 0;color:var(--g-mut);font-size:14px;line-height:1.35}
+.gy-card{background:var(--g-card);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.gy-card>p{margin:0}
+.gy-sets{display:flex;gap:8px;overflow-x:auto;margin:0 -14px;padding:0 14px 2px;scrollbar-width:none}
+.gy-sets::-webkit-scrollbar{display:none}
+.gy-sets button{flex:0 0 auto;min-width:64px;min-height:50px;border-radius:14px;border:1px solid var(--g-line);background:none;color:#EEF3F6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 10px}
+.gy-sets b{display:inline-flex;align-items:center;gap:3px;font-size:15px}
+.gy-sets b svg{width:14px;height:14px;stroke-width:3}
+.gy-sets small{font-size:12px;color:var(--g-mut);white-space:nowrap;font-variant-numeric:tabular-nums}
+.gy-sets button.done{background:rgba(76,195,138,.16);border-color:transparent;color:#BDEBD3}
+.gy-sets button.done small{color:#9FD9BC}
+.gy-sets button.on{border-color:var(--g-acc);box-shadow:inset 0 0 0 1px var(--g-acc)}
+.gy-sets .add{min-width:50px;font-size:24px;font-weight:400;color:var(--g-mut);border-style:dashed}
+.gy-sn{font-size:15px;color:var(--g-mut)}
+.gy-sn b{color:#EEF3F6;font-size:17px}
+.gy-step{display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:8px}
+.gy-step>button{height:64px;border-radius:18px;border:0;background:var(--g-card2);color:#EEF3F6;font-size:32px;font-weight:400;line-height:1}
+.gy-step>button:active{background:#2A3846}
+.gy-step label{display:flex;flex-direction:column;align-items:center;min-width:0}
+.gy-step input{width:100%;text-align:center;background:none;border:0;border-radius:10px;font:700 48px/1.05 var(--font-c);font-variant-numeric:tabular-nums;color:#fff;padding:0;outline:none}
+.gy-step input:focus{background:var(--g-card2)}
+.gy-step input::placeholder{color:#3C4B57}
+.gy-step span{font-size:13px;color:var(--g-mut);font-weight:600;margin-top:-2px}
+.gy-hint{font-size:12px;color:var(--g-mut);text-align:center;margin:-4px 0 0!important}
+.gy-done{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:78px;border:0;border-radius:20px;background:var(--g-good);color:var(--g-good-ink);font:700 21px/1.15 var(--font);padding:0 16px;text-align:center}
+.gy-done svg{width:30px;height:30px;stroke-width:2.8;flex:none}
+.gy-done:active{transform:scale(.985)}
+.gy-done.alt{background:var(--g-acc);color:#0B1117}
+.gy-all{display:flex;align-items:center;gap:8px;font-weight:700;color:#BDEBD3}
+.gy-all svg{width:22px;height:22px;stroke-width:2.6}
+.gy-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gy .btn{min-height:52px;background:var(--g-card2);border-color:var(--g-line);color:#EEF3F6}
+.gy .btn.primary{background:var(--g-acc);border-color:var(--g-acc);color:#0B1117}
+.gy .btn.ghost{background:none}
+.gy .btn.armed{background:#7A2A22;border-color:#7A2A22;color:#fff}
+.gy-rest{display:flex;align-items:center;gap:14px;background:var(--g-card);border:1px solid rgba(122,164,255,.35);border-radius:22px;padding:12px 14px}
+.gy-ring{position:relative;width:112px;height:112px;flex:none}
+.gy-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gy-ring circle{fill:none;stroke-width:9}
+.gy-ring .tr{stroke:var(--g-line)}
+.gy-ring .pr{stroke:var(--g-acc);stroke-linecap:round;transition:stroke-dashoffset .25s linear}
+.gy-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 32px/1 var(--font-c);font-variant-numeric:tabular-nums}
+.gy-rest-i{flex:1;min-width:0}
+.gy-rest-i small{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g-acc)}
+.gy-rest-i p{margin:3px 0 0;font-size:14px;line-height:1.35;color:#C9D3DB}
+.gy-rest-b{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:6px;margin-top:10px}
+.gy-rest-b button{min-height:44px;border-radius:12px;border:0;background:var(--g-card2);color:#EEF3F6;font-weight:700;font-size:15px}
+.gy-rest.done{border-color:transparent;background:rgba(76,195,138,.18);animation:gyFlash .9s ease-out 2}
+.gy-rest.done b{font-size:18px}
+.gy-rd{width:44px;height:44px;border-radius:50%;background:var(--g-good);color:var(--g-good-ink);display:flex;align-items:center;justify-content:center;flex:none}
+.gy-rd svg{width:26px;height:26px;stroke-width:2.8}
+.gy-x{align-self:flex-start;background:none;border:0;color:var(--g-mut);font-size:24px;line-height:1;min-width:36px;min-height:36px}
+@keyframes gyFlash{0%{background:rgba(76,195,138,.55)}100%{background:rgba(76,195,138,.18)}}
+.gy-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gy-nav button{min-height:58px;border-radius:16px;border:1px solid var(--g-line);background:none;color:#EEF3F6;font-weight:600;font-size:14px;padding:6px 12px;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.gy-nav button+button{text-align:right}
+.gy-nav small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g-mut)}
+.gy-nav button:disabled{opacity:.35}
+.gy-fin{color:var(--g-mut)!important}
+.gy-lock{margin:0;text-align:center;font-size:12px;color:var(--g-mut)}
+.gy-lock:empty{display:none}
+.gy-open svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.aw-head+.gy-open{margin:10px 0 12px}
+/* Wochenvarianten */
+.wv-seg button{font-variant-numeric:tabular-nums}
+.wv{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.wv li{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:var(--surface2)}
+.wv li.next{box-shadow:inset 0 0 0 2px var(--area,var(--accent))}
+.wv-n{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:var(--surface);color:var(--muted)}
+.wv li.done .wv-n{background:var(--good);color:#fff}
+.wv-n svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.wv-t b{display:block}
+.wv-t small{display:block;color:var(--muted);font-size:13px;line-height:1.35}
+.wv li.done .wv-t b{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -1068,6 +1163,7 @@ button.st.half{background:linear-gradient(90deg,var(--sun) 50%,var(--line) 50%);
 <datalist id="exlist"></datalist>
 <input type="file" id="photo-input" accept="image/*" hidden>
 <div class="sheet wrap" id="wrap" hidden role="dialog" aria-modal="true" aria-label="Jahresrückblick"></div>
+<div class="sheet gym" id="gym" hidden role="dialog" aria-modal="true" aria-label="Gym-Modus"></div>
 <input type="file" id="fin-input" accept=".csv,text/csv,text/comma-separated-values,text/plain" multiple hidden>
 <input type="file" id="bd-input" accept="image/*" hidden>
 <input type="file" id="import-input" accept=".csv,text/csv,text/comma-separated-values,text/plain" multiple hidden>
@@ -1121,13 +1217,13 @@ const TABS = [['heute', 'Start'], ['kalender', 'Kalender'], ['training', 'Traini
 const KNOWN_EX = ['Bankdrücken', 'Schrägbankdrücken (Kurzhantel)', 'Butterfly (Maschine)', 'Kabel-Crossover', 'Schulterdrücken (Kurzhantel)', 'Seitheben', 'Seitheben am Kabel', 'Face Pulls', 'Rudern am Kabel', 'Kurzhantelrudern', 'Latzug', 'Klimmzüge', 'Reverse Butterfly', 'Bizepscurls', 'Hammercurls', 'Trizepsdrücken am Kabel', 'Überkopf-Trizeps am Kabel', 'Kniebeugen', 'Beinpresse', 'Hackenschmidt', 'Beinstrecker', 'Beinbeuger', 'Rumänisches Kreuzheben', 'Bulgarian Split Squats', 'Wadenheben', 'Abduktoren', 'Adduktoren', 'Crunches am Kabel'];
 
 /* ---------- State ---------- */
-const DEFAULT_SETTINGS = { kcal: 2000, protein: 140, carbs: 220, fat: 60, place: 'Berlin', lat: 52.52, lon: 13.405, water: 3000, alcLimit: 0, workWeek: 20, wage: 0, netPct: 0, kv: 0, workPause: 30, fullName: '', stepGoal: 10000, budget: 0, teams: {} };
+const DEFAULT_SETTINGS = { kcal: 2000, protein: 140, carbs: 220, fat: 60, place: 'Berlin', lat: 52.52, lon: 13.405, water: 3000, alcLimit: 0, workWeek: 20, wage: 0, netPct: 0, kv: 0, workPause: 30, fullName: '', stepGoal: 10000, budget: 0, restSec: 90, teams: {} };
 const emptyMealForm = () => ({ desc: '', name: '', kcal: '', p: '', c: '', f: '' });
 const emptyBodyForm = () => ({ date: todayKey(), weight: '', kfa: '', waist: '', chest: '', arm: '' });
 const defaultProfile = () => normProfile({});
 function normProfile(p) {
   p = p && typeof p === 'object' ? clone(p) : {};
-  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {} };
+  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {} };
 }
 function normDay(k, x) {
   x = x && typeof x === 'object' ? clone(x) : {};
@@ -1829,7 +1925,7 @@ function vStart() {
     seen.add(n.toLowerCase()); tmpl.push(w); if (tmpl.length >= 6) break;
   }
   const plans = S.profile.plans || [];
-  const wp = planFor(todayKey()), planBtn = wp && !getDay(todayKey()).workouts.length ? `<button class="btn primary big" data-a="week-start">${esc(wp)} starten</button><p class="small muted" style="margin:8px 0 12px">Laut Wochenplan ist heute ${esc(wp)} dran.</p>` : '';
+  const wp = planFor(todayKey()), planBtn = wp && !getDay(todayKey()).workouts.length ? `<button class="btn primary big" data-a="week-start">${esc(wp)} starten</button>${varHint(wp)}` : '';
   return `<section class="panel start">${planBtn}<button class="btn ${planBtn ? 'ghost' : 'primary'} big" data-a="w-start">${planBtn ? 'Anderes Training starten' : 'Training starten'}</button>
     ${plans.length ? `<p class="small muted">Nach Plan trainieren:</p><div class="chips">${plans.map(p => `<button class="chip" data-a="plan-start:${p.id}">${esc(p.name)}<small>${p.loc === 'gym' ? 'Gym' : 'Zuhause'}</small></button>`).join('')}</div>` : ''}
     ${tmpl.length ? `<p class="small muted">Oder ein früheres Training wiederholen:</p><div class="chips">${tmpl.map(w => `<button class="chip" data-a="w-repeat:${w.date}:${w.id}">${esc(w.name)}</button>`).join('')}</div>` : `<p class="small muted">Starte ein Training und füg Übungen hinzu. Beim nächsten Mal siehst du bei jeder Übung deine Werte vom letzten Mal.</p><p class="small muted">Schon Trainings in Hevy? <button class="link" data-a="settings-open">In den Einstellungen übernehmen</button></p>`}
@@ -1866,6 +1962,7 @@ function vExercise(ex) {
 }
 function vActive(a) {
   return `<section class="panel"><div class="aw-head"><input class="aw-name" data-wf="name" value="${esc(a.name)}" placeholder="Name, z. B. Push oder Beine" aria-label="Name des Trainings" autocomplete="off"><span class="aw-time" data-timer></span></div>
+    ${a.ex.length ? `<button class="btn primary big gy-open" data-a="gym-open">${GYI.gym}Gym-Modus</button>` : ''}
     <div class="seg" role="group" aria-label="Ort"><button class="${a.loc !== 'gym' ? 'on' : ''}" data-a="w-loc:zuhause" aria-pressed="${a.loc !== 'gym'}">Zuhause</button><button class="${a.loc === 'gym' ? 'on' : ''}" data-a="w-loc:gym" aria-pressed="${a.loc === 'gym'}">Gym</button></div>
     ${a.ex.length ? a.ex.map(vExercise).join('') : '<p class="muted small empty">Füg deine erste Übung hinzu.</p>'}
     <div class="addrow"><input id="ex-new" list="exlist" placeholder="Übung hinzufügen" autocomplete="off" enterkeyhint="done" data-enter="w-addex"><button class="btn" data-a="w-addex">Hinzufügen</button></div>
@@ -1981,6 +2078,7 @@ function renderSheet() {
       <p class="small muted">Das Wochenbudget ist dein Tagesziel mal sieben.</p>
       <div class="grid2" style="margin-top:10px">${sf('water', 'Wasser pro Tag (ml)')}${sf('alcLimit', 'Alkohol: Gläser pro Woche')}</div><p class="small muted">Beim Alkohol-Limit heißt 0: kein Limit.</p></section>
     <section class="panel"><h2>Arbeit, Lohn, Schritte</h2><div class="grid2">${sf('workWeek', 'Arbeitsstunden pro Woche')}${sf('wage', 'Stundenlohn € brutto')}</div><div class="grid2" style="margin-top:8px">${sf('kv', 'Krankenversicherung € pro Monat')}${sf('netPct', 'Netto-Anteil % (0 = automatisch)')}</div><div class="grid2" style="margin-top:8px">${sf('workPause', 'Pause ab 6 h (min)', 'numeric')}${sf('fullName', 'Name im Excel-Export', 'text')}</div><div class="grid2" style="margin-top:8px">${sf('stepGoal', 'Schritte-Ziel pro Tag', 'numeric')}${sf('budget', 'Ausgaben-Budget pro Monat €')}</div><p class="small muted">Netto automatisch heißt: Werkstudent über der Minijob-Grenze, abgezogen wird nur der verringerte Rentenbeitrag. Steht auf deiner Lohnabrechnung etwas anderes, trag Netto geteilt durch Brutto als Prozent ein. Budget 0 heißt: kein Budget.</p></section>
+    <section class="panel"><h2>Gym-Modus</h2><div class="grid2">${sf('restSec', 'Satzpause in Sekunden', 'numeric')}</div><p class="small muted">Gilt für jede Übung, bis du die Pause im Gym-Modus mit −15 oder +15 änderst. Das merkt sich die App dann für diese Übung.</p></section>
     <section class="panel"><h2>Spielplan</h2><p class="small muted">Diese Teams erscheinen im Kalender und auf Start.</p><div class="chips">${Object.keys(TEAMS).map(t => `<button class="chip ${teamOn(t) ? 'on' : ''}" data-a="team-toggle:${t}" aria-pressed="${teamOn(t)}">${esc(TEAMS[t].s)}</button>`).join('')}</div></section>
     <section class="panel"><h2>Ort für Sonnenzeiten</h2><div class="grid3">${sf('place', 'Ort', 'text')}${sf('lat', 'Breitengrad')}${sf('lon', 'Längengrad')}</div></section>
     <section class="panel"><h2>Aus Hevy übernehmen</h2><p class="small muted">Wähl die CSV-Dateien aus deinem Hevy-Export, Trainings und Messungen gehen beide. Was schon in Bilanz steht, wird übersprungen.</p>
@@ -1993,9 +2091,327 @@ function renderSheet() {
 function openSettings() { S.ui.sheet = true; renderSheet(); const sh = $('#sheet'); sh.hidden = false; sh.scrollTop = 0; }
 function closeSettings() { S.ui.sheet = false; $('#sheet').hidden = true; render(); }
 
+/* ---------- v13: Gym-Modus ---------- */
+var GYM = { lock: null, lockFail: false, locking: false, ac: null, sel: null, doneT: null, touch: null, step: new Map() };
+var GYI = {
+  list: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>',
+  on: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>',
+  off: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9.5l5 5M22 9.5l-5 5"/></svg>',
+  check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 7"/></svg>',
+  gym: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>'
+};
+var GYM_STEP = { reps: 1, sec: 5, km: 0.1, min: 1 };
+function gymA() { const a = S.profile.active; return a && a.gymOn ? a : null; }
+function gymF(ex) { return KINDS[ex.kind || 'reps'] || KINDS.reps; }
+function gymMMSS(s) { return `${Math.floor(s / 60)}:${pad(s % 60)}`; }
+function gymExIdx(a) {
+  let i = a.ex.findIndex(e => e.id === a.gymEx);
+  if (i < 0) { i = a.ex.findIndex(e => e.sets.some(s => !s.done)); if (i < 0) i = Math.max(0, a.ex.length - 1); }
+  return i;
+}
+function gymCur(ex) {
+  if (GYM.sel && GYM.sel.ex === ex.id && ex.sets[GYM.sel.i]) return GYM.sel.i;
+  return ex.sets.findIndex(s => !s.done);
+}
+function gymNextEx(a, from) {
+  const n = a.ex.length;
+  for (let d = 1; d < n; d++) { const e = a.ex[(from + d) % n]; if (e.sets.some(s => !s.done)) return e; }
+  return null;
+}
+/* Vorschlag für ein Feld: eigener Wert, sonst letztes Training (gleicher Satz); bei gleichbleibenden Sätzen folgt das Gewicht dem heutigen Satz davor */
+function gymVal(ex, i, f) {
+  const s = ex.sets[i], own = getF(s, f); if (own != null) return { v: own, src: 'set' };
+  let prev = null; for (let j = i - 1; j >= 0; j--) { const p = getF(ex.sets[j], f); if (p != null) { prev = p; break; } }
+  const last = lastSetsFor(ex.name), L = last ? last.sets : [], lv = L.length ? getF(L[i] || L[L.length - 1], f) : null;
+  if ((f === 'kg' || f === 'km') && prev != null) {
+    const lp = i > 0 && L.length ? getF(L[i - 1] || L[L.length - 1], f) : null;
+    if (lv == null || lp == null || lp === lv) return { v: prev, src: 'prev' };
+  }
+  if (lv != null) return { v: lv, src: 'last' };
+  if (prev != null) return { v: prev, src: 'prev' };
+  return { v: null, src: '' };
+}
+function gymValTxt(ex, i) {
+  const F = gymF(ex), v = {}; for (const [f] of F) v[f] = gymVal(ex, i, f).v;
+  if (F === KINDS.reps && v.reps != null) return v.kg ? `${fmt(v.kg, 2)} kg × ${fmt(v.reps)}` : `${fmt(v.reps)} Wdh.`;
+  return F.map(([f, l]) => v[f] != null ? `${fmt(v[f], 2)} ${l}` : '').filter(Boolean).join(' · ');
+}
+function gymKgStep(name) {
+  const k = exKey(name); if (GYM.step.has(k)) return GYM.step.get(k);
+  const vs = new Set();
+  for (const w of allWorkouts().slice(0, 400)) for (const e of w.ex || []) if (exKey(e.name) === k) for (const s of e.sets || []) if (s.kg > 0) vs.add(Math.round(s.kg * 100) / 100);
+  const a = [...vs].sort((x, y) => x - y); let d = Infinity;
+  for (let i = 1; i < a.length; i++) d = Math.min(d, a[i] - a[i - 1]);
+  const st = isFinite(d) && d >= 0.5 && d <= 10 ? Math.round(d * 100) / 100 : 2.5;
+  GYM.step.set(k, st); return st;
+}
+function gymRestFor(ex) { return Math.round(+ex.rest || +((S.profile.restBy || {})[exKey(ex.name)]) || +ex.prest || +S.profile.settings.restSec || 90); }
+function gymRestLeft(a) { return a.rest ? Math.max(0, Math.ceil((a.rest.end - Date.now()) / 1000)) : 0; }
+function gymLockTxt() { return GYM.lock ? 'Display bleibt an, solange der Gym-Modus offen ist.' : GYM.lockFail ? 'Display geht hier nicht von selbst an. Abhilfe: iPhone-Einstellungen → Anzeige & Helligkeit → Automatische Sperre.' : ''; }
+async function gymLock(on) {
+  if (!on) { if (GYM.lock) { const l = GYM.lock; GYM.lock = null; try { await l.release(); } catch (e) { } } return; }
+  if (GYM.lock || GYM.locking || document.visibilityState !== 'visible') return;
+  if (!('wakeLock' in navigator)) { GYM.lockFail = true; return; }
+  GYM.locking = true;
+  try { const l = await navigator.wakeLock.request('screen'); GYM.lock = l; GYM.lockFail = false; l.addEventListener('release', () => { if (GYM.lock === l) GYM.lock = null; }); if (!gymA()) gymLock(false); }
+  catch (e) { GYM.lockFail = true; }
+  GYM.locking = false;
+  const el = $('#gym-lock'); if (el) el.textContent = gymLockTxt();
+}
+function gymAudio() {
+  if (S.profile.settings.gymTon === false) return;
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    GYM.ac = GYM.ac || new AC(); if (GYM.ac.state !== 'running') GYM.ac.resume();
+    const b = GYM.ac.createBuffer(1, 1, 22050), src = GYM.ac.createBufferSource(); src.buffer = b; src.connect(GYM.ac.destination); src.start(0);
+  } catch (e) { }
+}
+function gymBeep() {
+  if (S.profile.settings.gymTon === false || !GYM.ac) return;
+  try {
+    const ac = GYM.ac, t = ac.currentTime + 0.03;
+    [[0, 880, 0.16], [0.24, 880, 0.16], [0.48, 1320, 0.42]].forEach(([d, hz, len]) => {
+      const o = ac.createOscillator(), g = ac.createGain(); o.type = 'sine'; o.frequency.value = hz;
+      g.gain.setValueAtTime(0.0001, t + d); g.gain.exponentialRampToValueAtTime(0.55, t + d + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + d + len);
+      o.connect(g); g.connect(ac.destination); o.start(t + d); o.stop(t + d + len + 0.05);
+    });
+  } catch (e) { }
+}
+function gymRestHtml(a, ex, cur) {
+  const R = a.rest; if (!R) return '';
+  const left = gymRestLeft(a), C = 339.29, done = R.done || left <= 0;
+  const vt = cur >= 0 ? gymValTxt(ex, cur) : '';
+  const nx = cur >= 0 ? `${R.ex !== ex.id ? `Nächste Übung: <b>${esc(ex.name)}</b><br>` : ''}Satz ${cur + 1}${vt ? ' · ' + esc(vt) : ''}` : '';
+  if (done) return `<div class="gy-rest done" role="status"><span class="gy-rd">${GYI.check}</span><div class="gy-rest-i"><b>Pause vorbei</b>${nx ? `<p>${nx}</p>` : ''}</div><button class="gy-x" data-a="gym-skip" aria-label="Hinweis schließen">×</button></div>`;
+  const off = (C * (1 - left / Math.max(1, R.dur))).toFixed(1);
+  return `<div class="gy-rest"><div class="gy-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" class="tr"/><circle cx="60" cy="60" r="54" class="pr" data-rest-ring style="stroke-dasharray:${C};stroke-dashoffset:${off}"/></svg><b data-rest-t>${gymMMSS(left)}</b></div>
+    <div class="gy-rest-i"><small>Satzpause</small>${nx ? `<p>${nx}</p>` : ''}<div class="gy-rest-b"><button data-a="gym-rest:-15" aria-label="15 Sekunden weniger">−15</button><button data-a="gym-skip">Weiter</button><button data-a="gym-rest:15" aria-label="15 Sekunden mehr">+15</button></div></div></div>`;
+}
+function vGym(a) {
+  const ton = S.profile.settings.gymTon !== false;
+  const head = `<div class="gy-top"><button class="gy-ic" data-a="gym-close" aria-label="Zur Liste">${GYI.list}<span>Liste</span></button><div class="gy-tt"><b>${esc(a.name || 'Training')}</b><span data-timer></span></div><button class="gy-ic" data-a="gym-ton" aria-pressed="${ton}" aria-label="${ton ? 'Ton ausschalten' : 'Ton einschalten'}">${ton ? GYI.on : GYI.off}<span>${ton ? 'Ton an' : 'Ton aus'}</span></button></div>`;
+  if (!a.ex.length) return `<div class="gy">${head}<div class="gy-card"><p>Noch keine Übungen in diesem Training.</p><button class="btn primary big" data-a="gym-close">Übungen hinzufügen</button></div></div>`;
+  const xi = gymExIdx(a), ex = a.ex[xi]; a.gymEx = ex.id;
+  const allDone = a.ex.every(e => e.sets.every(s => s.done));
+  const bars = `<div class="gy-bars">${a.ex.map((e, i) => { const n = e.sets.length || 1, d = e.sets.filter(s => s.done).length; return `<button class="${i === xi ? 'on' : ''}" data-a="gym-ex:${e.id}" aria-label="${esc(e.name)}: ${d} von ${n} Sätzen"><i style="width:${Math.round(d / n * 100)}%"></i></button>`; }).join('')}</div>`;
+  const F = gymF(ex), cur = gymCur(ex), last = lastSetsFor(ex.name), s = cur >= 0 ? ex.sets[cur] : null;
+  const lastTxt = last ? `Letztes Mal (${shortDate(last.date)}): ${last.sets.map(fmtSet).join(', ')}` : 'Neue Übung, noch kein Verlauf';
+  const chips = ex.sets.map((x, i) => `<button class="${x.done ? 'done' : ''} ${i === cur ? 'on' : ''}" data-a="gym-set:${i}" aria-label="Satz ${i + 1}${x.done ? ', erledigt' : ''}"><b>${x.done ? GYI.check : ''}${i + 1}</b><small>${hasVal(x) ? esc(fmtSet(x)) : '–'}</small></button>`).join('') + `<button class="add" data-a="gym-addset" aria-label="Satz hinzufügen">+</button>`;
+  let card;
+  if (s) {
+    const steps = F.map(([f, l, m]) => { const g = gymVal(ex, cur, f); return `<div class="gy-step"><button data-a="gym-step:${f}:-1" aria-label="${l} weniger">−</button><label><input data-gs="${f}" inputmode="${m}" value="${g.v == null ? '' : fmtIn(Math.round(g.v * 100) / 100)}" placeholder="0" aria-label="${l}" autocomplete="off"><span>${l}</span></label><button data-a="gym-step:${f}:1" aria-label="${l} mehr">+</button></div>`; }).join('');
+    const fromLast = !s.done && F.some(([f]) => gymVal(ex, cur, f).src === 'last');
+    const openI = ex.sets.findIndex(x => !x.done), nxEx = gymNextEx(a, xi);
+    const goTxt = openI >= 0 ? `Zu Satz ${openI + 1}` : nxEx ? 'Nächste Übung' : 'Fertig';
+    card = `<div class="gy-sn"><b>Satz ${cur + 1}</b> von ${ex.sets.length}${s.done ? ' · erledigt' : ''}</div>${steps}${fromLast ? '<p class="gy-hint">Vorschlag aus deinem letzten Training</p>' : ''}
+      ${s.done ? `<div class="gy-row"><button class="btn" data-a="gym-undo">Wieder öffnen</button><button class="btn primary" data-a="gym-go">${goTxt}</button></div>`
+        : `<button class="gy-done" data-a="gym-done">${GYI.check}<span>Satz ${cur + 1} erledigt</span></button>`}`;
+  } else {
+    const nx = gymNextEx(a, xi);
+    card = `<p class="gy-all">${GYI.check}Alle ${ex.sets.length} Sätze erledigt</p><button class="gy-done ${nx ? 'alt' : ''}" data-a="${nx ? 'gym-ex:' + nx.id : 'gym-finish'}">${nx ? `<span>Weiter: ${esc(nx.name)}</span>` : `${GYI.check}<span>Training beenden</span>`}</button>`;
+  }
+  return `<div class="gy">${head}${bars}
+    <div class="gy-ex"><span class="gy-pos">Übung ${xi + 1} von ${a.ex.length}</span><h2>${esc(ex.name)}</h2><p>${esc(lastTxt)}</p></div>
+    ${gymRestHtml(a, ex, cur)}
+    <div class="gy-card"><div class="gy-sets">${chips}</div>${card}</div>
+    <div class="gy-nav"><button data-a="gym-prev" ${xi === 0 ? 'disabled' : ''}><small>Zurück</small>${xi > 0 ? esc(a.ex[xi - 1].name) : '–'}</button><button data-a="gym-next" ${xi === a.ex.length - 1 ? 'disabled' : ''}><small>Weiter</small>${xi < a.ex.length - 1 ? esc(a.ex[xi + 1].name) : '–'}</button></div>
+    ${allDone ? '' : '<button class="btn ghost wide gy-fin" data-a="gym-finish" data-confirm="Noch mal tippen zum Beenden">Training beenden</button>'}
+    <p class="gy-lock" id="gym-lock">${gymLockTxt()}</p></div>`;
+}
+function renderGym() {
+  if (!GYM) return;
+  const g = $('#gym'); if (!g) return;
+  const a = gymA();
+  if (!a) { if (!g.hidden) { g.hidden = true; g.innerHTML = ''; document.documentElement.classList.remove('gym-on'); } gymLock(false); return; }
+  const wasHidden = g.hidden;
+  g.hidden = false; document.documentElement.classList.add('gym-on');
+  g.innerHTML = vGym(a);
+  if (wasHidden) g.scrollTop = 0;
+  gymLock(true); tickTimer();
+}
+function gymTick() {
+  const a = gymA(); if (!a || !a.rest) return;
+  const g = $('#gym'); if (!g || g.hidden) return;
+  const R = a.rest, left = gymRestLeft(a);
+  const t = g.querySelector('[data-rest-t]'); if (t) t.textContent = gymMMSS(left);
+  const r = g.querySelector('[data-rest-ring]'); if (r) r.style.strokeDashoffset = (339.29 * (1 - left / Math.max(1, R.dur))).toFixed(1);
+  if (left <= 0 && !R.done) {
+    R.done = true; if (Date.now() - R.end < 4000 && document.visibilityState === 'visible') gymBeep();
+    touch('profile'); renderGym();
+    clearTimeout(GYM.doneT); GYM.doneT = setTimeout(() => { const b = gymA(); if (b && b.rest && b.rest.done) { b.rest = null; touch('profile'); renderGym(); } }, 7000);
+  }
+}
+setInterval(gymTick, 250);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && gymA()) { gymLock(true); gymTick(); } });
+document.addEventListener('input', e => {
+  const f = e.target && e.target.dataset && e.target.dataset.gs; if (!f) return;
+  const a = gymA(), ex = a && a.ex[gymExIdx(a)]; if (!ex) return;
+  const i = gymCur(ex), s = ex.sets[i]; if (!s) return;
+  setF(s, f, num(e.target.value)); touch('profile');
+});
+(() => {
+  const g = $('#gym'); if (!g) return;
+  g.addEventListener('touchstart', e => { const t = e.touches[0]; GYM.touch = { x: t.clientX, y: t.clientY, tg: e.target }; }, { passive: true });
+  g.addEventListener('touchend', e => {
+    const T = GYM.touch; GYM.touch = null; if (!T || (T.tg.closest && T.tg.closest('input,.gy-bars,.gy-sets'))) return;
+    const t = e.changedTouches[0], dx = t.clientX - T.x, dy = t.clientY - T.y;
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 50) act(dx < 0 ? 'gym-next' : 'gym-prev');
+  }, { passive: true });
+})();
+function gymNewRest(a, ex) { const dur = gymRestFor(ex); a.rest = { end: Date.now() + dur * 1000, dur, ex: ex.id, done: false }; clearTimeout(GYM.doneT); }
+function actGym(c, args) {
+  const A = S.profile.active;
+  const curEx = () => A && A.ex.length ? A.ex[gymExIdx(A)] : null;
+  switch (c) {
+    case 'gym-open': if (!A) return true; A.gymOn = true; GYM.sel = null; gymAudio(); touch('profile'); render(); return true;
+    case 'gym-close': if (A) { A.gymOn = false; touch('profile'); } GYM.sel = null; gymLock(false); setTab('training'); return true;
+    case 'gym-ton': S.profile.settings.gymTon = S.profile.settings.gymTon === false; touch('profile'); if (S.profile.settings.gymTon) { gymAudio(); gymBeep(); } renderGym(); return true;
+    case 'gym-ex': if (!A) return true; A.gymEx = args[0]; GYM.sel = null; touch('profile'); renderGym(); $('#gym').scrollTop = 0; return true;
+    case 'gym-prev': case 'gym-next': {
+      if (!A || !A.ex.length) return true;
+      const i = gymExIdx(A), j = i + (c === 'gym-next' ? 1 : -1); if (j < 0 || j >= A.ex.length) return true;
+      A.gymEx = A.ex[j].id; GYM.sel = null; touch('profile'); renderGym(); $('#gym').scrollTop = 0; return true;
+    }
+    case 'gym-set': { const ex = curEx(); if (!ex) return true; GYM.sel = { ex: ex.id, i: +args[0] }; renderGym(); return true; }
+    case 'gym-step': {
+      const ex = curEx(); if (!ex) return true; const i = gymCur(ex), s = ex.sets[i]; if (!s) return true;
+      const f = args[0], st = f === 'kg' ? gymKgStep(ex.name) : (GYM_STEP[f] || 1);
+      const base = gymVal(ex, i, f).v ?? 0, v = Math.max(0, Math.round((base + (+args[1]) * st) * 100) / 100);
+      setF(s, f, v); touch('profile'); renderGym(); return true;
+    }
+    case 'gym-done': {
+      const ex = curEx(); if (!ex) return true; const i = gymCur(ex), s = ex.sets[i]; if (!s || s.done) return true;
+      gymAudio();
+      for (const [f] of gymF(ex)) if (getF(s, f) == null) { const g = gymVal(ex, i, f); if (g.v != null) setF(s, f, g.v); }
+      if (!hasVal(s)) { toast('Trag zuerst Gewicht oder Wiederholungen ein.'); return true; }
+      s.done = true; GYM.sel = null;
+      const pr = checkPR(ex, s), xi = A.ex.indexOf(ex), more = ex.sets.some(x => !x.done), nx = more ? ex : gymNextEx(A, xi);
+      if (nx) { gymNewRest(A, ex); if (!more) A.gymEx = nx.id; } else A.rest = null;
+      touch('profile'); renderGym(); $('#gym').scrollTop = 0;
+      if (pr) { celebrate(); toast(`Neuer Rekord! ${ex.name}: ${fmtSet(s)}`); }
+      else if (!nx) { celebrate(); toast('Alle Sätze geschafft!'); }
+      return true;
+    }
+    case 'gym-undo': { const ex = curEx(); if (!ex) return true; const s = ex.sets[gymCur(ex)]; if (!s) return true; s.done = false; delete s.pr; touch('profile'); renderGym(); return true; }
+    case 'gym-go': {
+      const ex = curEx(); if (!ex) return true; GYM.sel = null;
+      if (!ex.sets.some(x => !x.done)) { const nx = gymNextEx(A, A.ex.indexOf(ex)); if (nx) A.gymEx = nx.id; }
+      touch('profile'); renderGym(); return true;
+    }
+    case 'gym-addset': {
+      const ex = curEx(); if (!ex) return true; const ns = { done: false }; for (const f of SET_F) ns[f] = null;
+      ex.sets.push(ns); GYM.sel = { ex: ex.id, i: ex.sets.length - 1 }; touch('profile'); renderGym(); return true;
+    }
+    case 'gym-rest': {
+      const R = A && A.rest; if (!R || R.done) return true; const d = +args[0];
+      R.dur = Math.max(15, Math.min(900, R.dur + d)); R.end = Math.max(Date.now() + 1000, R.end + d * 1000);
+      const ex = findExercise(R.ex); if (ex) { ex.rest = R.dur; S.profile.restBy = { ...(S.profile.restBy || {}), [exKey(ex.name)]: R.dur }; }
+      touch('profile'); renderGym(); return true;
+    }
+    case 'gym-skip': if (A) { A.rest = null; clearTimeout(GYM.doneT); touch('profile'); renderGym(); } return true;
+    case 'gym-finish': gymLock(false); act('w-finish'); return true;
+    case 'week-n': {
+      const m = mondayOf(todayKey()), n = +args[0], o = { ...(S.profile.weekN || {}) };
+      if (n === 6) delete o[m]; else o[m] = n;
+      const ks = Object.keys(o).sort(); while (ks.length > 12) delete o[ks.shift()];
+      S.profile.weekN = o; touch('profile'); render(); toast(n === 6 ? 'Diese Woche: normaler Wochenplan' : `Diese Woche: ${n} Einheiten`); return true;
+    }
+    case 'var-start': {
+      if (A) { toast('Beende zuerst dein laufendes Training.'); return true; }
+      const st = weekVarState(todayKey()), v = st && st.list[+args[0]]; if (!v) return true;
+      const alt = args[1] === 'alt', name = alt ? v.alt : v.p, pl = (S.profile.plans || []).find(x => nrm(x.name) === nrm(name));
+      if (!pl) { toast(`Den Plan „${name}“ gibt es nicht.`); return true; }
+      act('plan-start:' + pl.id);
+      const B = S.profile.active;
+      if (B && !alt && Array.isArray(v.add)) for (const e of v.add) {
+        if (!e || !e.name || B.ex.some(x => exKey(x.name) === exKey(e.name))) continue;
+        const last = lastSetsFor(e.name);
+        B.ex.push({ id: uid(), name: e.name, kind: last ? last.kind : 'reps', sets: Array.from({ length: Math.max(1, +e.sets || 3) }, () => ({ kg: null, reps: null, done: false })) });
+      }
+      if (B) { B.gymOn = B.ex.length > 0; touch('profile'); render(); }
+      return true;
+    }
+  }
+  return false;
+}
+
+/* ---------- v13: Wochenvarianten (5, 4 oder 3 Einheiten) ---------- */
+function weekVarN(k) {
+  const n = +((S.profile.weekN || {})[mondayOf(k)]) || 6;
+  return n !== 6 && Array.isArray((S.profile.weekVars || {})[n]) && S.profile.weekVars[n].length ? n : 6;
+}
+function weekVarState(k) {
+  const n = weekVarN(k); if (n === 6) return null;
+  const list = S.profile.weekVars[n].map((s, i) => ({ ...s, i, done: null, doneName: '' }));
+  const ws = [];
+  for (const d of weekKeys(k)) for (const w of ((S.days[d] && S.days[d].workouts) || [])) ws.push({ id: w.id, name: w.name || '', start: w.start || 0, date: d });
+  ws.sort((a, b) => a.date.localeCompare(b.date) || a.start - b.start);
+  const used = new Set();
+  for (const s of list) {
+    const names = [s.p, s.alt].filter(Boolean).map(nrm);
+    const w = ws.find(x => !used.has(x.id) && names.includes(nrm(x.name)));
+    if (w) { used.add(w.id); s.done = w.date; s.doneName = w.name; }
+  }
+  const next = list.find(s => !s.done) || null;
+  return { n, list, next, left: list.filter(s => !s.done).length };
+}
+function planLocTxt(name) { const p = (S.profile.plans || []).find(x => nrm(x.name) === nrm(name)); return p ? (p.loc === 'gym' ? 'Gym' : 'Zuhause') : ''; }
+function varHint(wp) {
+  const st = weekVarState(todayKey());
+  if (!st || !st.next) return `<p class="small muted" style="margin:8px 0 12px">Laut Wochenplan ist heute ${esc(wp)} dran.</p>`;
+  const v = st.next;
+  return `<p class="small muted" style="margin:8px 0 12px">Als Nächstes in deiner ${st.n}er-Woche, noch ${st.left} offen.${v.alt ? ` <button class="link" data-a="var-start:${v.i}:alt">Lieber ${esc(v.alt)}${planLocTxt(v.alt) ? ` (${esc(planLocTxt(v.alt))})` : ''}</button>` : ''}</p>`;
+}
+function vPlan() {
+  const vars = S.profile.weekVars || {}, avail = [6, 5, 4, 3].filter(n => n === 6 || (Array.isArray(vars[n]) && vars[n].length));
+  if (avail.length < 2) return vPlanDays();
+  const tk = todayKey(), n = weekVarN(tk);
+  const seg = `<p class="small muted" style="margin:0 0 6px">Wie oft trainierst du diese Woche?</p><div class="seg wv-seg" role="group" aria-label="Einheiten diese Woche">${avail.map(x => `<button class="${x === n ? 'on' : ''}" data-a="week-n:${x}" aria-pressed="${x === n}">${x}×</button>`).join('')}</div>`;
+  if (n === 6) return vPlanDays().replace('<h2>Wochenplan</h2></div>', '<h2>Wochenplan</h2></div>' + seg + '<div style="height:12px"></div>');
+  const st = weekVarState(tk), note = (S.profile.weekVarNotes || {})[n];
+  const li = s => {
+    const sub = [];
+    if (s.done) sub.push(`erledigt ${relDay(s.done)}${nrm(s.doneName) !== nrm(s.p) ? ` (${s.doneName})` : ''}`);
+    const loc = planLocTxt(s.p); if (loc) sub.push(loc);
+    if (Array.isArray(s.add) && s.add.length) sub.push(s.add.map(e => `plus ${e.sets || 3} Sätze ${e.name}`).join(', '));
+    if (s.alt && !s.done) sub.push(`sonst ${s.alt}`);
+    const btn = !s.done && !S.profile.active ? `<button class="btn small ${st.next === s ? 'primary' : ''}" data-a="var-start:${s.i}">Starten</button>` : '';
+    return `<li class="${s.done ? 'done' : st.next === s ? 'next' : ''}"><span class="wv-n">${s.done ? GYI.check : s.i + 1}</span><span class="wv-t"><b>${esc(s.p)}</b>${sub.length ? `<small>${esc(sub.join(' · '))}</small>` : ''}</span>${btn}</li>`;
+  };
+  return `<section class="panel"><div class="panel-h"><h2>Wochenplan</h2><span class="small muted">${st.left ? `noch ${st.left} von ${st.list.length}` : 'Woche geschafft'}</span></div>${seg}
+    <ol class="wv">${st.list.map(li).join('')}</ol>
+    ${note ? `<p class="small muted" style="margin-top:10px">${esc(note)}</p>` : ''}
+    <p class="small muted" style="margin-top:6px">Die Reihenfolge ist ein Vorschlag, die App hakt ab, was du machst. Nächste Woche gilt wieder der normale Plan, außer du stellst um.</p></section>`;
+}
+
+/* ---------- v13: Ergänzungen einspielen (z. B. neue Pläne), ohne den Rest zu ersetzen ---------- */
+function bkPatchSummary(j) {
+  const out = [];
+  if (Array.isArray(j.plans) && j.plans.length) out.push(`Pläne: ${j.plans.map(p => p.name).join(', ')}`);
+  if (j.weekVars) { const ns = Object.keys(j.weekVars).map(Number).sort((a, b) => b - a); out.push(`Wochenvarianten für ${ns.join(', ').replace(/, (\d+)$/, ' und $1')} Einheiten`); }
+  return out.join('; ');
+}
+function bkPatch(j) {
+  const P = S.profile; let np = 0, up = 0;
+  if (Array.isArray(j.plans)) {
+    if (!Array.isArray(P.plans)) P.plans = [];
+    for (const p of j.plans) {
+      if (!p || !p.name) continue;
+      const ex = (p.ex || []).filter(e => e && e.name).map(e => { const o = { name: String(e.name).slice(0, 80), sets: Math.max(1, Math.min(12, +e.sets || 3)) }; if (+e.rest) o.rest = +e.rest; return o; });
+      const cur = P.plans.find(x => nrm(x.name) === nrm(p.name));
+      if (cur) { cur.ex = ex; if (p.loc) cur.loc = p.loc === 'gym' ? 'gym' : 'zuhause'; up++; }
+      else { P.plans.push({ id: uid(), name: String(p.name).slice(0, 40), loc: p.loc === 'gym' ? 'gym' : 'zuhause', ex }); np++; }
+    }
+  }
+  if (j.weekVars && typeof j.weekVars === 'object') P.weekVars = { ...(P.weekVars || {}), ...j.weekVars };
+  if (j.weekVarNotes && typeof j.weekVarNotes === 'object') P.weekVarNotes = { ...(P.weekVarNotes || {}), ...j.weekVarNotes };
+  touch('profile'); BK.pending = null; renderSheet(); render();
+  toast(`Übernommen: ${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}${j.weekVars ? ', Wochenvarianten' : ''}`);
+}
+
 /* ---------- Render ---------- */
 let renderQueued = false;
-const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && $('#main').contains(a); };
+const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
 function requestRender() { if (isEditing() || S.ui.importing) { renderQueued = true; return; } render(); }
 function render() {
   renderQueued = false;
@@ -2019,7 +2435,7 @@ function render() {
     const generic = KNOWN_EX.filter(n => { const k = exKey(n); return !ownK.some(o => o.startsWith(k)); });
     $('#exlist').innerHTML = [...own, ...generic].map(n => `<option value="${esc(n)}">`).join('');
   }
-  tickTimer();
+  tickTimer(); renderGym();
 }
 function tickTimer() {
   const a = S.profile.active; if (!a) return;
@@ -3794,7 +4210,7 @@ const byWhen = (a, b) => (a.date || '9999').localeCompare(b.date || '9999') || (
 function whenTxt(t) { if (!t.date) return ''; const tk = todayKey(); const d = t.date === tk ? 'Heute' : t.date === addDays(tk, 1) ? 'Morgen' : t.date === addDays(tk, -1) ? 'Gestern' : shortDate(t.date); return d + (t.time ? `, ${t.time} Uhr` : ''); }
 function addTodo(text, date, time) { const t = { id: uid(), text: String(text).slice(0, 200), done: false, created: Date.now() }; if (date) t.date = date; if (time) t.time = time; S.profile.todos.unshift(t); touch('profile'); return t; }
 function removeTodo(id) { S.profile.todos = S.profile.todos.filter(x => x.id !== id); touch('profile'); }
-const planFor = k => (S.profile.plan || {})[String(parseKey(k).getDay())] || '';
+const planFor = k => { const v = weekVarState(k); if (v) return k === todayKey() && v.next ? v.next.p : ''; return (S.profile.plan || {})[String(parseKey(k).getDay())] || ''; };
 
 /* Rekorde */
 const e1 = s => s && s.kg > 0 && s.reps > 0 ? s.kg * (1 + s.reps / 30) : 0;
@@ -4035,7 +4451,7 @@ function vDashTraining(k) {
   const done = new Set(ws.filter(w => w.date >= wk[0] && w.date <= wk[6]).map(w => w.date));
   return `<section class="panel"><div class="panel-h"><h2>Training</h2><button class="link" data-a="tab:training">Öffnen</button></div>
     <div class="wkdots" aria-label="${done.size} Trainingstage diese Woche">${wk.map(x => { const p = planFor(x); return `<div class="wkdot ${done.has(x) ? 'on' : ''} ${x === k ? 'today' : ''}" title="${esc(p || 'Ruhetag')}"><i>${!done.has(x) && p ? esc(p.slice(0, 1).toUpperCase()) : ''}</i><span>${WD[parseKey(x).getDay()]}</span></div>`; }).join('')}</div>
-    <div class="dash-train"><p class="small">${a ? `Läuft seit <b data-timer></b>${a.name ? `, ${esc(a.name)}` : ''}` : today.length ? `Heute erledigt: <b>${esc(today.map(w => w.name).join(', '))}</b>` : plan ? `Laut Plan heute: <b>${esc(plan)}</b>` : last ? `Zuletzt <b>${esc(last.name)}</b> ${relDay(last.date)}` : 'Noch kein Training gespeichert'}</p>
+    <div class="dash-train"><p class="small">${a ? `Läuft seit <b data-timer></b>${a.name ? `, ${esc(a.name)}` : ''}` : today.length ? `Heute erledigt: <b>${esc(today.map(w => w.name).join(', '))}</b>` : plan ? `${weekVarN(k) !== 6 ? 'Als Nächstes' : 'Laut Plan heute'}: <b>${esc(plan)}</b>` : last ? `Zuletzt <b>${esc(last.name)}</b> ${relDay(last.date)}` : 'Noch kein Training gespeichert'}</p>
     ${a ? `<button class="btn primary small" data-a="go-training">Fortsetzen</button>` : !today.length && plan ? `<button class="btn primary small" data-a="week-start">${esc(plan)} starten</button>` : `<button class="btn small" data-a="go-training">Starten</button>`}</div></section>`;
 }
 function vDashWeek() {
@@ -4251,7 +4667,7 @@ function vRueck() {
 }
 
 /* ---------- Training: Plan, Rekorde, Heatmap ---------- */
-function vPlan() {
+function vPlanDays() {
   const names = [], seen = new Set();
   for (const pl of (S.profile.plans || [])) { const n = (pl.name || '').trim(); if (n && !seen.has(nrm(n))) { seen.add(nrm(n)); names.push(n); } }
   for (const w of allWorkouts()) { const n = (w.name || '').trim(); if (n && !seen.has(nrm(n))) { seen.add(nrm(n)); names.push(n); } if (names.length >= 14) break; }
@@ -5512,7 +5928,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actGym(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -6276,15 +6692,17 @@ async function bkSave() {
 async function bkRead(file) {
   try {
     const j = JSON.parse(await file.text());
+    if (j && j.app === 'bilanz' && j.kind === 'ergaenzung') { BK.pending = { patch: j }; if (!S.ui.sheet) openSettings(); else renderSheet(); setTimeout(() => { const el = $('#bk-panel'); if (el) el.scrollIntoView({ block: 'center' }); }, 60); return; }
     if (!j || j.app !== 'bilanz' || !j.docs || !j.docs.profile) throw new Error('format');
     const ks = Object.keys(j.docs);
     BK.pending = { docs: j.docs, at: j.exported_at || '', nDays: ks.filter(k => k.startsWith('profile/days/')).length, nPics: ks.filter(k => k.startsWith('vault/pics/')).length, nTx: (j.docs.finance && j.docs.finance.tx || []).length };
-  } catch (e) { BK.pending = null; toast('Das ist keine Bilanz-Backup-Datei.'); }
+  } catch (e) { BK.pending = null; toast('Das ist keine Bilanz-Datei.'); }
   if (!S.ui.sheet) openSettings(); else renderSheet();
   setTimeout(() => { const el = $('#bk-panel'); if (el) el.scrollIntoView({ block: 'center' }); }, 60);
 }
 async function bkApply() {
   const P = BK.pending; if (!P) return;
+  if (P.patch) { bkPatch(P.patch); return; }
   if (!Cloud.db || !Cloud.uid) { toast('Einspielen geht nur, wenn die App ihren Speicher geladen hat.'); return; }
   BK.busy = 'Wird eingespielt …'; renderSheet();
   const base = `data/users/${Cloud.uid}/`, ks = Object.keys(P.docs);
@@ -6313,7 +6731,7 @@ function bkPanel() {
     ${BK.busy ? `<p class="small" id="bk-busy" aria-live="polite"><b>${esc(BK.busy)}</b></p>` : ''}
     ${R ? `<div class="bk-ready"><p class="small">Fertig: ${fmt(R.nDays)} Tage${R.nPics ? `, ${plu(R.nPics, 'Foto', 'Fotos')}` : ''}, ${fmt(Math.max(R.mb, 0.1), 1)} MB.</p><button class="btn primary wide" data-a="bk-save">${IS_LOCAL_APP ? 'Backup sichern (Teilen → In Dateien sichern)' : 'Backup-Datei speichern'}</button></div>`
       : `<button class="btn wide" data-a="bk-prep" ${DL.api && !BK.busy ? '' : 'disabled'}>Backup erstellen</button>`}
-    ${P ? `<div class="bk-pend"><p class="small"><b>Backup vom ${P.at ? esc(new Date(P.at).toLocaleDateString(DE)) : 'unbekannten Datum'}</b>: ${fmt(P.nDays)} Tage, ${fmt(P.nTx)} Umsätze${P.nPics ? `, ${plu(P.nPics, 'Foto', 'Fotos')}` : ''}. Gleiche Tage und Bereiche werden durch das Backup ersetzt.</p>
+    ${P && P.patch ? `<div class="bk-pend"><p class="small"><b>Ergänzung${P.patch.title ? ': ' + esc(P.patch.title) : ''}</b>. ${esc(bkPatchSummary(P.patch))}. Alles andere bleibt, wie es ist.</p><div class="row-actions"><button class="btn small ghost" data-a="bk-cancel">Abbrechen</button><button class="btn small primary" data-a="bk-apply">Übernehmen</button></div></div>` : P ? `<div class="bk-pend"><p class="small"><b>Backup vom ${P.at ? esc(new Date(P.at).toLocaleDateString(DE)) : 'unbekannten Datum'}</b>: ${fmt(P.nDays)} Tage, ${fmt(P.nTx)} Umsätze${P.nPics ? `, ${plu(P.nPics, 'Foto', 'Fotos')}` : ''}. Gleiche Tage und Bereiche werden durch das Backup ersetzt.</p>
         <div class="row-actions"><button class="btn small ghost" data-a="bk-cancel">Abbrechen</button><button class="btn small primary" data-a="bk-apply" data-confirm="Sicher? Noch mal tippen">Einspielen</button></div></div>`
       : `<button class="btn wide ghost" style="margin-top:8px" data-a="bk-pick" ${BK.busy ? 'disabled' : ''}>Backup einspielen</button>`}
     <input id="bk-input" type="file" accept=".json,application/json" hidden></section>`;
@@ -6359,7 +6777,7 @@ function act(a, el) {
       if (A) { toast('Beende zuerst dein laufendes Training.'); break; }
       const w = getDay(args[0]).workouts.find(x => x.id === args[1]); if (!w) break;
       S.profile.active = { id: uid(), name: w.name || '', loc: w.loc || 'zuhause', start: Date.now(), ex: (w.ex || []).map(e => { const ss = (e.sets || []).filter(s => !s.warm); return { id: uid(), name: e.name, kind: kindOf(ss), sets: (ss.length ? ss : [0]).map(() => ({ kg: null, reps: null, done: false })) }; }) };
-      touch('profile'); setTab('training'); break;
+      S.profile.active.gymOn = S.profile.active.ex.length > 0; gymAudio(); touch('profile'); setTab('training'); break;
     }
     case 'plans-open': S.ui.planEdit = true; render(); window.scrollTo(0, 0); break;
     case 'plans-close': S.ui.planEdit = false; S.ui.openPlan = null; render(); break;
@@ -6394,9 +6812,9 @@ function act(a, el) {
       const p = findPlan(args[0]); if (!p) break;
       S.profile.active = {
         id: uid(), name: p.name || '', loc: p.loc || 'zuhause', start: Date.now(),
-        ex: (p.ex || []).map(e => { const last = lastSetsFor(e.name); return { id: uid(), name: e.name, kind: last ? last.kind : 'reps', sets: Array.from({ length: Math.max(1, e.sets || 3) }, () => ({ kg: null, reps: null, done: false })) }; })
+        ex: (p.ex || []).map(e => { const last = lastSetsFor(e.name); return { id: uid(), name: e.name, kind: last ? last.kind : 'reps', ...(+e.rest ? { prest: +e.rest } : {}), sets: Array.from({ length: Math.max(1, e.sets || 3) }, () => ({ kg: null, reps: null, done: false })) }; })
       };
-      S.ui.planEdit = false; S.ui.openPlan = null; touch('profile'); setTab('training'); break;
+      S.ui.planEdit = false; S.ui.openPlan = null; if (S.profile.active.ex.length) { S.profile.active.gymOn = true; gymAudio(); } touch('profile'); setTab('training'); break;
     }
     case 'w-loc': if (A) { A.loc = args[0]; touch('profile'); render(); } break;
     case 'w-addex': {
@@ -6557,7 +6975,7 @@ function act(a, el) {
       const t = addTodo(w.time || w.date ? (w.rest || text) : text, k, tm); inp.value = ''; inp.blur(); render(); toast(`Eingetragen: ${t.text}, ${whenTxt(t)}`, () => removeTodo(t.id)); break;
     }
     case 'week-start': {
-      const p = planFor(todayKey()); if (!p) break; if (A) { setTab('training'); break; }
+      if (A) { setTab('training'); break; } { const vs = weekVarState(todayKey()); if (vs) { if (vs.next) act('var-start:' + vs.next.i); break; } } const p = planFor(todayKey()); if (!p) break;
       const pl = (S.profile.plans || []).find(x => nrm(x.name) === nrm(p));
       if (pl) { act(`plan-start:${pl.id}`); break; }
       const w = allWorkouts().find(x => nrm(x.name) === nrm(p));
