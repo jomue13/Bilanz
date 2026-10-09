@@ -1420,6 +1420,45 @@ html[data-vt="pop"]::view-transition-new(main){animation-name:vtFadeIn}
 @keyframes bdgIn{from{transform:scale(.85);opacity:0}}
 @keyframes bdgMd{from{transform:scale(.2) rotate(-40deg);opacity:0}}
 @media (prefers-reduced-motion: reduce){.md::after{animation:none!important}}
+
+/* ---------- v16: Rezepte ---------- */
+.rz-list{display:flex;flex-direction:column;gap:8px}
+.rz-card{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:center;text-align:left;background:var(--surface);border:0;border-radius:18px;padding:12px 14px;color:var(--ink)}
+.rz-card b{display:block;font-size:16px}
+.rz-card small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.rz-ci{width:44px;height:44px;border-radius:14px;background:color-mix(in srgb,var(--c-food) 16%,var(--surface));color:var(--d-food);display:flex;align-items:center;justify-content:center}
+.rz-ci svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rz-back{margin:0 0 8px}
+.rz-title{font-size:38px!important;line-height:1.02!important}
+.rz-mac{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:6px}
+.rz-mac div{background:rgba(255,255,255,.16);border-radius:12px;padding:8px 6px;text-align:center}
+.rz-mac b{display:block;font:700 20px/1.1 var(--font-c);font-variant-numeric:tabular-nums}
+.rz-mac span{font-size:11.5px;opacity:.9}
+.rz-scale,.rz-por{display:flex;align-items:center;gap:8px}
+.rz-scale b,.rz-por b{min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
+.rz-por{margin:12px 0 4px}
+.rz-por>span{color:var(--muted);font-weight:600;margin-right:auto}
+.rz-ing{list-style:none;margin:6px 0 0;padding:0}
+.rz-ing li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.rz-ing li:last-child{border-bottom:0}
+.rz-ing b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rz-steps{margin:6px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.rz-steps li{padding-left:4px;line-height:1.45}
+.rz-h3{margin:14px 0 6px;font-size:15px}
+.rz-items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rz-items li{display:grid;grid-template-columns:minmax(0,1fr) 108px 36px;gap:8px;align-items:center;background:var(--surface2);border-radius:12px;padding:6px 6px 6px 12px}
+.rz-n b{display:block;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
+.rz-n small{color:var(--muted);font-size:12px}
+.rz-g{display:flex;align-items:center;gap:4px;background:var(--surface);border-radius:10px;padding:0 8px;border:1px solid var(--line)}
+.rz-g input{width:100%;border:0;background:none;min-height:40px;font-size:16px;text-align:right;font-variant-numeric:tabular-nums;padding:0}
+.rz-g span{color:var(--muted);font-size:13px}
+.rz-add{margin-top:10px}
+.rz-add input{width:100%}
+.rz-res{display:flex;flex-direction:column;margin-top:4px}
+.rz-paste{margin-top:10px}
+.rz-paste summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:6px 0}
+.rz-paste textarea{width:100%;margin:6px 0 8px}
+.rz-sum{margin:10px 0;font-size:14px;font-weight:600}
 </style>
 </head>
 <body>
@@ -1501,7 +1540,7 @@ const emptyBodyForm = () => ({ date: todayKey(), weight: '', kfa: '', waist: '',
 const defaultProfile = () => normProfile({});
 function normProfile(p) {
   p = p && typeof p === 'object' ? clone(p) : {};
-  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null };
+  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null, recipes: Array.isArray(p.recipes) ? p.recipes : [] };
 }
 function normDay(k, x) {
   x = x && typeof x === 'object' ? clone(x) : {};
@@ -2706,6 +2745,7 @@ function bkPatchSummary(j) {
   const out = [];
   if (Array.isArray(j.plans) && j.plans.length) out.push(`Pläne: ${j.plans.map(p => p.name).join(', ')}`);
   if (j.weekVars) { const ns = Object.keys(j.weekVars).map(Number).sort((a, b) => b - a); out.push(`Wochenvarianten für ${ns.join(', ').replace(/, (\d+)$/, ' und $1')} Einheiten`); }
+  if (Array.isArray(j.recipes) && j.recipes.length) out.push(`Rezepte: ${j.recipes.map(r => r.name).join(', ')}`);
   return out.join('; ');
 }
 function bkPatch(j) {
@@ -2722,8 +2762,10 @@ function bkPatch(j) {
   }
   if (j.weekVars && typeof j.weekVars === 'object') P.weekVars = { ...(P.weekVars || {}), ...j.weekVars };
   if (j.weekVarNotes && typeof j.weekVarNotes === 'object') P.weekVarNotes = { ...(P.weekVarNotes || {}), ...j.weekVarNotes };
+  const rz = Array.isArray(j.recipes) ? rzFromPatch(j.recipes) : null;
   touch('profile'); BK.pending = null; renderSheet(); render();
-  toast(`Übernommen: ${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}${j.weekVars ? ', Wochenvarianten' : ''}`);
+  const parts = []; if (np || up) parts.push(`${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}`); if (j.weekVars) parts.push('Wochenvarianten'); if (rz) parts.push(rz.n === 1 ? 'ein Rezept' : `${rz.n} Rezepte`);
+  toast(`Übernommen: ${parts.join(', ') || 'nichts Neues'}${rz && rz.miss.length ? `. Nicht gefunden: ${rz.miss.slice(0, 3).join(', ')}` : ''}`);
 }
 /* ---------- v14: Muskeln, Steigerungs-Coach, Aufwärmsätze, Übung tauschen ---------- */
 /* Zuordnung Übung → Muskeln (1 = Hauptmuskel, 0,5 = hilft mit). Reihenfolge zählt: die erste passende Regel gilt. */
@@ -3530,6 +3572,159 @@ function actDesign(c, args, el) {
   return false;
 }
 
+/* ---------- v16: Rezepte ---------- */
+var RZ_IC = '<path d="M5 11h14v2a7 7 0 0 1-14 0z"/><path d="M8 8c0-1.5 1-2 1-3.5M12 8c0-1.5 1-2 1-3.5M16 8c0-1.5 1-2 1-3.5"/><path d="M4 11h16"/>';
+function rzList() { if (!Array.isArray(S.profile.recipes)) S.profile.recipes = []; return S.profile.recipes; }
+function rzFind(id) { return rzList().find(r => r.id === id) || null; }
+function rzItem(f, g) { return { n: String(f.name).slice(0, 80), k: f.key || '', g: Math.max(1, Math.round(+g || 0)), unit: f.unit || 'g', kcal: +f.kcal || 0, p: +f.p || 0, c: +f.c || 0, f: +f.f || 0, pg: f.pg || null, pn: f.pn || null }; }
+function rzTotals(items, factor) {
+  const t = { kcal: 0, p: 0, c: 0, f: 0 };
+  for (const it of items || []) { const v = calcFood(it, (+it.g || 0) * factor); t.kcal += v.kcal; t.p += v.p; t.c += v.c; t.f += v.f; }
+  return { kcal: Math.round(t.kcal), p: r1(t.p), c: r1(t.c), f: r1(t.f) };
+}
+function rzPer(r) { return rzTotals(r.items, 1 / Math.max(1, +r.por || 1)); }
+function rzMacro(v) { return `${fmt(v.kcal)} kcal · ${fmt(v.p, 1)} g Eiweiß · ${fmt(v.c, 1)} g KH · ${fmt(v.f, 1)} g Fett`; }
+/* Zutatenliste aus Text: "200 g Hähnchenbrust", "2 Eier", "Reis 150 g" */
+function rzParse(text) {
+  const items = [], miss = [];
+  for (let line of String(text || '').split(/\n|;/)) {
+    line = line.replace(/^[\s\-–•*·]+/, '').trim(); if (!line) continue;
+    let g = null, cnt = null, name = line, m;
+    if ((m = line.match(/^(\d+(?:[.,]\d+)?|½|¼)\s*(kg|g|gramm|ml|l|el|tl|stk\.?|stück|x|prise|bund|dose|packung|pck\.?)?\.?\s+(.+)$/i))) {
+      const v = m[1] === '½' ? 0.5 : m[1] === '¼' ? 0.25 : +m[1].replace(',', '.'), u = (m[2] || '').toLowerCase().replace('.', ''); name = m[3];
+      if (u === 'kg' || u === 'l') g = v * 1000; else if (u === 'g' || u === 'gramm' || u === 'ml') g = v; else if (u === 'el') g = v * 15; else if (u === 'tl') g = v * 5; else if (u === 'prise') g = 1; else cnt = v;
+    } else if ((m = line.match(/^(.+?)[\s,:]+(\d+(?:[.,]\d+)?)\s*(kg|g|ml|l)\b/i))) {
+      name = m[1]; const v = +m[2].replace(',', '.'); g = /^(kg|l)$/i.test(m[3]) ? v * 1000 : v;
+    }
+    name = name.replace(/\(.*?\)/g, '').replace(/\s+/g, ' ').trim();
+    let f = foodBest(name) || (foodSearch(name, 1, true) || [])[0];
+    if (!f) { const toks = name.split(' ').filter(t => t.length > 2); for (let i = toks.length - 1; i >= 0 && !f; i--) { const t = toks[i]; f = foodBest(t) || (foodSearch(t, 1, true) || [])[0] || (t.length > 4 ? (foodSearch(t.replace(/(en|n|e|s)$/i, ''), 1, true) || [])[0] : null); } }
+    if (!f) { miss.push(line); continue; }
+    if (g == null) g = (cnt || 1) * (f.pg || 100);
+    items.push(rzItem(f, g));
+  }
+  return { items, miss };
+}
+function rzDraft(r) { return r ? { id: r.id, name: r.name, por: r.por || 1, items: (r.items || []).map(x => ({ ...x })), steps: r.steps || '' } : { id: null, name: '', por: 2, items: [], steps: '' }; }
+function rzSumTxt(D) { return D.items.length ? `Pro Portion: ${rzMacro(rzTotals(D.items, 1 / Math.max(1, D.por)))}` : 'Noch keine Zutaten.'; }
+function vRzEdit() {
+  const D = S.ui.rzEdit;
+  return `<section class="panel rz-ed"><div class="panel-h"><h2>${D.id ? 'Rezept bearbeiten' : 'Neues Rezept'}</h2><button class="link" data-a="rz-cancel">Abbrechen</button></div>
+    <label class="fld"><span>Name</span><input data-rz="name" value="${esc(D.name)}" placeholder="z. B. Chili con Carne" autocomplete="off"></label>
+    <div class="rz-por"><span>Ergibt</span><button class="he-b" data-a="rz-por:-1" aria-label="Eine Portion weniger">−</button><b>${D.por} ${D.por === 1 ? 'Portion' : 'Portionen'}</b><button class="he-b" data-a="rz-por:1" aria-label="Eine Portion mehr">+</button></div>
+    <h3 class="rz-h3">Zutaten für alle Portionen</h3>
+    ${D.items.length ? `<ul class="rz-items">${D.items.map((it, i) => `<li><span class="rz-n"><b>${esc(it.n)}</b><small id="rz-k-${i}">${fmt(calcFood(it, it.g).kcal)} kcal</small></span><label class="rz-g"><input data-rzg="${i}" inputmode="decimal" value="${fmtIn(it.g)}" aria-label="Menge ${esc(it.n)}"><span>${esc(it.unit)}</span></label><button class="x" data-a="rz-rm:${i}" aria-label="${esc(it.n)} entfernen">×</button></li>`).join('')}</ul>` : '<p class="small muted">Noch keine Zutaten. Such sie unten oder füg eine ganze Liste ein.</p>'}
+    <div class="rz-add"><input id="rz-q" data-rzq="1" type="search" placeholder="Zutat suchen, z. B. Reis" autocomplete="off" enterkeyhint="search"><div id="rz-res" class="rz-res"></div></div>
+    <details class="rz-paste"><summary>Ganze Zutatenliste einfügen</summary><textarea id="rz-paste" rows="5" placeholder="500 g Hähnchenbrust&#10;250 g Reis&#10;2 Paprika&#10;1 EL Olivenöl"></textarea><button class="btn" data-a="rz-paste">Übernehmen</button></details>
+    <label class="fld" style="margin-top:12px"><span>Zubereitung (optional)</span><textarea data-rz="steps" rows="5" placeholder="Ein Schritt pro Zeile">${esc(D.steps)}</textarea></label>
+    <p class="rz-sum" id="rz-sum">${rzSumTxt(D)}</p>
+    <button class="btn primary wide" data-a="rz-save">Rezept speichern</button></section>`;
+}
+function vRzDetail(r) {
+  const por = Math.max(1, +r.por || 1), n = S.ui.rzN || por, fac = n / por, per = rzPer(r), eat = S.ui.rzEat || 1;
+  const steps = String(r.steps || '').split('\n').map(x => x.trim()).filter(Boolean);
+  return `<button class="link rz-back" data-a="rz-list">‹ Alle Rezepte</button>
+    <section class="hero6 rz-hero" style="--hc:var(--d-food)"><span class="lbl">Rezept für ${por} ${por === 1 ? 'Portion' : 'Portionen'}</span><span class="big rz-title">${esc(r.name)}</span>
+      <div class="rz-mac"><div><b>${fmt(per.kcal)}</b><span>kcal</span></div><div><b>${fmt(per.p, 1)}</b><span>g Eiweiß</span></div><div><b>${fmt(per.c, 1)}</b><span>g KH</span></div><div><b>${fmt(per.f, 1)}</b><span>g Fett</span></div></div><p>pro Portion</p></section>
+    <section class="panel"><h2>Essen</h2><div class="chips">${[0.5, 1, 1.5, 2].map(x => `<button class="chip${eat === x ? ' on' : ''}" data-a="rz-eatn:${x}" aria-pressed="${eat === x}">${fmt(x, 1)} ${x === 1 ? 'Portion' : 'Portionen'}</button>`).join('')}</div>
+      <button class="btn primary wide" style="margin-top:10px" data-a="rz-eat:${r.id}">${fmt(eat, 1)} ${eat === 1 ? 'Portion' : 'Portionen'} eintragen, ${fmt(Math.round(per.kcal * eat))} kcal</button></section>
+    <section class="panel"><div class="panel-h"><h2>Zutaten</h2><div class="rz-scale"><button class="he-b" data-a="rz-n:-1" aria-label="Weniger Portionen">−</button><b>${n} ${n === 1 ? 'Portion' : 'Portionen'}</b><button class="he-b" data-a="rz-n:1" aria-label="Mehr Portionen">+</button></div></div>
+      <ul class="rz-ing">${(r.items || []).map(it => `<li><span>${esc(it.n)}</span><b>${fmt(Math.round(it.g * fac))} ${esc(it.unit)}</b></li>`).join('')}</ul>
+      <button class="btn wide" style="margin-top:10px" data-a="rz-shop:${r.id}">Zutaten auf die Einkaufsliste</button></section>
+    ${steps.length ? `<section class="panel"><h2>Zubereitung</h2><ol class="rz-steps">${steps.map(x => `<li>${esc(x.replace(/^\d+[.)]\s*/, ''))}</li>`).join('')}</ol></section>` : ''}
+    <div class="row-actions" style="justify-content:center"><button class="btn small ghost" data-a="rz-edit:${r.id}">Bearbeiten</button><button class="btn small ghost danger" data-a="rz-del:${r.id}" data-confirm="Wirklich löschen?">Löschen</button></div>`;
+}
+function vRezepte() {
+  if (S.ui.rzEdit) return vRzEdit();
+  const open = S.ui.rzOpen && rzFind(S.ui.rzOpen); if (open) return vRzDetail(open);
+  const L = rzList();
+  return `<section class="hero6" style="--hc:var(--d-food)"><span class="lbl">Rezepte</span><span class="big">${fmt(L.length)}<small>${L.length === 1 ? 'Rezept' : 'Rezepte'}</small></span><p>Nährwerte pro Portion rechnet die App aus deinen Zutaten. Mit einem Tipp trägst du eine Portion ein oder setzt alle Zutaten auf die Einkaufsliste.</p></section>
+    ${L.length ? `<div class="rz-list">${L.slice().sort((a, b) => a.name.localeCompare(b.name, 'de')).map(r => { const v = rzPer(r); return `<button class="rz-card" data-a="rz-open:${r.id}"><span class="rz-ci"><svg viewBox="0 0 24 24" aria-hidden="true">${RZ_IC}</svg></span><span><b>${esc(r.name)}</b><small>${fmt(v.kcal)} kcal · ${fmt(v.p, 1)} g Eiweiß pro Portion · ${(r.items || []).length} Zutaten</small></span></button>`; }).join('')}</div>` : ''}
+    <button class="btn primary wide" style="margin-top:12px" data-a="rz-new">Neues Rezept</button>
+    <p class="small muted" style="margin-top:10px">Rezepte aus einem anderen Chat kann dir Claude auch als Datei schicken, die du unter Einstellungen → Backup einspielen übernimmst.</p>`;
+}
+function rzPickRows(has) {
+  return rzList().filter(r => has(r.name)).map(r => { const v = rzPer(r); return pkRow(`pick-rz:${r.id}`, r.name, `1 Portion, ${fmt(v.p, 1)} g Eiweiß`, v.kcal); }).join('');
+}
+function rzRender() { if (S.ui.tab === 'rezepte') render(); }
+function rzResults() {
+  const q = String(($('#rz-q') || {}).value || '').trim(), box = $('#rz-res'); if (!box) return;
+  box.innerHTML = q.length < 2 ? '' : (foodSearch(q, 8, true) || []).map(f => `<button class="pk-row" data-a="rz-addf:${f.key}"><span><b>${esc(f.name)}</b><small>${fmt(f.kcal)} kcal / 100 ${f.unit}${f.pn ? ` · 1 ${f.pn} = ${fmt(f.pg)} ${f.unit}` : ''}</small></span><span class="kc">+</span></button>`).join('') || '<p class="small muted">Nichts gefunden.</p>';
+}
+document.addEventListener('input', e => {
+  const el = e.target, ds = el.dataset || {}, D = S.ui.rzEdit;
+  if (ds.rzq) { rzResults(); return; }
+  if (!D) return;
+  if (ds.rz) { D[ds.rz] = el.value.slice(0, ds.rz === 'steps' ? 4000 : 80); return; }
+  if (ds.rzg != null) { const it = D.items[+ds.rzg]; if (!it) return; it.g = Math.max(0, num(el.value) || 0); const k = $('#rz-k-' + ds.rzg); if (k) k.textContent = `${fmt(calcFood(it, it.g).kcal)} kcal`; const s = $('#rz-sum'); if (s) s.textContent = rzSumTxt(D); }
+});
+function actRez(c, args) {
+  switch (c) {
+    case 'rz-home': S.ui.rzOpen = null; S.ui.rzEdit = null; setTab('rezepte'); return true;
+    case 'rz-new': S.ui.rzEdit = rzDraft(null); S.ui.rzOpen = null; rzRender(); window.scrollTo(0, 0); setTimeout(() => { const i = document.querySelector('[data-rz="name"]'); if (i) i.focus(); }, 50); return true;
+    case 'rz-list': S.ui.rzOpen = null; S.ui.rzEdit = null; rzRender(); window.scrollTo(0, 0); return true;
+    case 'rz-open': S.ui.rzOpen = args[0]; S.ui.rzN = null; S.ui.rzEat = 1; rzRender(); window.scrollTo(0, 0); return true;
+    case 'rz-edit': { const r = rzFind(args[0]); if (!r) return true; S.ui.rzEdit = rzDraft(r); rzRender(); window.scrollTo(0, 0); return true; }
+    case 'rz-cancel': S.ui.rzEdit = null; rzRender(); window.scrollTo(0, 0); return true;
+    case 'rz-por': { const D = S.ui.rzEdit; if (!D) return true; D.por = Math.max(1, Math.min(40, D.por + (+args[0]))); rzRender(); return true; }
+    case 'rz-rm': { const D = S.ui.rzEdit; if (!D) return true; D.items.splice(+args[0], 1); rzRender(); return true; }
+    case 'rz-addf': {
+      const D = S.ui.rzEdit, f = foodBy(args.join(':')); if (!D || !f) return true;
+      D.items.push(rzItem(f, f.pg || 100)); rzRender();
+      setTimeout(() => { const i = $(`[data-rzg="${D.items.length - 1}"]`); if (i) { i.focus(); i.select(); } }, 50); return true;
+    }
+    case 'rz-paste': {
+      const D = S.ui.rzEdit, t = ($('#rz-paste') || {}).value || ''; if (!D || !t.trim()) return true;
+      const r = rzParse(t); D.items.push(...r.items); rzRender();
+      toast(r.miss.length ? `${r.items.length} übernommen. Nicht gefunden: ${r.miss.slice(0, 3).join(', ')}` : `${r.items.length} Zutaten übernommen`); return true;
+    }
+    case 'rz-save': {
+      const D = S.ui.rzEdit; if (!D) return true;
+      if (!D.name.trim()) { toast('Gib dem Rezept einen Namen.'); return true; }
+      if (!D.items.length) { toast('Füg mindestens eine Zutat hinzu.'); return true; }
+      const L = rzList(), rec = { id: D.id || uid(), name: D.name.trim().slice(0, 80), por: D.por, items: D.items.filter(x => x.g > 0), steps: D.steps.trim(), t: Date.now() };
+      const i = L.findIndex(r => r.id === rec.id); if (i >= 0) L[i] = rec; else L.push(rec);
+      touch('profile'); S.ui.rzEdit = null; S.ui.rzOpen = rec.id; S.ui.rzN = null; rzRender(); window.scrollTo(0, 0); toast(`${rec.name} gespeichert`); return true;
+    }
+    case 'rz-del': { S.profile.recipes = rzList().filter(r => r.id !== args[0]); touch('profile'); S.ui.rzOpen = null; rzRender(); toast('Rezept gelöscht'); return true; }
+    case 'rz-n': { const r = rzFind(S.ui.rzOpen); if (!r) return true; S.ui.rzN = Math.max(1, Math.min(40, (S.ui.rzN || r.por || 1) + (+args[0]))); rzRender(); return true; }
+    case 'rz-eatn': S.ui.rzEat = +args[0] || 1; rzRender(); return true;
+    case 'rz-eat': {
+      const r = rzFind(args[0]); if (!r) return true; const n = S.ui.rzEat || 1, v = rzTotals(r.items, n / Math.max(1, r.por || 1)), k = todayKey(), now = new Date();
+      const e = addMeal(k, slotByHour(now.getHours() + now.getMinutes() / 60), { name: `${r.name}${n !== 1 ? ` (${fmt(n, 1)} Portionen)` : ''}`, ...v }); render();
+      toast(`${r.name} eingetragen, ${fmt(e.kcal)} kcal`, () => removeMeal(k, e.id)); return true;
+    }
+    case 'rz-shop': {
+      const r = rzFind(args[0]); if (!r) return true; const fac = (S.ui.rzN || r.por || 1) / Math.max(1, r.por || 1), added = [];
+      for (const it of r.items || []) {
+        const base = it.n.replace(/\s*\(.*?\)\s*/g, ' ').split(',')[0].trim();
+        if (S.profile.shop.some(x => !x.done && nrm(x.n).startsWith(nrm(base)))) continue;
+        const x = { id: uid(), n: `${base} ${fmt(Math.round(it.g * fac))} ${it.unit}`.slice(0, 60), cat: shopCat(base), done: false, t: Date.now() };
+        S.profile.shop.push(x); added.push(x.id);
+      }
+      touch('profile'); render();
+      toast(added.length ? `${added.length} ${added.length === 1 ? 'Zutat' : 'Zutaten'} auf der Einkaufsliste` : 'Steht schon alles auf der Liste', added.length ? () => { S.profile.shop = S.profile.shop.filter(x => !added.includes(x.id)); touch('profile'); render(); } : null); return true;
+    }
+    case 'pick-rz': {
+      const P = S.ui.pick, r = rzFind(args[0]); if (!P || !r) return true; const k = S.ui.foodDate, v = rzPer(r);
+      const e = addMeal(k, P.slot, { name: r.name, ...v }); render(); toast(`${r.name} eingetragen, ${fmt(e.kcal)} kcal`, () => removeMeal(k, e.id)); return true;
+    }
+  }
+  return false;
+}
+/* Rezepte aus einer Ergänzungsdatei: Zutaten als Text ("200 g Reis") oder Objekte {n, g} */
+function rzFromPatch(list) {
+  let n = 0; const miss = [];
+  for (const x of list || []) {
+    if (!x || !x.name) continue;
+    const lines = (x.items || x.zutaten || []).map(i => typeof i === 'string' ? i : `${i.g || i.menge || ''} ${i.unit || 'g'} ${i.n || i.name || ''}`);
+    const r = rzParse(lines.join('\n')); miss.push(...r.miss);
+    const L = rzList(), rec = { id: uid(), name: String(x.name).slice(0, 80), por: Math.max(1, +x.por || +x.portionen || 1), items: r.items, steps: Array.isArray(x.steps) ? x.steps.join('\n') : String(x.steps || ''), t: Date.now() };
+    const i = L.findIndex(y => nrm(y.name) === nrm(rec.name)); if (i >= 0) { rec.id = L[i].id; L[i] = rec; } else L.push(rec); n++;
+  }
+  return { n, miss };
+}
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
@@ -3542,7 +3737,7 @@ function render() {
   const hl = SUB[t] ? (TABS.some(x => x[0] === S.ui.backTo) ? S.ui.backTo : 'mehr') : t;
   $('#tabs').innerHTML = TABS.map(([id, label]) => `<button data-a="tab:${id}" ${id === hl ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[id]}</svg>${label}</button>`).join('');
   const m = $('#main');
-  const V = { heute: vHeute, kalender: vKalender, training: vTraining, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen };
+  const V = { heute: vHeute, kalender: vKalender, training: vTraining, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte };
   V.routinen = () => vRoutHero() + vRoutinen() + vHabitHeat(); V.koerper = () => vBodyHero() + vKoerper();
   document.documentElement.style.setProperty('--area', `var(--${AREA[t] || 'd-slate'})`);
   const enter = S.ui.enter; S.ui.enter = false;
@@ -5712,11 +5907,11 @@ function pickBody() {
   const foodRows = list => list.map(f => f.custom ? pkLine(`pick-sel:${f.key}`, f.name, `${fmt(f.kcal)} kcal / 100 ${f.unit}`, null, `cf-del:${f.id}`) : pkRow(`pick-sel:${f.key}`, f.name, `${fmt(f.kcal)} kcal, ${fmt(f.p, 1)} g Eiweiß pro 100 ${f.unit}${f.pn ? ` · 1 ${f.pn} = ${fmt(f.pg)} ${f.unit}` : ''}`, null)).join('');
   const sec = (t, h) => h ? `<p class="pk-sec">${t}</p>${h}` : '';
   if (q) {
-    const out = sec('Deine Mahlzeiten', tmRows) + sec('Zuletzt gegessen', recRows) + sec('Vorschläge', sgRows) + sec('Eigene Lebensmittel', foodRows(cf)) + sec('Lebensmittel', foodRows(db));
+    const out = sec('Rezepte', rzPickRows(has)) + sec('Deine Mahlzeiten', tmRows) + sec('Zuletzt gegessen', recRows) + sec('Vorschläge', sgRows) + sec('Eigene Lebensmittel', foodRows(cf)) + sec('Lebensmittel', foodRows(db));
     return out || `<p class="small muted">Nichts gefunden. Trag es unter „Manuell“ ein oder leg ein eigenes Lebensmittel an.</p><button class="btn" data-a="pick-tab:manual">Manuell eintragen</button>`;
   }
   if (P.tab === 'recent') return recRows || '<p class="small muted">Hier erscheint, was du zuletzt gegessen hast. Mit einem Tipp trägst du es erneut ein.</p>';
-  if (P.tab === 'tmpl') return sec('Deine Mahlzeiten', tmRows || '<p class="small muted">Noch keine. Trag eine Mahlzeit ein und tipp dann auf „Als Mahlzeit speichern“.</p>') + sec('Vorschläge', sgRows);
+  if (P.tab === 'tmpl') return sec('Rezepte', rzPickRows(has)) + sec('Deine Mahlzeiten', tmRows || '<p class="small muted">Noch keine. Trag eine Mahlzeit ein und tipp dann auf „Als Mahlzeit speichern“.</p>') + sec('Vorschläge', sgRows);
   if (P.tab === 'food') {
     const form = P.form === 'food' ? `<div class="pk-form"><label class="fld"><span>Name</span><input id="cf-name" autocomplete="off"></label>
       <p class="small muted" style="margin:8px 0 0">Werte pro 100 g</p><div class="grid4">${['kcal', 'Eiweiß', 'KH', 'Fett'].map((l, i) => `<label class="fld"><span>${l}</span><input id="cf-${['kcal', 'p', 'c', 'f'][i]}" inputmode="decimal" autocomplete="off"></label>`).join('')}</div>
@@ -6621,6 +6816,7 @@ function vMehr() {
     T('tab:alkohol', 'Alkohol', ICON_GLASS, st != null && n === 0 ? `${st} ${st === 1 ? 'Tag' : 'Tage'} alkoholfrei` : `${n} ${n === 1 ? 'Getränk' : 'Getränke'} diese Woche`, 'd-alc'),
     T('tab:schritte', 'Schritte', ICON.schritte, d.steps ? `${fmt(d.steps)} heute` : `Ziel ${fmt(stepGoal())}`, 'd-steps'),
     T('tab:mahlzeiten', 'Mahlzeiten', ICON.mahlzeiten, `${(S.profile.tmpls || []).length} gespeichert`, 'd-food'),
+    T('rz-home', 'Rezepte', ICON.rezepte, `${rzList().length} ${rzList().length === 1 ? 'Rezept' : 'Rezepte'}`, 'd-food'),
     T('tab:fotos', 'Fortschrittsfotos', ICON.fotos, phTileSub(), 'd-photo')
   ]) + sec('Geld & Freizeit', [
     T('tab:finanzen', 'Finanzen', ICON.finanzen, S.fin.tx.length ? `${eur0(M.out)} im ${MON[+tk.slice(5, 7) - 1]}` : 'Ausgaben und Budget', 'd-fin'),
@@ -7051,7 +7247,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actDesign(c, args, el) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actDesign(c, args, el) && !actRez(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -8196,7 +8392,7 @@ document.addEventListener('visibilitychange', () => {
   requestRender();
 });
 
-Object.assign(SUB, { abzeichen: 'Abzeichen' }); AREA.abzeichen = 'd-badge'; ICON.abzeichen = BDG_IC.trophy;
+Object.assign(SUB, { abzeichen: 'Abzeichen', rezepte: 'Rezepte' }); AREA.abzeichen = 'd-badge'; AREA.rezepte = 'd-food'; ICON.abzeichen = BDG_IC.trophy; ICON.rezepte = RZ_IC;
 /* ---------- Boot ---------- */
 try { const w = JSON.parse(localStorage.getItem('bilanz.wx') || 'null'); if (w && w.hourly) WX.d = w; } catch (e) { }
 setInterval(() => { if (!S.ui.sheet && ['heute', 'sonne', 'wetter'].includes(S.ui.tab)) requestRender(); }, 60000);

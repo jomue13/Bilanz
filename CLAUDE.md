@@ -25,6 +25,7 @@ Persönliche Tracker-App (Training, Essen, Körper, Arbeit/Lohn, Geld, Uni, Foto
 Claude kommt nicht an die Daten auf dem iPhone. Neue Pläne o. Ä. als Ergänzungsdatei schicken, die der Nutzer unter Einstellungen → Backup einspielen übernimmt, ohne dass andere Daten ersetzt werden:
 `{"app":"bilanz","v":1,"kind":"ergaenzung","title":"…","plans":[{"name":"…","loc":"gym|zuhause","ex":[{"name":"…","sets":3,"rest":90}]}],"weekVars":{"4":[{"p":"Planname","alt":"Ersatzplan","add":[{"name":"…","sets":3}]}]},"weekVarNotes":{"4":"…"}}`
 Übungsnamen genau so schreiben wie in den bestehenden Plänen, sonst fehlt der Verlauf.
+Rezepte gehen genauso: `"recipes":[{"name":"…","por":4,"items":["500 g Rinderhack","250 g Reis","2 Paprika"],"steps":["…"]}]`. Die Zutaten werden mit der Lebensmittel-Datenbank abgeglichen, Mengen in g, ml, EL, TL oder Stück.
 
 ## Wichtig
 - Das Repository ist öffentlich. Keine persönlichen Daten in Code, Texte oder Beispiele schreiben (Name, Wohnort, Arbeitgeber, Studiengang, Prüfungen, Finanzen, Gesundheit). Persönliche Einstellungen kommen aus den Daten auf dem Gerät.
