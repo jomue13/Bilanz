@@ -1271,6 +1271,7 @@ html.gym-on,html.gym-on body{overflow:hidden}
 .th-c i{width:34px;height:34px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
 .th-c.on i{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--sw)}
 .th-c.on{background:var(--surface2)}
+.th-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;font-weight:600;font-size:15px}
 /* ---------- v15: Live-Leiste ---------- */
 .live{position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);z-index:6;display:flex;gap:8px;justify-content:center;max-width:560px;margin:0 auto 6px;padding:0 16px;pointer-events:none}
 .live[hidden]{display:none}
@@ -3248,6 +3249,7 @@ function themePanel() {
     <p class="small muted" style="margin:10px 0 8px">Akzentfarbe für Knöpfe und Links</p>
     <div class="th-sw">${Object.entries(THEME_ACC).map(([k, v]) => `<button class="th-c${acc === k ? ' on' : ''}" style="--sw:${dark ? v[2] : v[1]}" data-a="theme-acc:${k}" aria-pressed="${acc === k}" aria-label="${v[0]}"><i></i><span>${v[0]}</span></button>`).join('')}</div>
     <p class="small muted" style="margin-top:8px">„Schwarz“ ist ein echter Nachtmodus mit schwarzem Hintergrund, spart auf dem iPhone-Display Akku.</p>
+    <div class="th-row"><span>Arbeitszeit in der Live-Leiste</span><button class="sw${s.liveWork === true ? ' on' : ''}" role="switch" aria-checked="${s.liveWork === true}" data-a="live-work" aria-label="Arbeitszeit in der Live-Leiste anzeigen"><i></i></button></div>
     <button class="btn wide" style="margin-top:10px" data-a="home-edit">Startseite anpassen</button></section>`;
 }
 
@@ -3261,7 +3263,7 @@ function renderLive() {
     const R = a.rest, left = R && !R.done ? gymRestLeft(a) : 0;
     items.push(`<button class="lv-i lv-tr" data-a="${a.ex.length ? 'gym-open' : 'tab:training'}" aria-label="Laufendes Training öffnen"><span class="lv-ic">${GYI.gym}</span><span class="lv-t"><b>${esc(a.name || 'Training')}</b><span data-timer></span></span>${left ? `<span class="lv-rest"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" class="tr"/><circle cx="10" cy="10" r="8" class="pr" data-lv-ring style="stroke-dasharray:50.27;stroke-dashoffset:${(50.27 * (1 - left / Math.max(1, R.dur))).toFixed(1)}"/></svg><span data-lv-rest>${gymMMSS(left)}</span></span>` : ''}</button>`);
   }
-  if (ck && t !== 'arbeit') items.push(`<button class="lv-i lv-wk" data-a="tab:arbeit" aria-label="Arbeitszeit öffnen"><span class="lv-ic">${LV_WORK}</span><span class="lv-t"><b>Arbeit</b><span data-wm="td"></span></span><span class="lv-m"><span data-wm="nDt"></span> €</span></button>`);
+  if (ck && t !== 'arbeit' && S.profile.settings.liveWork === true) items.push(`<button class="lv-i lv-wk" data-a="tab:arbeit" aria-label="Arbeitszeit öffnen"><span class="lv-ic">${LV_WORK}</span><span class="lv-t"><b>Arbeit</b><span data-wm="td"></span></span><span class="lv-m"><span data-wm="nDt"></span> €</span></button>`);
   const html = items.join('');
   if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; }
   el.hidden = !items.length; el.classList.toggle('two', items.length > 1);
@@ -3560,6 +3562,7 @@ function vAbzeichen() {
 function actDesign(c, args, el) {
   switch (c) {
     case 'theme-mode': S.profile.settings.themeMode = args[0]; touch('profile'); applyTheme(); renderSheet(); return true;
+    case 'live-work': S.profile.settings.liveWork = S.profile.settings.liveWork !== true; touch('profile'); renderSheet(); renderLive(); return true;
     case 'theme-acc': S.profile.settings.accent = args[0]; touch('profile'); applyTheme(); renderSheet(); return true;
     case 'home-edit': if (S.ui.sheet) closeSettings(); S.ui.homeEdit = true; if (S.ui.tab !== 'heute') setTab('heute'); else { render(); window.scrollTo(0, 0); } return true;
     case 'home-done': S.ui.homeEdit = false; render(); window.scrollTo(0, 0); toast('Startseite gespeichert'); return true;
@@ -3771,9 +3774,12 @@ function toast(msg, undo) {
   toastT = setTimeout(() => { t.classList.remove('show', 'act'); undoFn = null; }, undo ? 6000 : 2800);
 }
 function setTab(t, focusSel, el) {
-  const from = S.ui.tab;
+  const from = S.ui.tab, scr = S.ui.scr || (S.ui.scr = {});
+  if (from !== t) scr[from] = window.scrollY;
   if (SUB[t] && !SUB[S.ui.tab]) S.ui.backTo = S.ui.tab;
-  const go = () => { S.ui.tab = t; S.ui.enter = true; S.ui.enterT = Date.now(); render(); window.scrollTo(0, 0); if (focusSel) { const f = $(focusSel); if (f) f.focus(); } };
+  /* Hauptbereiche und der Rückweg aus einer Unterseite landen dort, wo man war; neu geöffnete Unterseiten oben */
+  const keep = from !== t && !focusSel && (!SUB[t] || (SUB[from] && !SUB[t])), y = keep ? (scr[t] || 0) : 0;
+  const go = () => { S.ui.tab = t; S.ui.enter = !keep; S.ui.enterT = Date.now(); render(); window.scrollTo(0, y); if (keep && y) requestAnimationFrame(() => window.scrollTo(0, y)); if (focusSel) { const f = $(focusSel); if (f) f.focus(); } };
   if (from !== t && !focusSel) vtRun(go, tabDir(from, t), el && el.closest ? el.closest('.mtile,.tile,.lvl') : null); else go();
 }
 
