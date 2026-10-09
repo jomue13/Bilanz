@@ -1258,6 +1258,168 @@ html.gym-on,html.gym-on body{overflow:hidden}
 .pk-qrow #pick-q{margin:0;width:100%}
 .pk-scan{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:0 12px;font-weight:600;font-size:14px;min-height:46px}
 .pk-scan svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+
+/* ---------- v15: Farbthemen ---------- */
+:root{--d-badge:#9C6A0B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--d-badge:#B9850F}}
+:root[data-theme="dark"]{--d-badge:#B9850F}
+:root.oled{--bg:#000;--surface:#0C0E10;--surface2:#15181B;--line:#22272C;--hero-bg:#0C0E10}
+:root.oled .tabs{background:color-mix(in srgb,#000 88%,transparent)}
+.th-seg button{flex:1}
+.th-sw{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.th-c{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:6px 0;border-radius:12px;color:var(--ink);font-size:12px;font-weight:600}
+.th-c i{width:34px;height:34px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+.th-c.on i{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--sw)}
+.th-c.on{background:var(--surface2)}
+/* ---------- v15: Live-Leiste ---------- */
+.live{position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);z-index:6;display:flex;gap:8px;justify-content:center;max-width:560px;margin:0 auto 6px;padding:0 16px;pointer-events:none}
+.live[hidden]{display:none}
+.lv-i{pointer-events:auto;display:flex;align-items:center;gap:10px;min-height:46px;padding:6px 14px 6px 8px;border-radius:999px;border:0;background:#0B0F13;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.22);max-width:100%;animation:lvIn .45s cubic-bezier(.2,1.3,.4,1) both;flex:0 1 auto;min-width:0}
+.live.two .lv-i{flex:1 1 0}
+.lv-ic{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;background:#2B5BC6}
+.lv-wk .lv-ic{background:#3F48B0}
+:root[data-theme="dark"] .lv-i{background:#1D252D;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lv-i{background:#1D252D}}
+.lv-ic svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lv-t{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1;min-width:0}
+.lv-t b{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;opacity:.85}
+.lv-t span{font:700 17px/1.1 var(--font-c);font-variant-numeric:tabular-nums}
+.lv-rest{display:flex;align-items:center;gap:5px;margin-left:auto;padding-left:6px;font:700 15px var(--font-c);color:#9CC0FF;font-variant-numeric:tabular-nums}
+.lv-rest svg{width:20px;height:20px;transform:rotate(-90deg)}
+.lv-rest circle{fill:none;stroke-width:3}.lv-rest .tr{stroke:rgba(255,255,255,.2)}.lv-rest .pr{stroke:#7AA4FF;stroke-linecap:round;transition:stroke-dashoffset .5s linear}
+.lv-m{margin-left:auto;padding-left:6px;font:700 16px var(--font-c);color:#B8BEFF;font-variant-numeric:tabular-nums;white-space:nowrap}
+@keyframes lvIn{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+/* ---------- v15: Startseite anpassen ---------- */
+.home-edit-btn{display:block;margin:6px auto 0;background:none;border:0;color:var(--muted);font-size:14px;font-weight:600;padding:10px 14px;text-decoration:underline;text-underline-offset:3px}
+.he-list{list-style:none;margin:12px 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.he{display:grid;grid-template-columns:28px minmax(0,1fr) 36px 36px 52px;align-items:center;gap:6px;padding:8px 10px 8px 6px;border-radius:14px;background:var(--surface2);transition:box-shadow .15s,transform .15s}
+.he.off .he-n{color:var(--muted);text-decoration:line-through}
+.he.drag{box-shadow:0 10px 26px rgba(0,0,0,.2);transform:scale(1.02);background:var(--surface);z-index:2;position:relative}
+.he-grip{display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;height:36px;touch-action:none;cursor:grab}
+.he-grip i{width:16px;height:2px;border-radius:1px;background:var(--muted)}
+.he-n{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.he-b{width:36px;height:36px;border-radius:10px;border:0;background:var(--surface);color:var(--ink);font-size:17px}
+.he-b:disabled{opacity:.3}
+.sw{width:50px;height:30px;border-radius:15px;border:0;background:var(--line);position:relative;padding:0;transition:background .2s}
+.sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.sw.on{background:var(--good)}.sw.on i{transform:translateX(20px)}
+/* ---------- v15: Tagesringe ---------- */
+.rings{display:grid;grid-template-columns:118px minmax(0,1fr);gap:16px;align-items:center;background:var(--surface);border-radius:22px;padding:14px 16px;margin:0 0 12px;cursor:pointer}
+.rg{width:118px;height:118px;transform:rotate(-90deg)}
+.rg circle{fill:none;stroke-width:9.5;stroke-linecap:round}
+.rg .rg-bg{opacity:.16}
+.rg .rg-fg.anim{animation:rgIn 1.1s cubic-bezier(.2,.8,.2,1) both}
+.rg .rg-fg:nth-of-type(4).anim{animation-delay:.12s}.rg .rg-fg:nth-of-type(6).anim{animation-delay:.24s}
+@keyframes rgIn{from{stroke-dashoffset:var(--c0)}}
+.rg-l{display:flex;flex-direction:column;gap:7px;min-width:0}
+.rg-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto 18px;align-items:center;gap:8px;font-size:14px}
+.rg-row i{width:10px;height:10px;border-radius:50%}
+.rg-row span{color:var(--muted);font-weight:600}
+.rg-row b{font-variant-numeric:tabular-nums;font-size:15px;white-space:nowrap}
+.rg-row b small{color:var(--muted);font-weight:500;font-size:12.5px}
+.rg-row em svg{width:16px;height:16px;fill:none;stroke:var(--good);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.rg-tr{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:7px}
+.rg-tr b{color:var(--ink)}
+.rg-tr svg{width:16px;height:16px;fill:none;stroke:var(--good);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:360px){.rings{grid-template-columns:96px minmax(0,1fr);gap:12px}.rg{width:96px;height:96px}}
+/* ---------- v15: Himmel mit Wetter ---------- */
+.sky>*:not(.sky-fx){position:relative;z-index:1}
+.sky-fx{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;border-radius:inherit}
+.fx-stars i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:#fff;opacity:.8;animation:twinkle var(--d) ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.2}to{opacity:.95}}
+.fx-glow{position:absolute;right:-60px;top:-70px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,170,.55),rgba(255,236,170,0) 65%);animation:glow 6s ease-in-out infinite alternate}
+@keyframes glow{to{transform:scale(1.12);opacity:.8}}
+.fx-clouds i{position:absolute;height:44px;border-radius:999px;background:rgba(255,255,255,.22);filter:blur(6px);animation:drift 46s linear infinite}
+.fx-clouds i::before{content:"";position:absolute;left:22%;top:-18px;width:46%;height:46px;border-radius:50%;background:inherit}
+.fx-clouds i:nth-child(1){width:170px;top:26px;left:-40px}
+.fx-clouds i:nth-child(2){width:130px;top:92px;left:40%;animation-duration:62s;animation-delay:-20s;opacity:.8}
+.fx-clouds i:nth-child(3){width:200px;top:160px;left:10%;animation-duration:75s;animation-delay:-40s;opacity:.6}
+.fx-clouds.thick i{background:rgba(220,228,236,.34)}
+@keyframes drift{from{transform:translateX(-30%)}to{transform:translateX(130%)}}
+.fx-rain{position:absolute;inset:-40px 0 0;background-image:repeating-linear-gradient(105deg,rgba(255,255,255,0) 0 14px,rgba(255,255,255,.28) 14px 15px,rgba(255,255,255,0) 15px 34px);background-size:120px 120px;animation:rain .55s linear infinite;opacity:.8}
+@keyframes rain{to{background-position:-30px 120px}}
+.fx-snow{position:absolute;inset:-60px 0 0;background-image:radial-gradient(circle,rgba(255,255,255,.9) 1.4px,transparent 2px),radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.6px);background-size:60px 60px,38px 38px;animation:snow 6s linear infinite}
+@keyframes snow{to{background-position:20px 60px,-12px 38px}}
+.fx-flash{position:absolute;inset:0;background:#fff;opacity:0;animation:flash 9s infinite}
+@keyframes flash{0%,92%,96%,100%{opacity:0}93%{opacity:.35}95%{opacity:.15}}
+.sky-fx.still *{animation:none!important}
+/* ---------- v15: Übergänge ---------- */
+#main{view-transition-name:main}
+::view-transition-old(root),::view-transition-new(root){animation:none}
+::view-transition-old(main),::view-transition-new(main){animation-duration:.3s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+html[data-vt="left"]::view-transition-old(main){animation-name:vtOutL}
+html[data-vt="left"]::view-transition-new(main){animation-name:vtInR}
+html[data-vt="right"]::view-transition-old(main){animation-name:vtOutR}
+html[data-vt="right"]::view-transition-new(main){animation-name:vtInL}
+html[data-vt="push"]::view-transition-old(main){animation-name:vtFadeOut}
+html[data-vt="push"]::view-transition-new(main){animation-name:vtInR}
+html[data-vt="pop"]::view-transition-old(main){animation-name:vtOutR}
+html[data-vt="pop"]::view-transition-new(main){animation-name:vtFadeIn}
+::view-transition-group(morph){animation-duration:.42s;animation-timing-function:cubic-bezier(.2,.9,.2,1)}
+@keyframes vtOutL{to{transform:translateX(-22%);opacity:0}}
+@keyframes vtOutR{to{transform:translateX(22%);opacity:0}}
+@keyframes vtInR{from{transform:translateX(22%);opacity:0}}
+@keyframes vtInL{from{transform:translateX(-22%);opacity:0}}
+@keyframes vtFadeOut{to{opacity:0}}
+@keyframes vtFadeIn{from{opacity:0}}
+/* Wischen in Listen */
+.swipe-li{position:relative;--sx:0px}
+.swipe-li>*{transform:translateX(var(--sx));transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.swipe-li.swiping>*{transition:none}
+.swipe-li.sw-r::before,.swipe-li.sw-l::before{content:"";position:absolute;inset:2px 0;border-radius:12px;z-index:-1}
+.swipe-li.sw-r::before{background:color-mix(in srgb,var(--good) 22%,transparent)}
+.swipe-li.sw-l::before{background:color-mix(in srgb,var(--warn) 22%,transparent)}
+.swipe-li.arm.sw-r::before{background:color-mix(in srgb,var(--good) 45%,transparent)}
+.swipe-li.arm.sw-l::before{background:color-mix(in srgb,var(--warn) 45%,transparent)}
+/* ---------- v15: Level und Abzeichen ---------- */
+.lvl{display:grid;grid-template-columns:62px minmax(0,1fr);gap:4px 14px;align-items:center;background:var(--surface);border-radius:22px;padding:14px 16px;margin:0 0 12px;cursor:pointer}
+.lvl-n{width:62px;height:62px;border-radius:18px;background:linear-gradient(150deg,#F5C542,#B7841A);color:#2A1A00;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12)}
+.lvl-n small{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.lvl-n b{font:700 28px/1 var(--font-c)}
+.lvl-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lvl-h b{font-size:16px}.lvl-h span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lvl-bar{height:8px;border-radius:4px;background:var(--surface2);overflow:hidden;margin:6px 0 5px}
+.lvl-bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#F5C542,#E0902A)}
+.lvl-bar.on-hero{background:rgba(255,255,255,.22)}
+.lvl-bar.on-hero i{background:#fff}
+.lvl-s{font-size:12.5px;color:var(--muted)}
+.lvl-md{grid-column:1/-1;display:flex;gap:8px;margin-top:6px}
+.lvl-md:empty{display:none}
+.lvl-first{grid-column:1/-1;margin:6px 0 0;font-size:13px;color:var(--d-badge);font-weight:600}
+.md{width:40px;height:40px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;position:relative;background:var(--surface2);color:var(--muted)}
+.md svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;position:relative}
+.md.t1,.md.t2,.md.t3,.md.t4{color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.15)}
+.md.t1{background:linear-gradient(150deg,#D89A5F,#8A4F22)}
+.md.t2{background:linear-gradient(150deg,#E3E9EE,#8794A2);color:#26313C}
+.md.t3{background:linear-gradient(150deg,#F7D35C,#B7841A);color:#3A2600}
+.md.t4{background:linear-gradient(150deg,#C9EEFA,#5C8FB0);color:#0F2A3A}
+.md.t1::after,.md.t2::after,.md.t3::after,.md.t4::after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.45) 45%,rgba(255,255,255,0) 60%);background-size:250% 100%;animation:shine 4s ease-in-out infinite}
+@keyframes shine{0%,60%{background-position:120% 0}100%{background-position:-120% 0}}
+.md.big{width:112px;height:112px}
+.md.big svg{width:58px;height:58px;stroke-width:1.6}
+.bd-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:8px}
+.bd{background:var(--surface);border-radius:18px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;min-width:0}
+.bd .md{width:52px;height:52px}.bd .md svg{width:26px;height:26px}
+.bd:not(.on) .md{opacity:.55}
+.bd b{font-size:13px;line-height:1.2;margin-top:4px}
+.bd small{font-size:11.5px;color:var(--muted);line-height:1.25}
+.bd-t{font-size:11px;font-weight:700;margin-top:2px}
+.bd-t.t1{color:#A0622E}.bd-t.t2{color:var(--muted)}.bd-t.t3{color:#B7841A}.bd-t.t4{color:#3E7FA6}
+.bd-p{width:80%;height:5px;border-radius:3px;background:var(--surface2);overflow:hidden;margin-top:4px}
+.bd-p i{display:block;height:100%;background:var(--d-badge)}
+.bd-pn{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lvl-hero .big{font-size:48px}
+.bdg{position:fixed;inset:0;z-index:38;background:rgba(5,8,11,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px}
+.bdg[hidden]{display:none}
+.bdg-in{background:var(--surface);border-radius:28px;padding:26px 22px 18px;max-width:340px;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;animation:bdgIn .55s cubic-bezier(.2,1.3,.4,1) both}
+.bdg-in .md.big{animation:bdgMd .9s cubic-bezier(.2,1.4,.4,1) .1s both;margin:6px 0 8px}
+.bdg-k{margin:0;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--d-badge)}
+.bdg-in h2{margin:0;font:700 26px/1.1 var(--font-c)}
+.bdg-in p{margin:0;color:var(--muted)}
+.bdg-in .btn{margin-top:12px}
+@keyframes bdgIn{from{transform:scale(.85);opacity:0}}
+@keyframes bdgMd{from{transform:scale(.2) rotate(-40deg);opacity:0}}
+@media (prefers-reduced-motion: reduce){.md::after{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1268,6 +1430,7 @@ html.gym-on,html.gym-on body{overflow:hidden}
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
   </button></div>
 </header>
+<div class="live" id="live" hidden></div>
 <main id="main"></main>
 <nav class="tabs" id="tabs" aria-label="Bereiche"></nav>
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Einstellungen"></div>
@@ -1278,6 +1441,7 @@ html.gym-on,html.gym-on body{overflow:hidden}
 <div class="sheet wrap" id="wrap" hidden role="dialog" aria-modal="true" aria-label="Jahresrückblick"></div>
 <div class="sheet gym" id="gym" hidden role="dialog" aria-modal="true" aria-label="Gym-Modus"></div>
 <div class="sheet scan" id="scan" hidden role="dialog" aria-modal="true" aria-label="Barcode scannen"></div>
+<div class="bdg" id="bdg" hidden></div>
 <input type="file" id="fin-input" accept=".csv,text/csv,text/comma-separated-values,text/plain" multiple hidden>
 <input type="file" id="bd-input" accept="image/*" hidden>
 <input type="file" id="import-input" accept=".csv,text/csv,text/comma-separated-values,text/plain" multiple hidden>
@@ -1337,7 +1501,7 @@ const emptyBodyForm = () => ({ date: todayKey(), weight: '', kfa: '', waist: '',
 const defaultProfile = () => normProfile({});
 function normProfile(p) {
   p = p && typeof p === 'object' ? clone(p) : {};
-  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {} };
+  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null };
 }
 function normDay(k, x) {
   x = x && typeof x === 'object' ? clone(x) : {};
@@ -1826,7 +1990,7 @@ function vSky() {
   let hours = '';
   const i0 = wxHourIdx();
   if (i0 >= 0) { const H = WX.d.hourly; hours = `<div class="sky-hours">${Array.from({ length: 6 }, (_, j) => i0 + 1 + j).filter(i => i < H.time.length).map(i => `<div>${+H.time[i].slice(11, 13)} Uhr${wIcon(H.weather_code[i], H.is_day[i])}<b>${fmt(H.temperature_2m[i])}°</b></div>`).join('')}</div>`; }
-  return `<section class="sky" style="--sky1:${c1};--sky2:${c2}" aria-label="Wetter und Sonne in ${esc(s.place)}">
+  return `<section class="sky" style="--sky1:${c1};--sky2:${c2}" aria-label="Wetter und Sonne in ${esc(s.place)}">${skyFx(cur, solarElev(now, lat, lon))}
     <button class="sky-top" data-a="tab:wetter" aria-label="Wetter öffnen">
       <span><span class="sky-date">${greet}</span><span class="sky-place">${longDate(k)}, ${esc(s.place)}</span>${cur && di >= 0 ? `<span class="sky-hl">Höchst ${fmt(D.temperature_2m_max[di])}°, tiefst ${fmt(D.temperature_2m_min[di])}°</span>` : ''}</span>
       ${cur ? `<span><span class="sky-temp">${fmt(cur.temperature_2m)}°</span><span class="sky-cond">${wIcon(cur.weather_code, cur.is_day)}${esc(wxTxt(cur.weather_code))}</span></span>` : `<span class="sky-cond">Wetter wird geladen</span>`}
@@ -2026,7 +2190,7 @@ function vSun(k) {
     <div class="stats"><div class="stat"><b>${hm(st.rise)}</b><span>Aufgang</span></div><div class="stat"><b>${hm(st.set)}</b><span>Untergang</span></div>
     <div class="stat"><b>${Math.floor(len / 60)}:${pad(len % 60)} h</b><span>Tageslicht, ${signed(dlen, 0)} min</span></div></div></section>`;
 }
-function vHeute() {
+function vHeuteOld() {
   const k = todayKey();
   return vSky() + vChecks(k) + vQuick() + vBrief() + (k.slice(5, 7) === '12' ? vWrapCard() : '') + vDashCounters() + `<div class="tiles">${vDashEnergy(k)}${vDashBody()}${vDashAlc()}${vDashWater()}${vDashWork()}${vDashFin()}</div>` + vDashUni(k) + vDashTraining(k) + vDashToday(k) + vDashSport() + vDashWeek();
 }
@@ -2159,7 +2323,7 @@ function vKoerper() {
 }
 
 /* ---------- View: Routinen ---------- */
-const todoLi = t => `<li><button class="tbox ${t.done ? 'on' : ''}" data-a="todo-toggle:${t.id}" aria-pressed="${!!t.done}" aria-label="Als erledigt markieren"></button><span><span class="tt">${esc(t.text)}</span>${t.date ? `<small class="when ${!t.done && t.date < todayKey() ? 'late' : ''}">${whenTxt(t)}</small>` : ''}</span><button class="x" data-a="todo-del:${t.id}" data-confirm="Löschen?" aria-label="Löschen">×</button></li>`;
+const todoLi = t => `<li class="swipe-li" data-swr="todo-toggle:${t.id}" data-swl="todo-del:${t.id}"><button class="tbox ${t.done ? 'on' : ''}" data-a="todo-toggle:${t.id}" aria-pressed="${!!t.done}" aria-label="Als erledigt markieren"></button><span><span class="tt">${esc(t.text)}</span>${t.date ? `<small class="when ${!t.done && t.date < todayKey() ? 'late' : ''}">${whenTxt(t)}</small>` : ''}</span><button class="x" data-a="todo-del:${t.id}" data-confirm="Löschen?" aria-label="Löschen">×</button></li>`;
 function vRoutinen() {
   const hs = S.profile.habits, tk = todayKey(), days = Array.from({ length: 7 }, (_, i) => addDays(tk, i - 6)), edit = S.ui.habitEdit;
   const open = S.profile.todos.filter(t => !t.done), done = S.profile.todos.filter(t => t.done);
@@ -2192,7 +2356,7 @@ function renderSheet() {
       <p class="small muted">Das Wochenbudget ist dein Tagesziel mal sieben.</p>
       <div class="grid2" style="margin-top:10px">${sf('water', 'Wasser pro Tag (ml)')}${sf('alcLimit', 'Alkohol: Gläser pro Woche')}</div><p class="small muted">Beim Alkohol-Limit heißt 0: kein Limit.</p></section>
     <section class="panel"><h2>Arbeit, Lohn, Schritte</h2><div class="grid2">${sf('workWeek', 'Arbeitsstunden pro Woche')}${sf('wage', 'Stundenlohn € brutto')}</div><div class="grid2" style="margin-top:8px">${sf('kv', 'Krankenversicherung € pro Monat')}${sf('netPct', 'Netto-Anteil % (0 = automatisch)')}</div><div class="grid2" style="margin-top:8px">${sf('workPause', 'Pause ab 6 h (min)', 'numeric')}${sf('fullName', 'Name im Excel-Export', 'text')}</div><div class="grid2" style="margin-top:8px">${sf('stepGoal', 'Schritte-Ziel pro Tag', 'numeric')}${sf('budget', 'Ausgaben-Budget pro Monat €')}</div><p class="small muted">Netto automatisch heißt: Werkstudent über der Minijob-Grenze, abgezogen wird nur der verringerte Rentenbeitrag. Steht auf deiner Lohnabrechnung etwas anderes, trag Netto geteilt durch Brutto als Prozent ein. Budget 0 heißt: kein Budget.</p></section>
-    <section class="panel"><h2>Gym-Modus</h2><div class="grid2">${sf('restSec', 'Satzpause in Sekunden', 'numeric')}</div><p class="small muted">Gilt für jede Übung, bis du die Pause im Gym-Modus mit −15 oder +15 änderst. Das merkt sich die App dann für diese Übung.</p></section>
+    ${themePanel()}<section class="panel"><h2>Gym-Modus</h2><div class="grid2">${sf('restSec', 'Satzpause in Sekunden', 'numeric')}</div><p class="small muted">Gilt für jede Übung, bis du die Pause im Gym-Modus mit −15 oder +15 änderst. Das merkt sich die App dann für diese Übung.</p></section>
     <section class="panel"><h2>Spielplan</h2><p class="small muted">Diese Teams erscheinen im Kalender und auf Start.</p><div class="chips">${Object.keys(TEAMS).map(t => `<button class="chip ${teamOn(t) ? 'on' : ''}" data-a="team-toggle:${t}" aria-pressed="${teamOn(t)}">${esc(TEAMS[t].s)}</button>`).join('')}</div></section>
     <section class="panel"><h2>Ort für Sonnenzeiten</h2><div class="grid3">${sf('place', 'Ort', 'text')}${sf('lat', 'Breitengrad')}${sf('lon', 'Längengrad')}</div></section>
     <section class="panel"><h2>Aus Hevy übernehmen</h2><p class="small muted">Wähl die CSV-Dateien aus deinem Hevy-Export, Trainings und Messungen gehen beide. Was schon in Bilanz steht, wird übersprungen.</p>
@@ -3020,19 +3184,365 @@ function actScan(c, args) {
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') scanClose(); });
 
+/* ---------- v15: Farbthemen ---------- */
+var THEME_ACC = { blau: ['Blau', '#2D62D3', '#76A0FF'], rot: ['Rot', '#CC2229', '#FF6B6B'], gruen: ['Grün', '#1E8A5A', '#46BE86'], lila: ['Lila', '#6A4CD4', '#A08FFF'], orange: ['Orange', '#C9590A', '#FFA24D'], tuerkis: ['Türkis', '#0D8494', '#4CC9D9'], pink: ['Pink', '#BF2E77', '#F27BB5'], graphit: ['Graphit', '#36414C', '#C3CDD6'] };
+var THEME_MODES = [['auto', 'Automatisch'], ['light', 'Hell'], ['dark', 'Dunkel'], ['black', 'Schwarz']];
+function themeDark() { const m = (S.profile.settings || {}).themeMode || 'auto'; return m === 'dark' || m === 'black' || (m === 'auto' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+function applyTheme() {
+  const s = S.profile.settings || {}, r = document.documentElement, mode = s.themeMode || 'auto', acc = THEME_ACC[s.accent];
+  if (mode === 'light') r.dataset.theme = 'light'; else if (mode === 'dark' || mode === 'black') r.dataset.theme = 'dark'; else delete r.dataset.theme;
+  r.classList.toggle('oled', mode === 'black');
+  const dark = themeDark();
+  if (acc && s.accent !== 'blau') { r.style.setProperty('--accent', dark ? acc[2] : acc[1]); r.style.setProperty('--accent-ink', dark ? '#0B1117' : '#FFFFFF'); }
+  else { r.style.removeProperty('--accent'); r.style.removeProperty('--accent-ink'); }
+  const bg = mode === 'black' ? '#000000' : dark ? '#0E151B' : '#E8EDF1';
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => m.setAttribute('content', bg));
+}
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { applyTheme(); render(); }); } catch (e) { }
+function themePanel() {
+  const s = S.profile.settings, mode = s.themeMode || 'auto', acc = s.accent || 'blau', dark = themeDark();
+  return `<section class="panel"><h2>Design</h2>
+    <div class="seg th-seg" role="group" aria-label="Hell oder dunkel">${THEME_MODES.map(([k, l]) => `<button class="${mode === k ? 'on' : ''}" data-a="theme-mode:${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div>
+    <p class="small muted" style="margin:10px 0 8px">Akzentfarbe für Knöpfe und Links</p>
+    <div class="th-sw">${Object.entries(THEME_ACC).map(([k, v]) => `<button class="th-c${acc === k ? ' on' : ''}" style="--sw:${dark ? v[2] : v[1]}" data-a="theme-acc:${k}" aria-pressed="${acc === k}" aria-label="${v[0]}"><i></i><span>${v[0]}</span></button>`).join('')}</div>
+    <p class="small muted" style="margin-top:8px">„Schwarz“ ist ein echter Nachtmodus mit schwarzem Hintergrund, spart auf dem iPhone-Display Akku.</p>
+    <button class="btn wide" style="margin-top:10px" data-a="home-edit">Startseite anpassen</button></section>`;
+}
+
+/* ---------- v15: Live-Leiste ---------- */
+var LV_WORK = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 12.5h17"/></svg>';
+function renderLive() {
+  const el = $('#live'); if (!el) return;
+  const a = S.profile.active, ck = clockRun(), t = S.ui.tab, g = $('#gym'), gymVis = g && !g.hidden;
+  const items = [];
+  if (a && !gymVis && t !== 'training') {
+    const R = a.rest, left = R && !R.done ? gymRestLeft(a) : 0;
+    items.push(`<button class="lv-i lv-tr" data-a="${a.ex.length ? 'gym-open' : 'tab:training'}" aria-label="Laufendes Training öffnen"><span class="lv-ic">${GYI.gym}</span><span class="lv-t"><b>${esc(a.name || 'Training')}</b><span data-timer></span></span>${left ? `<span class="lv-rest"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" class="tr"/><circle cx="10" cy="10" r="8" class="pr" data-lv-ring style="stroke-dasharray:50.27;stroke-dashoffset:${(50.27 * (1 - left / Math.max(1, R.dur))).toFixed(1)}"/></svg><span data-lv-rest>${gymMMSS(left)}</span></span>` : ''}</button>`);
+  }
+  if (ck && t !== 'arbeit') items.push(`<button class="lv-i lv-wk" data-a="tab:arbeit" aria-label="Arbeitszeit öffnen"><span class="lv-ic">${LV_WORK}</span><span class="lv-t"><b>Arbeit</b><span data-wm="td"></span></span><span class="lv-m"><span data-wm="nDt"></span> €</span></button>`);
+  const html = items.join('');
+  if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; }
+  el.hidden = !items.length; el.classList.toggle('two', items.length > 1);
+  if (items.length) { tickTimer(); try { tickWork(); } catch (e) { } }
+}
+setInterval(() => {
+  const a = S.profile.active, el = $('#live'); if (!a || !el || el.hidden) return;
+  const R = a.rest, left = R && !R.done ? gymRestLeft(a) : 0, t = el.querySelector('[data-lv-rest]');
+  if (!t !== !left) { renderLive(); return; }
+  if (t) { t.textContent = gymMMSS(left); const r = el.querySelector('[data-lv-ring]'); if (r) r.style.strokeDashoffset = (50.27 * (1 - left / Math.max(1, R.dur))).toFixed(1); }
+  if (R && !R.done && left <= 0) { R.done = true; gymBeep(); touch('profile'); renderLive(); }
+}, 500);
+
+/* ---------- v15: Startseite selbst anordnen ---------- */
+var HOME_ITEMS = [['sky', 'Wetter und Sonne'], ['rings', 'Tagesringe'], ['checks', 'Täglich abhaken'], ['quick', 'Schnell eintragen'], ['brief', 'Dein Tag'], ['badges', 'Level und Abzeichen'], ['counters', 'Angeheftete Zähler'],
+  ['t-energy', 'Kachel Energie'], ['t-body', 'Kachel Gewicht'], ['t-alc', 'Kachel Alkohol'], ['t-water', 'Kachel Wasser'], ['t-work', 'Kachel Arbeit'], ['t-fin', 'Kachel Finanzen'],
+  ['uni', 'Uni'], ['training', 'Training'], ['today', 'Termine und To-dos'], ['sport', 'Spielplan'], ['week', 'Deine Woche']];
+var HOME_N = Object.fromEntries(HOME_ITEMS);
+function homeCfg() { const h = S.profile.home && typeof S.profile.home === 'object' ? S.profile.home : {}; return { order: Array.isArray(h.order) ? h.order : [], hidden: Array.isArray(h.hidden) ? h.hidden : [] }; }
+function homeOrder() {
+  const ids = HOME_ITEMS.map(x => x[0]), out = homeCfg().order.filter(id => ids.includes(id));
+  ids.forEach((id, i) => { if (out.includes(id)) return; let pos = 0; for (let j = i - 1; j >= 0; j--) { const p = out.indexOf(ids[j]); if (p >= 0) { pos = p + 1; break; } } out.splice(pos, 0, id); });
+  return out;
+}
+function homeSave(order, hidden) { S.profile.home = { order, hidden }; touch('profile'); }
+function vHeute() {
+  const k = todayKey();
+  if (S.ui.homeEdit) return vHomeEdit();
+  const R = { sky: vSky, rings: () => vRings(k), checks: () => vChecks(k), quick: vQuick, brief: vBrief, badges: vDashBadges, counters: vDashCounters,
+    't-energy': () => vDashEnergy(k), 't-body': vDashBody, 't-alc': vDashAlc, 't-water': vDashWater, 't-work': vDashWork, 't-fin': vDashFin,
+    uni: () => vDashUni(k), training: () => vDashTraining(k), today: () => vDashToday(k), sport: vDashSport, week: vDashWeek };
+  const hid = new Set(homeCfg().hidden);
+  let out = '', tiles = '';
+  const flush = () => { if (tiles) { out += `<div class="tiles">${tiles}</div>`; tiles = ''; } };
+  for (const id of homeOrder()) {
+    if (hid.has(id) || !R[id]) continue;
+    let h = ''; try { h = R[id](); } catch (e) { console.error(e); }
+    if (id.startsWith('t-')) tiles += h; else { flush(); out += h; }
+    if (id === 'brief' && k.slice(5, 7) === '12') { flush(); out += vWrapCard(); }
+  }
+  flush();
+  return out + `<button class="home-edit-btn" data-a="home-edit">Startseite anpassen</button>`;
+}
+function vHomeEdit() {
+  const order = homeOrder(), hid = new Set(homeCfg().hidden);
+  return `<section class="panel home-ed"><div class="panel-h"><h2>Startseite anpassen</h2><button class="btn small primary" data-a="home-done">Fertig</button></div>
+    <p class="small muted">Zieh am Griff links, um die Reihenfolge zu ändern, oder nimm die Pfeile. Mit dem Schalter blendest du einen Bereich aus.</p>
+    <ul class="he-list" id="he-list">${order.map((id, i) => { const on = !hid.has(id); return `<li class="he${on ? '' : ' off'}" data-id="${id}"><span class="he-grip" aria-hidden="true"><i></i><i></i><i></i></span><span class="he-n">${esc(HOME_N[id])}</span>
+      <button class="he-b" data-a="home-mv:${id}:-1" ${i === 0 ? 'disabled' : ''} aria-label="${esc(HOME_N[id])} nach oben">↑</button><button class="he-b" data-a="home-mv:${id}:1" ${i === order.length - 1 ? 'disabled' : ''} aria-label="${esc(HOME_N[id])} nach unten">↓</button>
+      <button class="sw${on ? ' on' : ''}" role="switch" aria-checked="${on}" data-a="home-tg:${id}" aria-label="${esc(HOME_N[id])} anzeigen"><i></i></button></li>`; }).join('')}</ul>
+    <button class="link" data-a="home-reset" data-confirm="Wirklich zurücksetzen?">Auf Standard zurücksetzen</button></section>`;
+}
+(() => {
+  let D = null;
+  document.addEventListener('pointerdown', e => {
+    const gr = e.target.closest && e.target.closest('.he-grip'); if (!gr) return;
+    const li = gr.closest('.he'), ul = li && li.parentElement; if (!ul) return;
+    e.preventDefault(); D = { li, ul, id: e.pointerId, y0: e.clientY }; li.classList.add('drag');
+    try { gr.setPointerCapture(e.pointerId); } catch (er) { }
+  });
+  document.addEventListener('pointermove', e => {
+    if (!D || e.pointerId !== D.id) return;
+    if (e.clientY < 110) window.scrollBy(0, -14); else if (e.clientY > innerHeight - 110) window.scrollBy(0, 14);
+    const { li, ul } = D, sibs = [...ul.children].filter(x => x !== li);
+    let before = null; for (const s of sibs) { const r = s.getBoundingClientRect(); if (e.clientY < r.top + r.height / 2) { before = s; break; } }
+    if (before !== li.nextSibling) ul.insertBefore(li, before);
+  });
+  const end = e => {
+    if (!D || (e && e.pointerId !== D.id)) return;
+    const { li, ul } = D; D = null; li.classList.remove('drag');
+    homeSave([...ul.children].map(x => x.dataset.id), homeCfg().hidden); render();
+  };
+  document.addEventListener('pointerup', end); document.addEventListener('pointercancel', end);
+})();
+
+/* ---------- v15: Tagesringe ---------- */
+function vRings(k) {
+  const s = S.profile.settings, t = mealTotals(k), d = getDay(k);
+  const R = [
+    { id: 'kcal', l: 'Kalorien', v: t.kcal, g: +s.kcal || 0, u: '', c: 'var(--energy)' },
+    { id: 'p', l: 'Eiweiß', v: t.p, g: +s.protein || 0, u: ' g', c: 'var(--prot)' },
+    { id: 'st', l: 'Schritte', v: d.steps || 0, g: stepGoal(), u: '', c: 'var(--c-steps)' }
+  ];
+  const key = R.map(r => Math.round(r.v)).join('|'), anim = S.ui.ringsK == null || Date.now() - (S.ui.enterT || 0) < 1500 || S.ui.ringsK !== key;
+  S.ui.ringsK = key;
+  const rad = [44, 33, 22];
+  const rings = R.map((r, i) => {
+    const C = 2 * Math.PI * rad[i], p = r.g ? r.v / r.g : 0, over = r.id === 'kcal' && p > 1.02, f = Math.min(1, p);
+    return `<circle cx="50" cy="50" r="${rad[i]}" class="rg-bg" style="stroke:${r.c}"/>${f > 0 ? `<circle cx="50" cy="50" r="${rad[i]}" class="rg-fg${anim ? ' anim' : ''}${over ? ' over' : ''}" style="stroke:${over ? 'var(--warn)' : r.c};stroke-dasharray:${C.toFixed(1)};stroke-dashoffset:${(C * (1 - f)).toFixed(1)};--c0:${C.toFixed(1)}"/>` : ''}`;
+  }).join('');
+  const wp = planFor(k), tr = d.workouts.length ? `${GYI.check}<b>Training erledigt</b>` : S.profile.active ? `<b>Training läuft</b>` : wp ? `<span>Heute dran:</span> <b>${esc(wp)}</b>` : '<span>Ruhetag</span>';
+  return `<section class="rings" role="button" tabindex="0" data-a="go-meal" aria-label="Tagesringe, Essen eintragen"><svg viewBox="0 0 100 100" class="rg" aria-hidden="true">${rings}</svg>
+    <div class="rg-l">${R.map(r => { const done = r.g && r.v >= r.g; return `<div class="rg-row"><i style="background:${r.c}"></i><span>${r.l}</span><b>${fmt(Math.round(r.v))}${r.g ? `<small> / ${fmt(r.g)}${r.u}</small>` : ''}</b>${done && r.id !== 'kcal' ? `<em>${GYI.check}</em>` : ''}</div>`; }).join('')}
+      <div class="rg-tr">${tr}</div></div></section>`;
+}
+
+/* ---------- v15: Himmel mit Wetter ---------- */
+function skyFx(cur, el) {
+  let reduce = false; try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { }
+  const code = cur ? +cur.weather_code : -1, night = el < -4;
+  const parts = [];
+  if (night) {
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    const stars = Array.from({ length: 34 }, () => `<i style="left:${(rnd() * 100).toFixed(1)}%;top:${(rnd() * 70).toFixed(1)}%;--d:${(1.5 + rnd() * 3).toFixed(2)}s;--s:${(1 + rnd() * 1.6).toFixed(1)}px"></i>`).join('');
+    if (code < 3) parts.push(`<div class="fx-stars">${stars}</div>`);
+  } else if (el > 0 && code <= 1) parts.push('<div class="fx-glow"></div>');
+  if ([2, 3, 45, 48].includes(code) || code >= 51) parts.push(`<div class="fx-clouds${code === 3 || code === 45 || code === 48 || code >= 51 ? ' thick' : ''}"><i></i><i></i><i></i></div>`);
+  if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) parts.push('<div class="fx-rain"></div>');
+  if ((code >= 71 && code <= 77) || code === 85 || code === 86) parts.push('<div class="fx-snow"></div>');
+  if (code >= 95) parts.push('<div class="fx-rain"></div><div class="fx-flash"></div>');
+  return parts.length ? `<div class="sky-fx${reduce ? ' still' : ''}" aria-hidden="true">${parts.join('')}</div>` : '';
+}
+
+/* ---------- v15: Übergänge und Wischen ---------- */
+function vtRun(fn, dir, el) {
+  let reduce = false; try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { }
+  if (!document.startViewTransition || reduce || document.visibilityState !== 'visible') { fn(); return; }
+  const r = document.documentElement; r.dataset.vt = dir || 'fade';
+  if (el && el.style) el.style.viewTransitionName = 'morph';
+  let tr;
+  try {
+    tr = document.startViewTransition(() => {
+      if (el && el.style) el.style.viewTransitionName = '';
+      fn();
+      if (el) { const h = $('#main').firstElementChild; if (h) { h.style.viewTransitionName = 'morph'; S.ui.vtEl = h; } }
+    });
+  } catch (e) { delete r.dataset.vt; if (el && el.style) el.style.viewTransitionName = ''; fn(); return; }
+  tr.finished.finally(() => { delete r.dataset.vt; if (S.ui.vtEl) { S.ui.vtEl.style.viewTransitionName = ''; S.ui.vtEl = null; } });
+}
+function tabDir(from, to) {
+  if (SUB[to] && !SUB[from]) return 'push';
+  if (SUB[from] && !SUB[to]) return 'pop';
+  const ids = TABS.map(x => x[0]), a = ids.indexOf(from), b = ids.indexOf(to);
+  return a >= 0 && b >= 0 ? (b > a ? 'left' : 'right') : 'fade';
+}
+(() => {
+  const m = $('#main'); if (!m) return; let T = null;
+  const NOSW = 'input,textarea,select,button.sw,.hm-wrap,.chips,.sky-hours,.fcats,.phcmp,.he-list,.swipe-li,.chart,.wkdots,[data-noswipe],.mrows,.mm,.sky-arc';
+  m.addEventListener('touchstart', e => { if (e.touches.length !== 1 || S.ui.sheet || S.ui.pick) { T = null; return; } const t = e.touches[0]; if (e.target.closest && e.target.closest(NOSW)) { T = null; return; } if (t.clientX < 18 || t.clientX > innerWidth - 18) { T = null; return; } T = { x: t.clientX, y: t.clientY, t: Date.now() }; }, { passive: true });
+  m.addEventListener('touchend', e => {
+    if (!T) return; const t = e.changedTouches[0], dx = t.clientX - T.x, dy = t.clientY - T.y, dt = Date.now() - T.t; T = null;
+    if (dt > 700 || Math.abs(dx) < 90 || Math.abs(dy) > Math.abs(dx) * 0.45) return;
+    const cur = S.ui.tab;
+    if (SUB[cur]) { if (dx > 0) act('back'); return; }
+    const ids = TABS.map(x => x[0]), i = ids.indexOf(cur), j = i + (dx < 0 ? 1 : -1);
+    if (i >= 0 && j >= 0 && j < ids.length) setTab(ids[j]);
+  }, { passive: true });
+})();
+/* Listen: nach rechts wischen = abhaken, nach links = löschen */
+(() => {
+  let W = null;
+  document.addEventListener('touchstart', e => {
+    const li = e.target.closest && e.target.closest('.swipe-li'); if (!li || e.touches.length !== 1) { W = null; return; }
+    const t = e.touches[0]; W = { li, x: t.clientX, y: t.clientY, dx: 0, on: false };
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (!W) return; const t = e.touches[0], dx = t.clientX - W.x, dy = t.clientY - W.y;
+    if (!W.on) { if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { W = null; return; } if (Math.abs(dx) < 12) return; W.on = true; W.li.classList.add('swiping'); }
+    W.dx = Math.max(-140, Math.min(140, dx)); W.li.style.setProperty('--sx', W.dx + 'px');
+    W.li.classList.toggle('sw-r', W.dx > 0); W.li.classList.toggle('sw-l', W.dx < 0); W.li.classList.toggle('arm', Math.abs(W.dx) > 90);
+  }, { passive: true });
+  document.addEventListener('touchend', () => {
+    if (!W) return; const { li, dx, on } = W; W = null; if (!on) return;
+    li.classList.remove('swiping', 'arm'); li.style.setProperty('--sx', '0px');
+    setTimeout(() => li.classList.remove('sw-r', 'sw-l'), 220);
+    if (dx > 90 && li.dataset.swr) act(li.dataset.swr);
+    else if (dx < -90 && li.dataset.swl) swipeDel(li.dataset.swl);
+  });
+})();
+function swipeDel(a) {
+  const [c, id] = a.split(':');
+  if (c === 'todo-del') { const L = S.profile.todos, i = L.findIndex(t => t.id === id); if (i < 0) return; const t = L[i]; L.splice(i, 1); touch('profile'); render(); toast(`Gelöscht: ${t.text}`, () => { S.profile.todos.splice(Math.min(i, S.profile.todos.length), 0, t); touch('profile'); render(); }); }
+  else if (c === 'shop-del') { const L = S.profile.shop, i = L.findIndex(x => x.id === id); if (i < 0) return; const x = L[i]; L.splice(i, 1); touch('profile'); render(); toast(`Entfernt: ${x.n}`, () => { S.profile.shop.splice(Math.min(i, S.profile.shop.length), 0, x); touch('profile'); render(); }); }
+  else act(a);
+}
+
+/* ---------- v15: Abzeichen und Level ---------- */
+var BADGE = { memo: null, t: 0, popQ: [] };
+var BDG_IC = {
+  train: '<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>',
+  cal: '<rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4M9 14.5l2 2 4-4"/>',
+  trophy: '<path d="M8 4.5h8v5a4 4 0 0 1-8 0zM8 6.5H5a3 3 0 0 0 3 4M16 6.5h3a3 3 0 0 1-3 4M12 13.5v3M8.5 19.5h7M10 16.5h4v3h-4z"/>',
+  weight: '<path d="M9 7a3 3 0 0 1 6 0"/><path d="M7.5 9h9l1.5 10.5h-12z"/>',
+  egg: '<path d="M12 3.5c3.2 0 6 5 6 9.5a6 6 0 0 1-12 0c0-4.5 2.8-9.5 6-9.5z"/>',
+  target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+  book: '<path d="M5 5.5a2 2 0 0 1 2-2h11v15H7a2 2 0 0 0-2 2zM5 20.5V5.5M9 8h6"/>',
+  scale: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9.5a4 4 0 0 1 6 0l-2 2"/>',
+  steps: '<path d="M8 4c1.7 0 2.5 2 2.5 4.5S9.6 13 8 13s-2.5-2-2.5-4.5S6.3 4 8 4zM16 9c1.7 0 2.5 2 2.5 4.5S17.6 18 16 18s-2.5-2-2.5-4.5S14.3 9 16 9zM6.5 15.5h3M14.5 20.5h3"/>',
+  check: '<circle cx="12" cy="12" r="8.5"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/>',
+  drop: '<path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/>',
+  work: '<rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5"/>',
+  uni: '<path d="M2.5 9.5L12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5v4c3 2.5 8 2.5 11 0v-4"/>'
+};
+var BADGES = [
+  ['tr1', 'Erster Schritt', 'Ein Training gespeichert', 1, 'train', S => [S.tr, 1]],
+  ['tr10', 'Warmgelaufen', '10 Trainings', 1, 'train', S => [S.tr, 10]],
+  ['tr50', 'Stammgast', '50 Trainings', 2, 'train', S => [S.tr, 50]],
+  ['tr100', 'Hundert', '100 Trainings', 3, 'train', S => [S.tr, 100]],
+  ['tr250', 'Eisern', '250 Trainings', 4, 'train', S => [S.tr, 250]],
+  ['wk4', 'Dranbleiben', '4 Wochen in Folge mit mindestens 3 Trainings', 2, 'cal', S => [S.wkBest, 4]],
+  ['wk12', 'Gewohnheitstier', '12 Wochen in Folge mit mindestens 3 Trainings', 3, 'cal', S => [S.wkBest, 12]],
+  ['pr10', 'Rekordjäger', '10 Bestleistungen', 1, 'trophy', S => [S.prs, 10]],
+  ['pr50', 'Rekordsammler', '50 Bestleistungen', 2, 'trophy', S => [S.prs, 50]],
+  ['pr100', 'Unaufhaltsam', '100 Bestleistungen', 3, 'trophy', S => [S.prs, 100]],
+  ['v100', '100 Tonnen', '100 Tonnen Gesamtvolumen bewegt', 2, 'weight', S => [Math.floor(S.vol / 1000), 100]],
+  ['v500', '500 Tonnen', '500 Tonnen Gesamtvolumen bewegt', 3, 'weight', S => [Math.floor(S.vol / 1000), 500]],
+  ['v1000', 'Tausend Tonnen', '1.000 Tonnen Gesamtvolumen bewegt', 4, 'weight', S => [Math.floor(S.vol / 1000), 1000]],
+  ['p7', 'Eiweißprofi', 'An 7 Tagen das Eiweißziel erreicht', 1, 'egg', S => [S.protD, 7]],
+  ['p30', 'Proteinmaschine', 'An 30 Tagen das Eiweißziel erreicht', 2, 'egg', S => [S.protD, 30]],
+  ['p100', 'Muskelfutter', 'An 100 Tagen das Eiweißziel erreicht', 3, 'egg', S => [S.protD, 100]],
+  ['k7', 'Punktlandung', '7 Tage in Folge im Kalorienziel', 2, 'target', S => [S.kcalBest, 7]],
+  ['f100', 'Buchhalter', 'An 100 Tagen Essen eingetragen', 2, 'book', S => [S.foodD, 100]],
+  ['w30', 'Auf der Waage', '30 Mal gewogen', 1, 'scale', S => [S.wN, 30]],
+  ['w100', 'Datenmensch', '100 Mal gewogen', 2, 'scale', S => [S.wN, 100]],
+  ['s10', 'Unterwegs', 'An 10 Tagen das Schrittziel erreicht', 1, 'steps', S => [S.stepD, 10]],
+  ['s50', 'Wanderer', 'An 50 Tagen das Schrittziel erreicht', 2, 'steps', S => [S.stepD, 50]],
+  ['h7', 'Routine', '7 Tage Serie bei einer Gewohnheit', 1, 'check', S => [S.habBest, 7]],
+  ['h30', 'Eingeschliffen', '30 Tage Serie bei einer Gewohnheit', 3, 'check', S => [S.habBest, 30]],
+  ['a7', 'Klarer Kopf', '7 Tage am Stück alkoholfrei', 1, 'drop', S => [S.alc, 7]],
+  ['a30', 'Durchgezogen', '30 Tage am Stück alkoholfrei', 3, 'drop', S => [S.alc, 30]],
+  ['wk100h', 'Fleißig', '100 Stunden gearbeitet', 2, 'work', S => [Math.floor(S.workMin / 60), 100]],
+  ['u1', 'Bestanden', 'Erstes Modul bestanden', 2, 'uni', S => [S.uniDone, 1]]
+];
+var BADGE_TIER = ['', 'Bronze', 'Silber', 'Gold', 'Platin'];
+var LEVEL_RANK = ['Neuling', 'Einsteiger', 'Fortgeschritten', 'Athlet', 'Profi', 'Elite', 'Legende'];
+function badgeStats(force) {
+  if (!force && BADGE.memo && Date.now() - BADGE.t < 8000) return BADGE.memo;
+  const ws = allWorkouts(), s = S.profile.settings, days = Object.keys(S.days).sort();
+  let vol = 0; for (const w of ws) for (const e of w.ex || []) for (const x of e.sets || []) if (!x.warm) vol += (+x.kg || 0) * (+x.reps || 0);
+  let protD = 0, foodD = 0, stepD = 0, wN = 0, habN = 0, workMin = 0, kRun = 0, kBest = 0, prev = null;
+  const gK = +s.kcal || 0, gP = +s.protein || 0, gS = stepGoal();
+  for (const k of days) {
+    const d = S.days[k], has = (d.meals || []).length > 0, t = has ? mealTotals(k) : null;
+    if (has) foodD++;
+    if (has && gP && t.p >= gP) protD++;
+    if ((d.steps || 0) >= gS) stepD++;
+    if (d.body && d.body.weight != null) wN++;
+    habN += Object.values(d.habits || {}).filter(Boolean).length;
+    workMin += dayWork(k) || 0;
+    const ok = has && gK && t.kcal >= gK * 0.75 && t.kcal <= gK * 1.05;
+    kRun = ok ? (prev && addDays(prev, 1) === k ? kRun + 1 : 1) : 0; if (ok) prev = k; else prev = null; kBest = Math.max(kBest, kRun);
+  }
+  const wkCount = {}; for (const w of ws) { const m = mondayOf(w.date); wkCount[m] = (wkCount[m] || 0) + 1; }
+  let run = 0, wkBest = 0; const m0 = ws.length ? mondayOf(ws[ws.length - 1].date) : mondayOf(todayKey()), mNow = mondayOf(todayKey());
+  for (let m = m0; m <= mNow; m = addDays(m, 7)) { if ((wkCount[m] || 0) >= 3) { run++; wkBest = Math.max(wkBest, run); } else if (m !== mNow) run = 0; }
+  let prs = 0; try { prs = prEvents().ev.length; } catch (e) { }
+  let alc = 0; try { alc = alcFreeStreak() || 0; } catch (e) { }
+  const habBest = Math.max(0, ...(S.profile.habits || []).map(h => { try { return streak(h.id) || 0; } catch (e) { return 0; } }));
+  const uniDone = ((S.profile.uni && S.profile.uni.mods) || []).filter(m => m.done).length;
+  const St = { tr: ws.length, prs, vol, protD, foodD, stepD, wN, habN, workMin, kcalBest: kBest, wkBest, alc, habBest, uniDone };
+  const have = S.profile.badges && typeof S.profile.badges === 'object' ? S.profile.badges : null;
+  const list = BADGES.map(([id, name, desc, tier, ic, f]) => { const [cur, goal] = f(St); return { id, name, desc, tier, ic, cur: Math.min(cur, goal), goal, done: cur >= goal || !!(have && have[id]), at: have && have[id] }; });
+  const earned = list.filter(b => b.done).length;
+  const xp = St.tr * 40 + St.prs * 20 + St.protD * 10 + St.stepD * 10 + St.wN * 5 + St.habN * 3 + Math.floor(St.vol / 1000) * 2 + earned * 50;
+  const L = Math.max(1, Math.floor((1 + Math.sqrt(1 + 4 * xp / 50)) / 2)), x0 = 50 * L * (L - 1), x1 = 50 * (L + 1) * L;
+  BADGE.memo = { St, list, earned, xp, L, x0, x1, rank: LEVEL_RANK[Math.min(LEVEL_RANK.length - 1, Math.floor((L - 1) / 5))] };
+  BADGE.t = Date.now(); return BADGE.memo;
+}
+function badgeCheck() {
+  if (!S.profile || !S.profile.settings || !Cloud.daysServer || !Cloud.profileSeen || BK.busy || BK.reload) return;
+  const B = badgeStats(), have = S.profile.badges && typeof S.profile.badges === 'object' ? S.profile.badges : null, tk = todayKey();
+  if (!have) { const o = {}; for (const b of B.list) if (b.done) o[b.id] = tk; S.profile.badges = o; S.ui.badgeFirst = Object.keys(o).length; touch('profile'); BADGE.memo = null; if (S.ui.tab === 'heute') requestRender(); return; }
+  const neu = B.list.filter(b => b.done && !have[b.id]);
+  if (!neu.length) return;
+  S.profile.badges = { ...have }; for (const b of neu) S.profile.badges[b.id] = tk; touch('profile'); BADGE.memo = null;
+  BADGE.popQ.push(...neu.map(b => b.id)); setTimeout(badgePop, 400);
+}
+function medal(b, big) {
+  return `<span class="md t${b.done ? b.tier : 0}${big ? ' big' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BDG_IC[b.ic] || ''}</svg></span>`;
+}
+function badgePop() {
+  const el = $('#bdg'); if (!el || !BADGE.popQ.length) return;
+  const g = $('#gym'); if ((g && !g.hidden) || S.ui.pick || S.ui.sheet) { setTimeout(badgePop, 4000); return; }
+  const ids = BADGE.popQ.splice(0), B = badgeStats(true), first = B.list.find(b => b.id === ids[0]); if (!first) return;
+  el.innerHTML = `<div class="bdg-in" role="dialog" aria-modal="true" aria-label="Neues Abzeichen"><p class="bdg-k">Neues Abzeichen</p>${medal(first, true)}<h2>${esc(first.name)}</h2><p>${esc(first.desc)} · ${BADGE_TIER[first.tier]}</p>${ids.length > 1 ? `<p class="small">und ${ids.length - 1} ${ids.length === 2 ? 'weiteres' : 'weitere'}</p>` : ''}
+    <button class="btn primary wide" data-a="bdg-close">Stark!</button><button class="link" data-a="bdg-all">Alle Abzeichen ansehen</button></div>`;
+  el.hidden = false; celebrate();
+}
+function vDashBadges() {
+  const B = badgeStats(), pct = Math.min(100, (B.xp - B.x0) / Math.max(1, B.x1 - B.x0) * 100);
+  const recent = B.list.filter(b => b.done).sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')) || b.tier - a.tier).slice(0, 4);
+  return `<section class="lvl" role="button" tabindex="0" data-a="tab:abzeichen" aria-label="Level und Abzeichen öffnen"><div class="lvl-n"><small>Level</small><b>${B.L}</b></div>
+    <div class="lvl-m"><div class="lvl-h"><b>${B.rank}</b><span>${fmt(B.xp)} XP</span></div><div class="lvl-bar"><i style="width:${pct.toFixed(1)}%"></i></div><span class="lvl-s">${fmt(B.x1 - B.xp)} XP bis Level ${B.L + 1} · ${B.earned} von ${B.list.length} Abzeichen</span></div>
+    <div class="lvl-md">${recent.map(b => medal(b)).join('')}</div>
+    ${S.ui.badgeFirst ? `<p class="lvl-first">Neu: Level und Abzeichen. Du hast schon ${S.ui.badgeFirst} Abzeichen gesammelt.</p>` : ''}</section>`;
+}
+function vAbzeichen() {
+  const B = badgeStats(true), pct = Math.min(100, (B.xp - B.x0) / Math.max(1, B.x1 - B.x0) * 100); S.ui.badgeFirst = 0;
+  const grp = [['Training', ['tr1', 'tr10', 'tr50', 'tr100', 'tr250', 'wk4', 'wk12', 'pr10', 'pr50', 'pr100', 'v100', 'v500', 'v1000']], ['Ernährung und Körper', ['p7', 'p30', 'p100', 'k7', 'f100', 'w30', 'w100', 's10', 's50']], ['Alltag', ['h7', 'h30', 'a7', 'a30', 'wk100h', 'u1']]];
+  const card = b => `<div class="bd${b.done ? ' on' : ''}">${medal(b)}<b>${esc(b.name)}</b><small>${esc(b.desc)}</small>${b.done ? `<span class="bd-t t${b.tier}">${BADGE_TIER[b.tier]}${b.at ? ` · ${shortDate(b.at)}` : ''}</span>` : `<span class="bd-p"><i style="width:${(b.cur / b.goal * 100).toFixed(0)}%"></i></span><span class="bd-pn">${fmt(b.cur)} / ${fmt(b.goal)}</span>`}</div>`;
+  return `<section class="hero6 lvl-hero" style="--hc:var(--d-badge)"><span class="lbl">${B.rank}</span><span class="big">Level ${B.L}</span>
+    <div class="lvl-bar on-hero"><i style="width:${pct.toFixed(1)}%"></i></div><p>${fmt(B.xp)} XP, noch ${fmt(B.x1 - B.xp)} bis Level ${B.L + 1}. ${B.earned} von ${B.list.length} Abzeichen.</p></section>
+    ${grp.map(([h, ids]) => `<h2 class="msec">${h}</h2><div class="bd-grid">${ids.map(id => B.list.find(b => b.id === id)).filter(Boolean).map(card).join('')}</div>`).join('')}
+    <section class="panel"><h2>So sammelst du XP</h2><p class="small">Training 40 · Bestleistung 20 · Tag mit Eiweißziel 10 · Tag mit Schrittziel 10 · Wiegen 5 · abgehakte Gewohnheit 3 · je Tonne Volumen 2 · Abzeichen 50</p></section>`;
+}
+function actDesign(c, args, el) {
+  switch (c) {
+    case 'theme-mode': S.profile.settings.themeMode = args[0]; touch('profile'); applyTheme(); renderSheet(); return true;
+    case 'theme-acc': S.profile.settings.accent = args[0]; touch('profile'); applyTheme(); renderSheet(); return true;
+    case 'home-edit': if (S.ui.sheet) closeSettings(); S.ui.homeEdit = true; if (S.ui.tab !== 'heute') setTab('heute'); else { render(); window.scrollTo(0, 0); } return true;
+    case 'home-done': S.ui.homeEdit = false; render(); window.scrollTo(0, 0); toast('Startseite gespeichert'); return true;
+    case 'home-reset': S.profile.home = { order: [], hidden: [] }; touch('profile'); render(); return true;
+    case 'home-mv': { const o = homeOrder(), i = o.indexOf(args[0]), j = i + (+args[1]); if (i < 0 || j < 0 || j >= o.length) return true; [o[i], o[j]] = [o[j], o[i]]; homeSave(o, homeCfg().hidden); render(); return true; }
+    case 'home-tg': { const h = new Set(homeCfg().hidden); h.has(args[0]) ? h.delete(args[0]) : h.add(args[0]); homeSave(homeOrder(), [...h]); render(); return true; }
+    case 'bdg-close': { const b = $('#bdg'); if (b) { b.hidden = true; b.innerHTML = ''; } return true; }
+    case 'bdg-all': { const b = $('#bdg'); if (b) { b.hidden = true; b.innerHTML = ''; } setTab('abzeichen'); return true; }
+  }
+  return false;
+}
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
 function requestRender() { if (isEditing() || S.ui.importing) { renderQueued = true; return; } render(); }
 function render() {
-  renderQueued = false;
+  renderQueued = false; applyTheme();
   const t = S.ui.tab;
   $('#top-title').textContent = t === 'heute' ? 'Bilanz' : SUB[t] || (TABS.find(x => x[0] === t) || [0, ''])[1];
   $('#back').hidden = !SUB[t];
   const hl = SUB[t] ? (TABS.some(x => x[0] === S.ui.backTo) ? S.ui.backTo : 'mehr') : t;
   $('#tabs').innerHTML = TABS.map(([id, label]) => `<button data-a="tab:${id}" ${id === hl ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[id]}</svg>${label}</button>`).join('');
   const m = $('#main');
-  const V = { heute: vHeute, kalender: vKalender, training: vTraining, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos };
+  const V = { heute: vHeute, kalender: vKalender, training: vTraining, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen };
   V.routinen = () => vRoutHero() + vRoutinen() + vHabitHeat(); V.koerper = () => vBodyHero() + vKoerper();
   document.documentElement.style.setProperty('--area', `var(--${AREA[t] || 'd-slate'})`);
   const enter = S.ui.enter; S.ui.enter = false;
@@ -3046,7 +3556,7 @@ function render() {
     const generic = KNOWN_EX.filter(n => { const k = exKey(n); return !ownK.some(o => o.startsWith(k)); });
     $('#exlist').innerHTML = [...own, ...generic].map(n => `<option value="${esc(n)}">`).join('');
   }
-  tickTimer(); renderGym();
+  tickTimer(); renderGym(); renderLive(); setTimeout(badgeCheck, 60);
 }
 function tickTimer() {
   const a = S.profile.active; if (!a) return;
@@ -3065,10 +3575,11 @@ function toast(msg, undo) {
   t.classList.toggle('act', !!undo); t.classList.add('show'); clearTimeout(toastT);
   toastT = setTimeout(() => { t.classList.remove('show', 'act'); undoFn = null; }, undo ? 6000 : 2800);
 }
-function setTab(t, focusSel) {
+function setTab(t, focusSel, el) {
+  const from = S.ui.tab;
   if (SUB[t] && !SUB[S.ui.tab]) S.ui.backTo = S.ui.tab;
-  S.ui.tab = t; S.ui.enter = true; render(); window.scrollTo(0, 0);
-  if (focusSel) { const f = $(focusSel); if (f) f.focus(); }
+  const go = () => { S.ui.tab = t; S.ui.enter = true; S.ui.enterT = Date.now(); render(); window.scrollTo(0, 0); if (focusSel) { const f = $(focusSel); if (f) f.focus(); } };
+  if (from !== t && !focusSel) vtRun(go, tabDir(from, t), el && el.closest ? el.closest('.mtile,.tile,.lvl') : null); else go();
 }
 
 /* ---------- Hevy import ---------- */
@@ -5857,7 +6368,7 @@ function vEinkauf() {
   const L = S.profile.shop, open = L.filter(x => !x.done), done = L.filter(x => x.done);
   const groups = SHOP_CATS.map(([id, name]) => [id, name, open.filter(x => (x.cat || 'sonst') === id)]).filter(g => g[2].length);
   const hist = Object.values(S.profile.shopHist || {}).filter(h => !open.some(x => nrm(x.n) === nrm(h.n))).sort((a, b) => b.c - a.c || (b.t || 0) - (a.t || 0)).slice(0, 14);
-  const item = x => `<li class="sh ${x.done ? 'done' : ''}"><button class="tbox ${x.done ? 'on' : ''}" data-a="shop-toggle:${x.id}" aria-pressed="${!!x.done}" aria-label="${esc(x.n)} abhaken"></button><span>${esc(x.n)}</span><button class="x" data-a="shop-del:${x.id}" aria-label="${esc(x.n)} entfernen">×</button></li>`;
+  const item = x => `<li class="sh swipe-li ${x.done ? 'done' : ''}" data-swr="shop-toggle:${x.id}" data-swl="shop-del:${x.id}"><button class="tbox ${x.done ? 'on' : ''}" data-a="shop-toggle:${x.id}" aria-pressed="${!!x.done}" aria-label="${esc(x.n)} abhaken"></button><span>${esc(x.n)}</span><button class="x" data-a="shop-del:${x.id}" aria-label="${esc(x.n)} entfernen">×</button></li>`;
   return `<section class="hero6" style="--hc:var(--d-shop)"><span class="lbl">Einkaufsliste</span><span class="big">${cnt(open.length)}<small>${open.length === 1 ? 'Sache offen' : 'Sachen offen'}</small></span>${done.length ? `<p>${plu(done.length, 'ist', 'sind')} schon im Wagen.</p>` : ''}</section>
   <section class="panel"><div class="addrow" style="margin-top:0"><input id="shop-new" placeholder="z. B. Milch, Eier, Bananen" data-enter="shop-add" enterkeyhint="done" autocomplete="off"><button class="btn primary" data-a="shop-add">Hinzufügen</button></div><p class="small muted" style="margin:8px 0 0">Mehrere auf einmal mit Komma trennen. Die App sortiert nach Bereichen im Laden.</p>
     ${hist.length ? `<p class="pk-sec">Oft gekauft</p><div class="chips">${hist.map(h => `<button class="chip" data-a="shop-re:${esc(h.n)}">+ ${esc(h.n)}</button>`).join('')}</div>` : ''}</section>
@@ -6103,7 +6614,8 @@ function vMehr() {
     T('tab:routinen', 'Routinen', ICON.routinen, `${hs.length ? `${hs.filter(h => d.habits[h.id]).length} von ${hs.length} heute, ` : ''}${open} offen`, 'd-habit'),
     T('tab:einkauf', 'Einkauf', ICON.einkauf, shopN ? `${shopN} ${shopN === 1 ? 'Sache' : 'Sachen'} offen` : 'Liste ist leer', 'd-shop'),
     T('tab:zaehler', 'Zähler', ICON.zaehler, cnx ? `${cnx.name}: ${fmt(Math.abs(daysBetween(String(cnx.at).slice(0, 10), tk)))} Tage` : 'Seit wann, bis wann', 'd-count'),
-    T('tab:geburtstage', 'Geburtstage', ICON.geburtstage, bnx ? `${bnx.b.name}: ${bnx.n.days === 0 ? 'heute' : `in ${bnx.n.days} T.`}` : 'Nie mehr vergessen', 'd-bday')
+    T('tab:geburtstage', 'Geburtstage', ICON.geburtstage, bnx ? `${bnx.b.name}: ${bnx.n.days === 0 ? 'heute' : `in ${bnx.n.days} T.`}` : 'Nie mehr vergessen', 'd-bday'),
+    T('tab:abzeichen', 'Abzeichen', ICON.abzeichen, (() => { const B = badgeStats(); return `Level ${B.L} · ${B.earned} von ${B.list.length}`; })(), 'd-badge')
   ]) + sec('Körper', [
     T('tab:koerper', 'Körper', ICON.koerper, tr ? `${fmt(tr.last.v, 1)} kg${tr.diff != null ? `, ${signed(tr.diff, 1)} kg` : ''}` : 'Gewicht und Maße', 'd-body'),
     T('tab:alkohol', 'Alkohol', ICON_GLASS, st != null && n === 0 ? `${st} ${st === 1 ? 'Tag' : 'Tage'} alkoholfrei` : `${n} ${n === 1 ? 'Getränk' : 'Getränke'} diese Woche`, 'd-alc'),
@@ -6539,7 +7051,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actDesign(c, args, el) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -7331,7 +7843,7 @@ async function bkApply() {
   try { localStorage.removeItem(CACHE_KEY); } catch (e) { }
   BK.busy = ''; BK.pending = null;
   if (fail) { toast(`${fail} Einträge ließen sich nicht übernehmen.`); renderSheet(); return; }
-  toast('Backup eingespielt. Die App startet neu.');
+  BK.reload = true; toast('Backup eingespielt. Die App startet neu.');
   setTimeout(() => location.reload(), 900);
 }
 function bkPanel() {
@@ -7373,7 +7885,7 @@ function act(a, el) {
   const [c, ...args] = a.split(':');
   const A = S.profile.active;
   switch (c) {
-    case 'tab': setTab(args[0]); break;
+    case 'tab': setTab(args[0], undefined, el); break;
     case 'settings-open': openSettings(); break;
     case 'settings-close': closeSettings(); break;
     case 'go-meal': S.ui.foodDate = todayKey(); setTab('essen'); break;
@@ -7684,6 +8196,7 @@ document.addEventListener('visibilitychange', () => {
   requestRender();
 });
 
+Object.assign(SUB, { abzeichen: 'Abzeichen' }); AREA.abzeichen = 'd-badge'; ICON.abzeichen = BDG_IC.trophy;
 /* ---------- Boot ---------- */
 try { const w = JSON.parse(localStorage.getItem('bilanz.wx') || 'null'); if (w && w.hourly) WX.d = w; } catch (e) { }
 setInterval(() => { if (!S.ui.sheet && ['heute', 'sonne', 'wetter'].includes(S.ui.tab)) requestRender(); }, 60000);
