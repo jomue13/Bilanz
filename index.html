@@ -1790,6 +1790,96 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent);outline:none}
 .cc-ed .fld span{color:var(--muted)}
 /* Mahlzeiten-Zeilen nicht mit den Muskelzeilen vermischen */
 div.mrow{display:block;padding:0;border-radius:0}
+
+/* ---------- v20: Merkliste ---------- */
+:root{--d-wish:#0F7B6C}
+.mk-in{margin:0}
+.mk-seg{margin:0 0 10px}
+.mk-list{padding:4px 12px 4px 14px}
+.mk-r{position:relative}
+.mk-r+.mk-r::before{content:"";position:absolute;left:42px;right:0;top:0;border-top:.5px solid var(--line)}
+.mk-h{display:flex;align-items:center;gap:10px;min-height:60px}
+.mk-ck{width:28px;height:28px;flex:none;border-radius:50%;border:2px solid var(--line2);background:none;display:flex;align-items:center;justify-content:center;padding:0;transition:background-color .25s,border-color .25s,transform .4s var(--spring)}
+.mk-ck svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .3s .05s var(--ease-o)}
+.mk-ck.on{background:var(--good);border-color:var(--good)}
+.mk-ck.on svg{stroke-dashoffset:0}
+.mk-ck:active{transform:scale(.88)}
+.mk-t{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:0;background:none;padding:8px 0;color:var(--ink)}
+.mk-t b{font-size:17px;font-weight:500;line-height:1.3;overflow-wrap:anywhere}
+.mk-t small{font-size:14px;color:var(--muted);line-height:1.35}
+.mk-t .mk-n{font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.done .mk-t b{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1.5px}
+.mk-ln,.mk-st{width:36px;height:36px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;border:0;background:var(--surface2);color:var(--accent)}
+.mk-ln svg,.mk-st svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mk-st{background:none;color:var(--line2)}
+.mk-st.on{color:#E8A400}
+.mk-st.on svg{fill:currentColor}
+.mk-ed{display:flex;flex-direction:column;gap:8px;padding:0 0 14px 38px}
+.mk-ed .grid2{margin:0}
+.mk-ed .row-actions{margin-top:2px}
+
+/* ---------- v21: Alkohol ---------- */
+.ab{padding:12px}
+.ab-rows{display:flex;flex-direction:column;gap:8px}
+.ab-r{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:64px;padding:0 14px;border-radius:16px;background:var(--surface2);overflow:hidden}
+.ab-f{position:absolute;left:0;top:0;bottom:0;border-radius:inherit;background:color-mix(in srgb,var(--good) 26%,transparent);transition:width .8s var(--ease-o)}
+.ab-r.near .ab-f{background:color-mix(in srgb,#E8A400 34%,transparent)}
+.ab-r.over .ab-f{background:color-mix(in srgb,var(--warn) 34%,transparent)}
+.ab-r>span{position:relative}
+.ab-l{font-size:14px;font-weight:600;color:var(--muted)}
+.ab-v{display:flex;align-items:baseline;gap:6px;white-space:nowrap}
+.ab-v b{font:700 30px/1 var(--font-c);letter-spacing:-.01em}
+.ab-v small{font-size:14px;color:var(--muted)}
+.ab-r.over .ab-v b{color:var(--warn)}
+.ab-s{font:600 15px var(--font-c);color:var(--muted);text-align:right;white-space:nowrap}
+.ab-h{margin:10px 4px 0}
+.ab-h .link{font-size:13px;padding:0}
+.ab-act{display:flex;flex-direction:column;gap:12px}
+.ab-again{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ab-again span{display:flex;flex-direction:column;min-width:0}
+.ab-again small{font-size:13px;color:var(--muted)}
+.ab-again b{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ab-again .btn{flex:none;min-width:112px}
+.ab-st{display:flex;align-items:baseline;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.ab-st b{font:700 26px/1 var(--font-c);color:var(--good)}
+.ab-st span{font-size:15px;color:var(--muted)}
+.ac-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ac-h b{font:700 18px var(--font)}
+.ac-h .icon-btn{width:36px;height:36px;border-radius:50%;background:var(--surface2);font-size:22px}
+.ac-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));row-gap:2px}
+.ac-w{text-align:center;font-size:12px;font-weight:600;color:var(--muted);padding:2px 0 6px}
+.ac-d{position:relative;height:46px;border:0;background:none;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:7px;gap:4px;font:500 16px var(--font-c);color:var(--ink);transition:background-color .2s}
+.ac-d.out{color:var(--line2)}
+.ac-d.fut{color:var(--line2)}
+.ac-d.today span{color:var(--accent);font-weight:700}
+.ac-d.sel{background:var(--accent);color:var(--accent-ink)}
+.ac-d.sel span{color:var(--accent-ink)}
+.ac-d i{width:7px;height:7px;border-radius:50%;display:block}
+.ac-d i.l1{background:color-mix(in srgb,var(--warn) 45%,transparent)}
+.ac-d i.l2{background:color-mix(in srgb,var(--warn) 70%,transparent)}
+.ac-d i.l3,.ac-d i.l4{background:var(--warn)}
+.ac-d i.l4{width:9px;height:9px;box-shadow:0 0 0 2px color-mix(in srgb,var(--warn) 30%,transparent)}
+.ac-d i.free{background:var(--good)}
+.ac-d.sel i{box-shadow:0 0 0 2px var(--accent-ink)}
+.ac-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 2px 0}
+.ac-leg span{display:flex;align-items:center;gap:5px}
+.ac-leg i{width:7px;height:7px;border-radius:50%;display:block}
+.ac-leg i.l1{background:color-mix(in srgb,var(--warn) 45%,transparent)}.ac-leg i.l3{background:var(--warn)}.ac-leg i.free{background:var(--good)}
+.ac-day{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:12px;padding-top:12px}
+.ac-day b{display:block;font-size:17px}
+.ac-day small{font-size:14px;color:var(--muted)}
+.ac-btns{display:flex;gap:6px;flex:none}
+.ac-btns .btn svg{width:18px;height:18px}
+.btn.on-free{background:var(--good-soft);color:var(--good)}
+.btn.on-free svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.ac-list{margin-top:6px}
+.wbar.over i{background:var(--warn)}
+.ap-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.panel .quick-in input{background:var(--surface2)}
+#alcs .dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dbtn{border:0;background:var(--surface);min-height:64px;border-radius:16px}
+.dbtn b{font-size:16px}
+.dbtn small{font-size:13px}
 </style>
 </head>
 <body>
@@ -1805,6 +1895,7 @@ div.mrow{display:block;padding:0;border-radius:0}
 <nav class="tabs" id="tabs" aria-label="Bereiche"></nav>
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Einstellungen"></div>
 <div class="sheet" id="pick" hidden role="dialog" aria-modal="true" aria-label="Essen hinzufügen"></div>
+<div class="sheet" id="alcs" hidden role="dialog" aria-modal="true" aria-label="Getränk eintragen"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <datalist id="exlist"></datalist>
 <input type="file" id="photo-input" accept="image/*" hidden>
@@ -1871,13 +1962,13 @@ const emptyBodyForm = () => ({ date: todayKey(), weight: '', kfa: '', waist: '',
 const defaultProfile = () => normProfile({});
 function normProfile(p) {
   p = p && typeof p === 'object' ? clone(p) : {};
-  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null, recipes: Array.isArray(p.recipes) ? p.recipes : [] };
+  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null, recipes: Array.isArray(p.recipes) ? p.recipes : [], wish: Array.isArray(p.wish) ? p.wish : [] };
 }
 function normDay(k, x) {
   x = x && typeof x === 'object' ? clone(x) : {};
-  return { date: k, meals: Array.isArray(x.meals) ? x.meals : [], workouts: Array.isArray(x.workouts) ? x.workouts : [], body: x.body && typeof x.body === 'object' ? x.body : null, habits: x.habits && typeof x.habits === 'object' ? x.habits : {}, drinks: Array.isArray(x.drinks) ? x.drinks : [], water: +x.water || 0, steps: +x.steps || 0, work: Array.isArray(x.work) ? x.work : [], study: x.study && typeof x.study === 'object' ? x.study : {} };
+  return { date: k, meals: Array.isArray(x.meals) ? x.meals : [], workouts: Array.isArray(x.workouts) ? x.workouts : [], body: x.body && typeof x.body === 'object' ? x.body : null, habits: x.habits && typeof x.habits === 'object' ? x.habits : {}, drinks: Array.isArray(x.drinks) ? x.drinks : [], water: +x.water || 0, steps: +x.steps || 0, work: Array.isArray(x.work) ? x.work : [], study: x.study && typeof x.study === 'object' ? x.study : {}, alcFree: !!x.alcFree };
 }
-const dayEmpty = d => !d.meals.length && !d.workouts.length && !d.body && !Object.keys(d.habits).some(h => d.habits[h]) && !(d.drinks && d.drinks.length) && !d.water && !d.steps && !(d.work && d.work.length) && !Object.keys(d.study || {}).length;
+const dayEmpty = d => !d.meals.length && !d.workouts.length && !d.body && !Object.keys(d.habits).some(h => d.habits[h]) && !(d.drinks && d.drinks.length) && !d.water && !d.steps && !(d.work && d.work.length) && !Object.keys(d.study || {}).length && !d.alcFree;
 
 const S = {
   profile: defaultProfile(), days: {}, mode: 'loading',
@@ -2724,7 +2815,7 @@ function renderSheet() {
   $('#sheet').innerHTML = `<div class="sheet-in"><div class="sheet-h"><h2>Einstellungen</h2><button class="btn small primary" data-a="settings-close">Fertig</button></div>
     <section class="panel"><h2>Tagesziele</h2><div class="grid4">${sf('kcal', 'kcal')}${sf('protein', 'Eiweiß g')}${sf('carbs', 'KH g')}${sf('fat', 'Fett g')}</div><p class="small muted" id="macro-hint">${macroHint()}</p>
       <p class="small muted">Das Wochenbudget ist dein Tagesziel mal sieben.</p>
-      <div class="grid2" style="margin-top:10px">${sf('water', 'Wasser pro Tag (ml)')}${sf('alcLimit', 'Alkohol: Gläser pro Woche')}</div><p class="small muted">Beim Alkohol-Limit heißt 0: kein Limit.</p></section>
+      <div class="grid2" style="margin-top:10px">${sf('water', 'Wasser pro Tag (ml)')}${sf('alcLimit', 'Alkohol: Gläser pro Woche')}</div><p class="small muted">Beim Alkohol heißt 0: Standard von 10 Gläsern pro Woche. Mehr stellst du im Bereich Alkohol ein.</p></section>
     <section class="panel"><h2>Arbeit, Lohn, Schritte</h2><div class="grid2">${sf('workWeek', 'Arbeitsstunden pro Woche')}${sf('wage', 'Stundenlohn € brutto')}</div><div class="grid2" style="margin-top:8px">${sf('kv', 'Krankenversicherung € pro Monat')}${sf('netPct', 'Netto-Anteil % (0 = automatisch)')}</div><div class="grid2" style="margin-top:8px">${sf('workPause', 'Pause ab 6 h (min)', 'numeric')}${sf('fullName', 'Name im Excel-Export', 'text')}</div><div class="grid2" style="margin-top:8px">${sf('stepGoal', 'Schritte-Ziel pro Tag', 'numeric')}${sf('budget', 'Ausgaben-Budget pro Monat €')}</div><p class="small muted">Netto automatisch heißt: Werkstudent über der Minijob-Grenze, abgezogen wird nur der verringerte Rentenbeitrag. Steht auf deiner Lohnabrechnung etwas anderes, trag Netto geteilt durch Brutto als Prozent ein. Budget 0 heißt: kein Budget.</p></section>
     ${themePanel()}<section class="panel"><h2>Gym-Modus</h2><div class="grid2">${sf('restSec', 'Satzpause in Sekunden', 'numeric')}</div><p class="small muted">Gilt für jede Übung, bis du die Pause im Gym-Modus mit −15 oder +15 änderst. Das merkt sich die App dann für diese Übung.</p></section>
     <section class="panel"><h2>Spielplan</h2><p class="small muted">Diese Teams erscheinen im Kalender und auf Start.</p><div class="chips">${Object.keys(TEAMS).map(t => `<button class="chip ${teamOn(t) ? 'on' : ''}" data-a="team-toggle:${t}" aria-pressed="${teamOn(t)}">${esc(TEAMS[t].s)}</button>`).join('')}</div></section>
@@ -3628,7 +3719,7 @@ function vHeute() {
   const k = todayKey();
   if (S.ui.homeEdit) return vHomeEdit();
   const R = { sky: vSky, rings: () => vRings(k), checks: () => vChecks(k), quick: vQuick, brief: vBrief, badges: vDashBadges, counters: vDashCounters,
-    't-energy': () => vDashEnergy(k), 't-body': vDashBody, 't-alc': vDashAlc, 't-water': vDashWater, 't-work': vDashWork, 't-fin': vDashFin,
+    't-energy': () => vDashEnergy(k), 't-body': vDashBody, 't-alc': vDashAlc2, 't-water': vDashWater, 't-work': vDashWork, 't-fin': vDashFin,
     uni: () => vDashUni(k), training: () => vDashTrainingNew(k), today: () => vDashToday(k), sport: vDashSport, week: vDashWeek };
   const hid = new Set(homeCfg().hidden);
   let out = '', tiles = '';
@@ -4397,7 +4488,7 @@ function sheetDrag(el, close) {
 
 /* Vibration: iOS 18 gibt beim Umlegen eines Schalters ein kurzes Tippen, das nutzen wir */
 var HAPT = { last: 0 };
-var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg)\b/;
+var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg|mk-done)\b/;
 function haptic() {
   try { if (S.profile && S.profile.settings && S.profile.settings.haptics === false) return; } catch (e) { }
   const now = Date.now(); if (now - HAPT.last < 50) return; HAPT.last = now;
@@ -4546,6 +4637,216 @@ function actLook(c, args) {
   return false;
 }
 
+/* ---------- v20: Merkliste (Online-Käufe vormerken, Dinge, die man vielleicht braucht) ---------- */
+var MK_IC = '<path d="M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v15.5L12 16.4l-6.5 4.1V5A1.5 1.5 0 0 1 7 3.5z"/>';
+var LINK_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></svg>';
+var STAR_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg>';
+var CHECK_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4 8-9"/></svg>';
+function mkList() { if (!Array.isArray(S.profile.wish)) S.profile.wish = []; return S.profile.wish; }
+function mkFind(id) { return mkList().find(x => x.id === id); }
+function mkSafeUrl(u) { u = String(u || '').trim(); return /^https?:\/\/[^\s"'<>]+$/i.test(u) ? u : ''; }
+function mkShop(url) { try { const h = new URL(url).hostname.replace(/^(www|m|shop)\./, '').split('.'); const n = h.length > 1 ? h[h.length - 2] : h[0]; return n.charAt(0).toUpperCase() + n.slice(1); } catch (e) { return ''; } }
+function mkParse(txt) {
+  let t = String(txt || '').trim(), url = '', price = null;
+  const um = t.match(/https?:\/\/[^\s"'<>]+/i); if (um) { url = um[0]; t = t.replace(um[0], ' ').trim(); }
+  const pm = t.match(/(\d{1,6}(?:[.,]\d{1,2})?)\s*(?:€|eur\b|euro\b)/i) || t.match(/€\s*(\d{1,6}(?:[.,]\d{1,2})?)/);
+  if (pm) { price = parseFloat(pm[1].replace(',', '.')); t = t.replace(pm[0], ' ').trim(); }
+  const shop = url ? mkShop(url) : '';
+  if (!t && url) {
+    try { const seg = new URL(url).pathname.split('/').map(s => decodeURIComponent(s)).find(s => /[a-zäöü]{3,}[-_][a-zäöü]{2,}/i.test(s)) || ''; t = seg.replace(/\.[a-z]{2,4}$/i, '').replace(/[-_]+/g, ' ').trim().slice(0, 70); } catch (e) { }
+    if (t) t = t.charAt(0).toUpperCase() + t.slice(1); else t = shop ? `Etwas von ${shop}` : 'Link';
+  }
+  return { t: t.replace(/\s+/g, ' ').replace(/^[,;:\-\s]+|[,;:\-\s]+$/g, '').slice(0, 120), url, price, shop };
+}
+function mkSum(xs) { return xs.reduce((a, x) => a + (+x.price || 0), 0); }
+function mkRow(x) {
+  const open = S.ui.mkOpen === x.id, url = mkSafeUrl(x.url);
+  const sub = [x.shop, x.price ? eur(x.price) : '', x.done ? `gekauft ${shortDate(x.done)}` : x.at ? `seit ${shortDate(x.at)}` : ''].filter(Boolean).join(' · ');
+  return `<div class="mk-r${open ? ' open' : ''}${x.done ? ' done' : ''}">
+    <div class="mk-h"><button class="mk-ck${x.done ? ' on' : ''}" data-a="mk-done:${x.id}" aria-pressed="${!!x.done}" aria-label="${x.done ? 'Wieder auf die Liste' : 'Als gekauft markieren'}">${CHECK_I}</button>
+      <button class="mk-t" data-a="mk-open:${x.id}" aria-expanded="${open}"><b>${esc(x.t)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}${x.note && !open ? `<small class="mk-n">${esc(x.note)}</small>` : ''}</button>
+      ${url ? `<a class="mk-ln" href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Im Shop öffnen">${LINK_I}</a>` : ''}
+      ${x.done ? '' : `<button class="mk-st${x.star ? ' on' : ''}" data-a="mk-star:${x.id}" aria-pressed="${!!x.star}" aria-label="Wichtig">${STAR_I}</button>`}</div>
+    ${open ? `<div class="mk-ed">
+      <label class="fld"><span>Was</span><input data-mkf="${x.id}:t" value="${esc(x.t)}" autocomplete="off"></label>
+      <label class="fld"><span>Link</span><input data-mkf="${x.id}:url" value="${esc(x.url || '')}" inputmode="url" placeholder="https://…" autocomplete="off"></label>
+      <div class="grid2"><label class="fld"><span>Preis €</span><input data-mkf="${x.id}:price" value="${x.price != null ? esc(fmtIn(x.price)) : ''}" inputmode="decimal" autocomplete="off"></label><label class="fld"><span>Shop</span><input data-mkf="${x.id}:shop" value="${esc(x.shop || '')}" autocomplete="off"></label></div>
+      <label class="fld"><span>Notiz</span><textarea data-mkf="${x.id}:note" rows="2" placeholder="Größe, Farbe, Alternative …">${esc(x.note || '')}</textarea></label>
+      <div class="row-actions">${x.done ? '' : `<button class="btn small" data-a="mk-move:${x.id}">${x.cat === 'maybe' ? 'Zu „Kaufen“' : 'Zu „Vielleicht“'}</button>`}<button class="btn small ghost danger" data-a="mk-del:${x.id}" data-confirm="Wirklich löschen?">Löschen</button></div></div>` : ''}</div>`;
+}
+function vMerk() {
+  const L = mkList(), tab = S.ui.mkTab || 'buy', y = todayKey().slice(0, 4);
+  const open = L.filter(x => !x.done), buy = open.filter(x => x.cat !== 'maybe'), maybe = open.filter(x => x.cat === 'maybe');
+  const done = L.filter(x => x.done).sort((a, b) => String(b.done).localeCompare(String(a.done))), doneY = done.filter(x => String(x.done).startsWith(y));
+  const ord = xs => xs.slice().sort((a, b) => (!!b.star - !!a.star) || String(b.at || '').localeCompare(String(a.at || '')));
+  const list = tab === 'done' ? done : ord(tab === 'maybe' ? maybe : buy);
+  const empty = tab === 'done' ? 'Noch nichts gekauft. Hak etwas ab, dann landet es hier.' : tab === 'maybe' ? 'Hier landen Dinge, die du vielleicht brauchst. Ohne Druck, nur damit sie nicht verloren gehen.' : 'Noch nichts vorgemerkt. Trag oben ein, was du kaufen willst, gern mit Link und Preis.';
+  return `<section class="hero6" style="--hc:var(--d-wish)"><span class="lbl">Kaufen</span><span class="big">${buy.length}<small>${buy.length === 1 ? 'Sache' : 'Sachen'}${mkSum(buy) ? ` · ${eur0(mkSum(buy))}` : ''}</small></span>
+      <div class="h6-row"><div><span>Vielleicht</span><b>${maybe.length}</b></div><div><span>Gekauft ${y}</span><b>${doneY.length}</b></div><div><span>Ausgegeben</span><b>${mkSum(doneY) ? eur0(mkSum(doneY)) : '–'}</b></div></div></section>
+    <section class="panel"><div class="quick-in mk-in"><input id="mk-in" placeholder="${tab === 'maybe' ? 'Was könntest du brauchen?' : 'Was willst du kaufen?'}" aria-label="Neuer Eintrag" data-enter="mk-add" enterkeyhint="done" autocomplete="off"><button class="btn primary" data-a="mk-add">Merken</button></div>
+      <p class="small muted" style="margin:6px 2px 0">Mit Preis oder Link, zum Beispiel „Laufschuhe 89 €“ oder einfach den Link aus dem Shop einfügen.</p></section>
+    <div class="seg seg6 mk-seg" role="group" aria-label="Liste">${[['buy', `Kaufen (${buy.length})`], ['maybe', `Vielleicht (${maybe.length})`], ['done', 'Gekauft']].map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" data-a="mk-tab:${k}" aria-pressed="${tab === k}">${l}</button>`).join('')}</div>
+    <section class="panel mk-list">${list.length ? list.map(mkRow).join('') : `<p class="small muted" style="margin:4px 0">${empty}</p>`}</section>`;
+}
+function mkSub() { const o = mkList().filter(x => !x.done && x.cat !== 'maybe'); return o.length ? `${o.length} vorgemerkt${mkSum(o) ? `, ${eur0(mkSum(o))}` : ''}` : 'Online-Käufe und Ideen'; }
+function actMerk(c, args) {
+  const x = args[0] ? mkFind(args[0]) : null;
+  switch (c) {
+    case 'mk-tab': S.ui.mkTab = args[0]; S.ui.mkOpen = null; render(); return true;
+    case 'mk-add': {
+      const inp = $('#mk-in'), P = mkParse(inp ? inp.value : '');
+      if (!P.t) { if (inp) inp.focus(); return true; }
+      const tab = S.ui.mkTab === 'maybe' ? 'maybe' : 'buy';
+      mkList().unshift({ id: uid(), t: P.t, url: P.url, price: P.price, shop: P.shop, note: '', cat: tab, star: false, at: todayKey(), done: null });
+      if (S.ui.mkTab === 'done') S.ui.mkTab = 'buy';
+      touch('profile'); if (inp) inp.value = ''; haptic(); render();
+      toast(`${P.t} gemerkt${P.price ? `, ${eur(P.price)}` : ''}`); return true;
+    }
+    case 'mk-open': S.ui.mkOpen = S.ui.mkOpen === args[0] ? null : args[0]; render(); return true;
+    case 'mk-done': if (x) { x.done = x.done ? null : todayKey(); touch('profile'); if (x.done) S.ui.mkOpen = null; render(); if (x.done) toast(`${x.t}: gekauft`, () => { x.done = null; touch('profile'); render(); }); } return true;
+    case 'mk-star': if (x) { x.star = !x.star; touch('profile'); render(); } return true;
+    case 'mk-move': if (x) { x.cat = x.cat === 'maybe' ? 'buy' : 'maybe'; touch('profile'); S.ui.mkOpen = null; render(); toast(x.cat === 'maybe' ? 'Zu „Vielleicht“ verschoben' : 'Zu „Kaufen“ verschoben'); } return true;
+    case 'mk-del': if (x) { const L = mkList(), i = L.indexOf(x); L.splice(i, 1); touch('profile'); S.ui.mkOpen = null; render(); toast('Gelöscht', () => { L.splice(i, 0, x); touch('profile'); render(); }); } return true;
+  }
+  return false;
+}
+document.addEventListener('input', e => {
+  const v = e.target && e.target.dataset && e.target.dataset.mkf; if (!v) return;
+  const [id, f] = v.split(':'), x = mkFind(id); if (!x) return;
+  const val = e.target.value;
+  if (f === 'price') { const n = num(val); x.price = n != null && n >= 0 ? n : null; }
+  else if (f === 'url') { x.url = val.trim().slice(0, 600); if (!x.shop && mkSafeUrl(x.url)) x.shop = mkShop(x.url); }
+  else x[f] = val.slice(0, f === 'note' ? 400 : 120);
+  touch('profile');
+});
+
+/* ---------- v21: Alkohol neu (Grenzen auf einen Blick, Nochmal-Knopf, Monatskalender) ---------- */
+var ALC_PRICE0 = {};
+function alcLims() { const s = S.profile.settings, w = +s.alcLimit > 0 ? +s.alcLimit : 10, d = +s.alcDay > 0 ? +s.alcDay : 2; return { d, w, m: Math.round(w * 30 / 7) }; }
+function alcPrice(d) { if (d.pr != null) return +d.pr || 0; const P = S.profile.settings.alcPrice || {}; return +P[d.type] || 0; }
+function alcSpan(from, to) {
+  let g = 0, n = 0, kcal = 0, eur = 0;
+  for (let k = from; k <= to; k = addDays(k, 1)) { const D = S.days[k]; if (!D || !D.drinks.length) continue; for (const d of D.drinks) { const a = alcG(d); g += a; if (a > 0) n++; kcal += +d.kcal || 0; eur += alcPrice(d); } }
+  return { sg: g / 10, n, kcal, eur };
+}
+function alcLast() {
+  const ks = Object.keys(S.days).filter(k => S.days[k].drinks && S.days[k].drinks.length).sort();
+  for (let i = ks.length - 1; i >= 0; i--) { const ds = S.days[ks[i]].drinks.filter(d => alcG(d) > 0); if (ds.length) return { k: ks[i], d: ds.slice().sort((a, b) => (a.t || 0) - (b.t || 0))[ds.length - 1] }; }
+  return null;
+}
+function alcAgo(k) { const n = daysBetween(k, todayKey()); return n === 0 ? 'heute' : n === 1 ? 'gestern' : `vor ${n} Tagen`; }
+function alcRow(lbl, v, lim, sub) {
+  const r = lim ? v / lim : 0, st = r > 1 ? 'over' : r > 0.75 ? 'near' : 'ok';
+  return `<div class="ab-r ${st}"><i class="ab-f" style="width:${Math.min(100, r * 100).toFixed(1)}%"></i><span class="ab-l">${lbl}</span><span class="ab-v"><b>${fmt(v, 1)}</b><small>von ${fmt(lim)}</small></span><span class="ab-s">${sub}</span></div>`;
+}
+function vAlcHead() {
+  const tk = todayKey(), L = alcLims(), a = alcSpan(tk, tk), b = alcSpan(addDays(tk, -6), tk), c = alcSpan(addDays(tk, -29), tk), anyEur = a.eur + b.eur + c.eur > 0;
+  const sub = x => anyEur ? eur(x.eur) : `${fmt(x.kcal)} kcal`;
+  const last = alcLast(), st = alcFreeStreak();
+  return `<section class="panel ab"><div class="ab-rows">${alcRow('Heute', a.sg, L.d, sub(a))}${alcRow('7 Tage', b.sg, L.w, sub(b))}${alcRow('30 Tage', c.sg, L.m, sub(c))}</div>
+      <p class="small muted ab-h">In Gläsern zu je 10 g Alkohol, etwa 0,25 l Bier oder 0,1 l Wein. <button class="link" data-a="alc-lims">Grenzen und Preise ändern</button></p></section>
+    <section class="panel ab-act">
+      <button class="btn primary big wide" data-a="alc-open">${PLUS_I} Getränk hinzufügen</button>
+      ${last ? `<div class="ab-again"><span><small>Letztes Getränk ${alcAgo(last.k)}</small><b>${esc(last.d.name)}${last.d.abv ? `, ${fmt(last.d.abv, 1)} %` : ''}</b></span><button class="btn soft" data-a="alc-again">Nochmal</button></div>` : ''}
+      ${st != null && st > 0 ? `<div class="ab-st"><b>${st}</b><span>${st === 1 ? 'Tag' : 'Tage'} alkoholfrei</span></div>` : ''}</section>`;
+}
+function alcLvl(k) { const D = S.days[k]; if (!D) return ''; const sg = (D.drinks || []).reduce((s, d) => s + alcG(d), 0) / 10; if (sg > 0) return sg <= 1.5 ? 'l1' : sg <= 3 ? 'l2' : sg <= 6 ? 'l3' : 'l4'; return D.alcFree ? 'free' : ''; }
+function vAlcCal() {
+  const tk = todayKey(), sel = S.ui.alcDate || tk, ym = S.ui.alcMon || sel.slice(0, 7), first = ym + '-01', st = mondayOf(first);
+  const lastDay = keyOf(new Date(+ym.slice(0, 4), +ym.slice(5, 7), 0));
+  let cells = ''; for (let k = st; k <= lastDay || parseKey(k).getDay() !== 1; k = addDays(k, 1)) {
+    const inM = k.startsWith(ym), lv = inM ? alcLvl(k) : '';
+    cells += `<button class="ac-d${inM ? '' : ' out'}${k === sel ? ' sel' : ''}${k === tk ? ' today' : ''}${k > tk ? ' fut' : ''}" data-a="alc-day:${k}" ${k > tk ? 'disabled' : ''} aria-label="${longDate(k)}${lv && lv !== 'free' ? ', getrunken' : lv === 'free' ? ', alkoholfrei' : ''}"><span>${+k.slice(8)}</span>${lv ? `<i class="${lv}"></i>` : ''}</button>`;
+    if (k > addDays(lastDay, 7)) break;
+  }
+  const D = getDay(sel), ds = D.drinks || [], t = alcSpan(sel, sel), canNext = ym < tk.slice(0, 7);
+  const dayHead = `<div class="ac-day"><div><b>${sel === tk ? 'Heute' : sel === addDays(tk, -1) ? 'Gestern' : longDate(sel)}</b><small>${ds.length ? `${t.n} ${t.n === 1 ? 'Getränk' : 'Getränke'} · ${fmt(t.sg, 1)} Gläser · ${fmt(t.kcal)} kcal${t.eur ? ` · ${eur(t.eur)}` : ''}` : D.alcFree ? 'Alkoholfrei' : 'Keine Einträge'}</small></div>
+    <div class="ac-btns">${ds.length ? '' : `<button class="btn small${D.alcFree ? ' on-free' : ''}" data-a="alc-free:${sel}" aria-pressed="${!!D.alcFree}">${D.alcFree ? `${CHECK_I} Alkoholfrei` : 'Alkoholfrei'}</button>`}<button class="btn small soft" data-a="alc-open:${sel}" aria-label="Getränk für diesen Tag eintragen">${PLUS_I}</button></div></div>`;
+  return `<section class="panel ac"><div class="ac-h"><button class="icon-btn" data-a="alc-mon:-1" aria-label="Vorheriger Monat">‹</button><b>${MON[+ym.slice(5, 7) - 1]} ${ym.slice(0, 4)}</b><button class="icon-btn" data-a="alc-mon:1" aria-label="Nächster Monat" ${canNext ? '' : 'disabled'}>›</button></div>
+    <div class="ac-g">${['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map(w => `<span class="ac-w">${w}</span>`).join('')}${cells}</div>
+    <div class="ac-leg"><span><i class="l1"></i>wenig</span><span><i class="l3"></i>viel</span><span><i class="free"></i>bewusst alkoholfrei</span></div>
+    ${dayHead}${ds.length ? `<ul class="list ac-list">${ds.slice().reverse().map(d => `<li><div><b>${esc(d.name)}</b><small>${d.t ? hm(new Date(d.t)) + ' · ' : ''}${fmt(alcG(d) / 10, 1)} Gläser · ${fmt(+d.kcal || 0)} kcal${alcPrice(d) ? ` · ${eur(alcPrice(d))}` : ''}</small></div><span></span><button class="x" data-a="drink-del:${sel}:${d.id}" data-confirm="Löschen?" aria-label="Löschen">×</button></li>`).join('')}</ul>` : ''}</section>`;
+}
+function vAlcLims() {
+  if (!S.ui.alcLims) return '';
+  const s = S.profile.settings, L = alcLims(), P = s.alcPrice || {};
+  return `<section class="panel"><div class="panel-h"><h2>Grenzen und Preise</h2><button class="link" data-a="alc-lims">Fertig</button></div>
+    <div class="grid2"><label class="fld"><span>Gläser pro Tag</span><input data-alcs="alcDay" inputmode="decimal" value="${fmtIn(L.d)}" autocomplete="off"></label><label class="fld"><span>Gläser pro Woche</span><input data-alcs="alcLimit" inputmode="decimal" value="${fmtIn(L.w)}" autocomplete="off"></label></div>
+    <p class="small muted" style="margin:8px 0 12px">Die 30-Tage-Grenze rechnet die App aus der Woche. Zum Vergleich: Fachstellen raten Männern zu höchstens 2 Gläsern am Tag und mindestens 2 alkoholfreien Tagen pro Woche.</p>
+    <p class="pk-sec">Preis pro Getränk (optional)</p>
+    <div class="ap-g">${DRINKS.filter(d => d.abv).map(d => `<label class="fld"><span>${esc(d.name)}</span><input data-alcp="${d.id}" inputmode="decimal" placeholder="€" value="${P[d.id] ? esc(fmtIn(P[d.id])) : ''}" autocomplete="off"></label>`).join('')}</div>
+    <p class="small muted" style="margin-top:8px">Mit Preisen siehst du oben, was du ausgegeben hast. Gilt für neue und alte Einträge.</p></section>`;
+}
+function vAlkohol2() {
+  return vAlcHead() + vAlcLims() + vAlcCal() + vAlcStats();
+}
+/* Fenster zum Eintragen */
+function alcOpen(k) {
+  S.ui.alcSheet = { k: k || S.ui.alcDate || todayKey(), custom: false };
+  renderAlcSheet(); const el = $('#alcs'); sheetShow(el); el.hidden = false; el.scrollTop = 0;
+}
+function alcClose(y) { S.ui.alcSheet = null; sheetHide($('#alcs'), y); }
+function renderAlcSheet() {
+  const A = S.ui.alcSheet; if (!A) return;
+  const tk = todayKey(), lbl = A.k === tk ? 'heute' : A.k === addDays(tk, -1) ? 'gestern' : `am ${shortDate(A.k)}`;
+  const cust = S.profile.drinksC || [];
+  const btn = d => `<button class="dbtn" data-a="alc-add:${d.id}"><b>${esc(d.name)}</b><small>${d.abv ? `${fmt(alcG(d) / 10, 1)} ${alcG(d) / 10 === 1 ? 'Glas' : 'Gläser'} · ` : 'ohne Alkohol · '}${d.kcal} kcal</small></button>`;
+  moSet($('#alcs'), `<div class="sheet-in"><div class="sheet-h"><h2>Getränk ${lbl}</h2><button class="btn small primary" data-a="alc-close">Fertig</button></div>
+    <div class="dgrid">${DRINKS.map(btn).join('')}${cust.map(btn).join('')}</div>
+    ${A.custom ? `<div class="pk-form" style="margin-top:12px"><label class="fld"><span>Name</span><input id="dc-n" placeholder="z. B. Aperol Spritz" autocomplete="off"></label>
+      <div class="grid2"><label class="fld"><span>Menge ml</span><input id="dc-ml" inputmode="decimal" placeholder="200" autocomplete="off"></label><label class="fld"><span>Alkohol %</span><input id="dc-abv" inputmode="decimal" placeholder="11" autocomplete="off"></label></div>
+      <label class="fld"><span>Kalorien (optional)</span><input id="dc-kcal" inputmode="decimal" placeholder="wird sonst geschätzt" autocomplete="off"></label>
+      <button class="btn primary wide" style="margin-top:10px" data-a="alc-cust">Speichern und eintragen</button></div>` : `<button class="btn wide" style="margin-top:12px" data-a="alc-custom">Eigenes Getränk</button>`}
+    <p class="small muted" style="margin-top:12px">Ein Tipp trägt das Getränk ein. Mehrere hintereinander gehen auch.</p></div>`);
+}
+function drinkAny(id) { return DRINKS.find(d => d.id === id) || (S.profile.drinksC || []).find(d => d.id === id); }
+function alcAddEntry(k, b) {
+  const day = ensureDay(k), e = { id: uid(), type: b.id, name: b.name, ml: b.ml, abv: b.abv, kcal: b.kcal, t: k === todayKey() ? Date.now() : parseKey(k).getTime() + 20 * 3600e3 };
+  day.drinks.push(e); if (alcG(e) > 0) day.alcFree = false; touch('day:' + k); return e;
+}
+function actAlc(c, args) {
+  switch (c) {
+    case 'alc-open': alcOpen(args[0]); return true;
+    case 'alc-close': alcClose(); render(); return true;
+    case 'alc-add': {
+      const A = S.ui.alcSheet, b = drinkAny(args[0]); if (!A || !b) return true;
+      const e = alcAddEntry(A.k, b); haptic();
+      const el = [...document.querySelectorAll('#alcs .dbtn')].find(x => x.dataset.a === 'alc-add:' + b.id); if (el && !moReduce()) el.animate([{ transform: 'scale(.94)', background: 'var(--accent-soft)' }, { transform: 'none' }], { duration: 420, easing: MO_SPRING });
+      render(); toast(`${b.name} eingetragen`, () => { removeDrinks(A.k, [e.id]); render(); }); return true;
+    }
+    case 'alc-custom': S.ui.alcSheet.custom = true; renderAlcSheet(); setTimeout(() => { const n = $('#dc-n'); if (n) n.focus(); }, 50); return true;
+    case 'alc-cust': {
+      const name = ($('#dc-n') || {}).value || '', ml = num(($('#dc-ml') || {}).value), abv = num(($('#dc-abv') || {}).value), kc = num(($('#dc-kcal') || {}).value);
+      if (!name.trim() || !ml || abv == null) { toast('Name, Menge und Prozent brauche ich.'); return true; }
+      const d = { id: 'c' + uid(), name: `${name.trim().slice(0, 30)} ${ml >= 1000 ? fmt(ml / 1000, 1) + ' l' : fmt(ml) + ' ml'}`, ml, abv, kcal: Math.round(kc != null ? kc : ml * abv / 100 * 0.789 * 7 * 1.15 + ml * 0.15) };
+      (S.profile.drinksC || (S.profile.drinksC = [])).push(d); touch('profile');
+      S.ui.alcSheet.custom = false; const e = alcAddEntry(S.ui.alcSheet.k, d); haptic(); renderAlcSheet(); render();
+      const k = S.ui.alcSheet.k; toast(`${d.name} gespeichert und eingetragen`, () => { removeDrinks(k, [e.id]); render(); }); return true;
+    }
+    case 'alc-again': {
+      const L = alcLast(); if (!L) return true; const k = S.ui.alcDate || todayKey();
+      const e = alcAddEntry(k, { id: L.d.type, name: L.d.name, ml: L.d.ml, abv: L.d.abv, kcal: L.d.kcal });
+      haptic(); render(); toast(`Nochmal ${L.d.name}`, () => { removeDrinks(k, [e.id]); render(); }); return true;
+    }
+    case 'alc-day': S.ui.alcDate = args[0]; render(); return true;
+    case 'alc-mon': { const tk = todayKey(), cur = S.ui.alcMon || (S.ui.alcDate || tk).slice(0, 7); let y = +cur.slice(0, 4), m = +cur.slice(5, 7) + (+args[0]); if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; } const nm = `${y}-${String(m).padStart(2, '0')}`; if (nm > tk.slice(0, 7)) return true; S.ui.alcMon = nm; render(); return true; }
+    case 'alc-free': { const k = args[0], d = ensureDay(k); d.alcFree = !d.alcFree; touch('day:' + k); if (d.alcFree) haptic(); render(); return true; }
+    case 'alc-lims': S.ui.alcLims = !S.ui.alcLims; render(); return true;
+  }
+  return false;
+}
+document.addEventListener('input', e => {
+  const ds = e.target && e.target.dataset; if (!ds) return;
+  if (ds.alcs) { const v = num(e.target.value); S.profile.settings[ds.alcs] = v != null && v > 0 ? v : 0; touch('profile'); }
+  else if (ds.alcp) { const v = num(e.target.value), s = S.profile.settings; s.alcPrice = { ...(s.alcPrice || {}) }; if (v != null && v > 0) s.alcPrice[ds.alcp] = v; else delete s.alcPrice[ds.alcp]; touch('profile'); }
+});
+sheetDrag($('#alcs'), y => { alcClose(y); render(); });
+function vDashAlc2() {
+  const tk = todayKey(), L = alcLims(), b = alcSpan(addDays(tk, -6), tk), st = alcFreeStreak(), r = b.sg / L.w;
+  return `<div class="tile t-alc" role="button" tabindex="0" data-a="tab:alkohol" aria-label="Alkohol öffnen"><div class="tile-h"><span class="tile-l">Alkohol, 7 Tage</span><svg class="tile-i" viewBox="0 0 24 24" aria-hidden="true">${ICON_GLASS}</svg></div>
+    <span class="tile-v">${fmt(b.sg, 1)}<small>von ${fmt(L.w)}</small></span><span class="wbar ${r > 1 ? 'over' : ''}"><i style="width:${Math.min(100, r * 100).toFixed(0)}%"></i></span><span class="tile-s">${st != null && st > 0 ? `${st} ${st === 1 ? 'Tag' : 'Tage'} alkoholfrei` : 'Gläser à 10 g Alkohol'}</span></div>`;
+}
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
@@ -4559,7 +4860,7 @@ function render() {
   const hl = SUB[t] ? (TABS.some(x => x[0] === S.ui.backTo) ? S.ui.backTo : 'mehr') : t;
   moTabs(hl);
   const m = $('#main');
-  const V = { heute: vHeute, kalender: vKalender, training: vTrainingNew, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte, ...TR_SUBV };
+  const V = { heute: vHeute, kalender: vKalender, training: vTrainingNew, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol2, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte, merk: vMerk, ...TR_SUBV };
   V.routinen = () => vRoutHero() + vRoutinen() + vHabitHeat(); V.koerper = () => vBodyHero() + vKoerper();
   document.documentElement.style.setProperty('--area', `var(--${AREA[t] || 'd-slate'})`);
   const enter = S.ui.enter; S.ui.enter = false;
@@ -6576,7 +6877,7 @@ function briefing() {
 /* ---------- Views: Start ---------- */
 function vQuick() {
   return `<div class="quick-in"><input id="quick" placeholder="Schnell eintragen …" aria-label="Schnelleingabe" enterkeyhint="send" data-enter="quick-add" autocomplete="off" ${S.ui.quickBusy ? 'disabled' : ''}><button class="btn primary" data-a="quick-add" ${S.ui.quickBusy ? 'disabled' : ''}>${S.ui.quickBusy ? 'Moment …' : 'Eintragen'}</button></div>
-  <p class="quick-hint">Zum Beispiel „Friseur 11.10 8:30“, „2 Bier“, „Milch, Eier kaufen“, „Döner 8,50 €“, „Arbeit 8-16:30“, „8.400 Schritte“ oder „Film Dune gesehen 8/10“</p>`;
+  <p class="quick-hint">Zum Beispiel „Friseur 11.10 8:30“, „2 Bier“, „Milch, Eier kaufen“, „Döner 8,50 €“, „Arbeit 8-16:30“, „8.400 Schritte“ oder „Film Dune gesehen 8/10“ oder „merken Laufschuhe 89 €“</p>`;
 }
 function vBrief() {
   const b = briefing(); if (!b.length) return '';
@@ -7637,6 +7938,7 @@ function vMehr() {
     T('tab:uni', 'Uni', ICON.uni, un ? `${un.t.slice(0, 26)}: ${inDays(un.k)}` : sw.w ? `Semesterwoche ${sw.w}` : 'Stundenplan, Fristen, Noten', 'd-uni'),
     T('tab:arbeit', 'Arbeitszeit', ICON.arbeit, c ? 'Läuft gerade' : `${fmt(wkM / 60, 1)} h diese Woche`, 'd-work'),
     T('tab:routinen', 'Routinen', ICON.routinen, `${hs.length ? `${hs.filter(h => d.habits[h.id]).length} von ${hs.length} heute, ` : ''}${open} offen`, 'd-habit'),
+    T('tab:merk', 'Merkliste', MK_IC, mkSub(), 'd-wish'),
     T('tab:einkauf', 'Einkauf', ICON.einkauf, shopN ? `${shopN} ${shopN === 1 ? 'Sache' : 'Sachen'} offen` : 'Liste ist leer', 'd-shop'),
     T('tab:zaehler', 'Zähler', ICON.zaehler, cnx ? `${cnx.name}: ${fmt(Math.abs(daysBetween(String(cnx.at).slice(0, 10), tk)))} Tage` : 'Seit wann, bis wann', 'd-count'),
     T('tab:geburtstage', 'Geburtstage', ICON.geburtstage, bnx ? `${bnx.b.name}: ${bnx.n.days === 0 ? 'heute' : `in ${bnx.n.days} T.`}` : 'Nie mehr vergessen', 'd-bday'),
@@ -7889,6 +8191,7 @@ function quick6(text, k) {
   if ((m = wt.match(/^(?:arbeit(?:szeit)?|gearbeitet|arbeiten)\s*:?\s+(?:(heute|gestern|vorgestern)\s+)?(?:von\s+)?(\d{1,2}(?:[:.]\d{2})?)\s*(?:uhr\s*)?(?:-|–|bis)\s*(\d{1,2}(?:[:.]\d{2})?)\s*(?:uhr)?(?:\s*,?\s*(?:(\d{1,3})\s*(?:min|minuten)?\s*pause|pause\s*:?\s*(\d{1,3})\s*(?:min|minuten)?))?$/i))) {
     const s = parseHM(m[2]), e = parseHM(m[3]); if (s && e) { const dk = m[1] ? addDays(k, { heute: 0, gestern: -1, vorgestern: -2 }[m[1].toLowerCase()]) : k; let pz = +(m[4] || m[5] || 0); if (m[4] == null && m[5] == null) pz = autoPz(wMin({ s, e, p: 0 })); const x = addWork(dk, s, e, pz, '', hoQ, true); render(); toast(`Arbeit${hoQ ? ' (Homeoffice)' : ''} ${dk === k ? 'heute' : shortDate(dk)} ${s}–${e} eingetragen, ${hmin(wMin(x))} h`, () => removeWork(dk, x.id)); return true; }
   }
+  if ((m = text.match(/^(?:merken|merkliste|vormerken|wunschliste|wunsch)\s*:?\s+(.+)$/i))) { const P = mkParse(m[1]); if (P.t) { mkList().unshift({ id: uid(), t: P.t, url: P.url, price: P.price, shop: P.shop, note: '', cat: 'buy', star: false, at: todayKey(), done: null }); touch('profile'); render(); toast(`Auf der Merkliste: ${P.t}`); return true; } }
   let plus = false, amtS = null, what = '';
   if ((m = text.match(/^(\+)?\s*(\d{1,6}(?:[.,]\d{1,2})?)\s*(?:€|eur|euro)\s+(.+)$/i))) { plus = !!m[1]; amtS = m[2]; what = m[3]; }
   else if ((m = text.match(/^(.+?)\s+(\+)?(\d{1,6}(?:[.,]\d{1,2})?)\s*(?:€|eur|euro)$/i))) { what = m[1]; plus = !!m[2]; amtS = m[3]; }
@@ -8077,7 +8380,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actLook(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -9226,6 +9529,7 @@ document.addEventListener('visibilitychange', () => {
 Object.assign(SUB, { abzeichen: 'Abzeichen', rezepte: 'Rezepte' }); AREA.abzeichen = 'd-badge'; AREA.rezepte = 'd-food'; ICON.abzeichen = BDG_IC.trophy; ICON.rezepte = RZ_IC;
 Object.assign(SUB, { trplan: 'Wochenplan', trmus: 'Körperkarte', trrec: 'Rekorde', trstat: 'Statistik', trhist: 'Verlauf' });
 Object.assign(AREA, { trplan: 'd-train', trmus: 'd-train', trrec: 'd-train', trstat: 'd-train', trhist: 'd-train' });
+Object.assign(SUB, { merk: 'Merkliste' }); AREA.merk = 'd-wish'; ICON.merk = MK_IC;
 /* ---------- Boot ---------- */
 try { const w = JSON.parse(localStorage.getItem('bilanz.wx') || 'null'); if (w && w.hourly) WX.d = w; } catch (e) { }
 setInterval(() => { if (!S.ui.sheet && ['heute', 'sonne', 'wetter'].includes(S.ui.tab)) requestRender(); }, 60000);
