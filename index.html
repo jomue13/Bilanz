@@ -5177,42 +5177,115 @@ var SEARCH_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="
 var BOLT_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg>';
 var MINUS_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>';
 /* Produktdatenbank (Open Food Facts, Deutschland), wird erst beim ersten Suchen geladen und offline vorgehalten */
-var FDB = { rows: null, nm: null, code: null, p: null, err: false };
+/* Produktdatenbank (Open Food Facts): eine Textzeile pro Produkt, Felder mit Tab getrennt
+   Name, Marke, kcal, Eiweiß, KH, Fett (je 100 g), Portion g, Barcodes. Gesucht wird in einer kleingeschriebenen
+   Kopie ohne Akzente, die genau gleich lang ist wie der Text, so passt jede Fundstelle direkt zu ihrer Zeile. */
+var FDB = { rows: null, t: '', s: '', st: null, n: 0, p: null, err: false, avgK: null, avgV: null };
+var FDB_MAP = (() => { const M = {}; for (let c = 0xC0; c <= 0xFF; c++) { const ch = String.fromCharCode(c), b = ch.normalize('NFD').replace(/[̀-ͯ]/g, ''); M[ch] = ch === 'ß' ? 'ß' : (b.length === 1 && /[a-z]/i.test(b)) ? b.toLowerCase() : ' '; } return M; })();
+function fdbNorm(s) { return String(s || '').toLowerCase().replace(/[À-ÿ]/g, c => FDB_MAP[c] || ' '); }
+function fdbQ(q) { return fdbNorm(String(q || '').normalize('NFC')).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9ß]+/g, ' ').trim(); }
 function fdbLoad() {
   if (FDB.rows) return Promise.resolve();
   if (FDB.p) return FDB.p;
   FDB.err = false;
-  FDB.p = fetch('foods-de.json').then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))).then(rows => {
-    FDB.rows = rows; FDB.nm = rows.map(r => ' ' + fNorm(r[0] + ' ' + (r[1] || '')) + ' ');
+  FDB.p = fetch('foods-de.txt').then(r => r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status))).then(t => {
+    const st = []; let i = 0;
+    while (i < t.length) { st.push(i); const j = t.indexOf('\n', i); if (j < 0) { i = t.length + 1; break; } i = j + 1; }
+    st.push(i);
+    const s = fdbNorm(t).replace(/[^a-z0-9ß\t\n]/g, ' ');
+    if (s.length !== t.length) throw new Error('Suchtext passt nicht');
+    FDB.t = t; FDB.s = s; FDB.st = Uint32Array.from(st); FDB.n = st.length - 1; FDB.rows = { length: FDB.n };
   }).catch(() => { FDB.err = true; }).finally(() => { FDB.p = null; if (S.ui.pick && !S.ui.pick.sel) renderPickBody(); });
   return FDB.p;
 }
+function fdbRow(i) { const st = FDB.st; return FDB.t.slice(st[i], st[i + 1] - 1).split('\t'); }
 function fdbFood(i) {
-  const r = FDB.rows && FDB.rows[i]; if (!r) return null;
-  return { key: 'off:' + i, name: r[0].charAt(0).toUpperCase() + r[0].slice(1), brand: r[1] || '', kcal: r[2], p: r[3], c: r[4], f: r[5], pn: r[6] ? 'Portion' : null, pg: r[6] || null, unit: 'g', src: 'off', code: r[7] };
+  if (!FDB.rows || !(i >= 0 && i < FDB.n)) return null;
+  const r = fdbRow(i), sg = +r[6] || 0;
+  return { key: 'off:' + i, name: r[0].charAt(0).toUpperCase() + r[0].slice(1), brand: r[1] || '', kcal: +r[2] || 0, p: +r[3] || 0, c: +r[4] || 0, f: +r[5] || 0, pn: sg ? 'Portion' : null, pg: sg || null, unit: 'g', src: 'off', code: String(r[7] || '').split(',')[0] };
 }
+/* seltenstes Suchwort zuerst, das spart auf dem iPhone viel Zeit */
+function fdbRare(toks) {
+  if (toks.length < 2) return toks[0];
+  const S = FDB.s, lim = Math.min(S.length, 2000000); let best = toks[0], bc = Infinity;
+  for (const t of toks) { let c = 0, p = 0; while (c < bc && (p = S.indexOf(t, p)) !== -1 && p < lim) { c++; p += t.length; } if (c < bc) { bc = c; best = t; } }
+  return best;
+}
+/* ruft fn(Zeile, Zeilenanfang, Ende des Namens, Ende der Marke) für jede Zeile, in der alle Wörter in Name oder Marke stehen */
+function fdbEach(toks, nameOnly, fn) {
+  const S = FDB.s, st = FDB.st, n = FDB.n, t0 = fdbRare(toks); let pos = 0, li = 0;
+  while ((pos = S.indexOf(t0, pos)) !== -1) {
+    while (li + 1 < n && st[li + 1] <= pos) li++;
+    const ls = st[li], t1 = S.indexOf('\t', ls), fe = S.indexOf('\t', t1 + 1), end = nameOnly ? t1 : fe;
+    if (pos < end) {
+      let ok = true;
+      for (let j = 0; j < toks.length; j++) { const p = S.indexOf(toks[j], ls); if (p < 0 || p >= end) { ok = false; break; } }
+      if (ok && fn(li, ls, t1, fe) === false) return;
+    }
+    pos = st[li + 1];
+  }
+}
+function fdbPen(i) { return i < 60000 ? i / 15000 : 4 + (i - 60000) / 100000; }
 function fdbSearch(q, max) {
   if (!FDB.rows) return [];
-  const toks = fNorm(q).split(' ').filter(t => t.length > 1 || /\d/.test(t)); if (!toks.length) return [];
-  const N = FDB.nm, out = [];
-  for (let i = 0; i < N.length; i++) {
-    const s = N[i]; let sc = 0, ok = true;
+  const toks = fdbQ(q).split(' ').filter(t => t.length > 1 || /\d/.test(t)); if (!toks.length) return [];
+  const S = FDB.s, out = [];
+  fdbEach(toks, false, (li, ls, t1, fe) => {
+    let sc = 0;
     for (let j = 0; j < toks.length; j++) {
-      const pos = s.indexOf(toks[j]); if (pos < 0) { ok = false; break; }
-      if (s.charCodeAt(pos - 1) === 32) sc += 3;
-      if (j === 0 && pos === 1) sc += 4;
+      const p = S.indexOf(toks[j], ls), pc = S.charCodeAt(p - 1);
+      if (p === ls || pc === 32 || pc === 9) sc += 3;
+      if (j === 0 && p === ls) sc += 4;
     }
-    if (!ok) continue;
-    out.push([sc - i / 15000 - s.length / 50, i]);
-  }
+    out.push([sc - fdbPen(li) - (fe - ls) / 50, li]);
+  });
   out.sort((a, b) => b[0] - a[0]);
   return out.slice(0, max || 25).map(x => fdbFood(x[1]));
 }
 function fdbByCode(code) {
   if (!FDB.rows) return null;
-  if (!FDB.code) { FDB.code = new Map(); FDB.rows.forEach((r, i) => { if (r[7]) FDB.code.set(String(r[7]), i); }); }
-  const i = FDB.code.get(String(code)); return i == null ? null : fdbFood(i);
+  const c0 = String(code || '').replace(/\D/g, ''); if (c0.length < 6) return null;
+  const T = FDB.t, tries = [c0]; if (c0.length === 12) tries.push('0' + c0); if (c0.length === 13 && c0[0] === '0') tries.push(c0.slice(1));
+  for (const c of tries) {
+    let pos = 0;
+    while ((pos = T.indexOf(c, pos)) !== -1) {
+      const b = T.charCodeAt(pos - 1), a = T.charCodeAt(pos + c.length);
+      if ((b === 9 || b === 44) && (a === 10 || a === 44 || isNaN(a))) {
+        let lo = 0, hi = FDB.n - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (FDB.st[m] <= pos) lo = m; else hi = m - 1; }
+        return fdbFood(lo);
+      }
+      pos += c.length;
+    }
+  }
+  return null;
 }
+/* Mehrere Angaben zu einem Lebensmittel: Mittelwert aus allen passenden Produkten mit kurzem Namen */
+function fdbAvg(qn) {
+  if (!FDB.rows || qn.replace(/ /g, '').length < 4) return null;
+  if (FDB.avgK === qn) return FDB.avgV;
+  const toks = qn.split(' ').filter(t => t.length > 1); if (!toks.length) return null;
+  const S = FDB.s, K = [], P = [], C = [], F = [];
+  fdbEach(toks, true, (li, ls, t1) => {
+    const nm = S.slice(ls, t1), words = nm.split(' ').filter(Boolean);
+    if (words.length > toks.length + 2) return;
+    for (const t of toks) { const w = words.find(x => x.startsWith(t)); if (!w || w.length > t.length + 2) return; }
+    const r = fdbRow(li); K.push(+r[2] || 0); P.push(+r[3] || 0); C.push(+r[4] || 0); F.push(+r[5] || 0);
+    if (K.length >= 4000) return false;
+  });
+  let v = null;
+  if (K.length >= 5) {
+    const q = (a, x) => { const s = a.slice().sort((m, n) => m - n), i = (s.length - 1) * x, lo = Math.floor(i); return s[lo] + (s[Math.min(s.length - 1, lo + 1)] - s[lo]) * (i - lo); };
+    v = { n: K.length, kcal: Math.round(q(K, .5)), p: Math.round(q(P, .5) * 10) / 10, c: Math.round(q(C, .5) * 10) / 10, f: Math.round(q(F, .5) * 10) / 10, lo: Math.round(q(K, .25)), hi: Math.round(q(K, .75)) };
+  }
+  FDB.avgK = qn; FDB.avgV = v; return v;
+}
+function fdbAvgFood(qn) {
+  const v = fdbAvg(qn); if (!v) return null;
+  const nm = qn.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  return { key: 'avg:' + encodeURIComponent(qn), name: nm, brand: 'Mittelwert', kcal: v.kcal, p: v.p, c: v.c, f: v.f, pn: null, pg: null, unit: 'g', src: 'off', avg: v };
+}
+/* Auf der Essen-Seite schon mal im Hintergrund laden, dann ist die Suche sofort da */
+function fdbWarm() { if (S.ui.tab === 'essen' && !FDB.rows && !FDB.p && !FDB.warm && !FDB.err) FDB.warm = setTimeout(() => { FDB.warm = 0; fdbLoad(); }, 800); }
 function foodLabel(f) { return f.brand ? `${f.name} (${f.brand})` : f.name; }
 
 /* ----- Essen-Seite ----- */
@@ -5321,13 +5394,13 @@ function pkResults(q, rec) {
   const tm = (S.profile.tmpls || []).filter(t => has(t.name)).map(t => pk2Row(`pick-add:t:${t.id}`, `pick-add:t:${t.id}`, t.name, `Meine Mahlzeit · ${fmt(t.p)} g Eiweiß`, t.kcal)).join('');
   const own = customFoods().filter(f => has(f.name)).slice(0, 8).map(f => pk2Food(f, `Eigenes Lebensmittel · ${fmt(f.kcal)} kcal pro 100 ${f.unit}`)).join('');
   const gen = foodSearch(q, 8).map(f => pk2Food(f, `${fmt(f.kcal)} kcal pro 100 ${f.unit}${f.pg ? ` · 1 ${f.pn} = ${fmt(f.pg)} ${f.unit}` : ''}`)).join('');
-  const lim = P.more ? 80 : 25, prod = fdbSearch(q, lim);
-  const prodH = prod.map(f => pk2Food(f, `${f.brand ? f.brand + ' · ' : ''}${fmt(f.kcal)} kcal pro 100 g${f.pg ? ` · Portion ${fmt(f.pg)} g` : ''}`)).join('');
+  const lim = P.more ? 80 : 25, prod = fdbSearch(q, lim), avg = fdbAvgFood(fdbQ(q));
+  const prodH = (avg ? pk2Food(avg, `Mittelwert aus ${fmt(avg.avg.n)} Produkten · meist ${fmt(avg.avg.lo)} bis ${fmt(avg.avg.hi)} kcal pro 100 g`) : '') + prod.map(f => pk2Food(f, `${f.brand ? f.brand + ' · ' : ''}${fmt(f.kcal)} kcal pro 100 g${f.pg ? ` · Portion ${fmt(f.pg)} g` : ''}`)).join('');
   const prodSec = FDB.rows ? sec(`Produkte${prod.length >= lim ? '' : ` (${prod.length})`}`, prodH, prod.length >= lim && !P.more ? '<button class="btn wide pk-more" data-a="pick-more">Mehr Produkte zeigen</button>' : '')
     : FDB.err ? '<p class="small muted">Die Produktdatenbank konnte nicht geladen werden. Mit Internet klappt es beim nächsten Öffnen.</p>' : '<p class="small muted pk-load">Produktdatenbank wird geladen …</p>';
   const out = sec('Zuletzt gegessen', recR) + sec('Meine Mahlzeiten', tm + rzPickRows(has)) + sec('Eigene Lebensmittel', own) + sec('Allgemein', gen) + prodSec;
   return (out || '') + `<div class="pk-none"><p class="small muted">Nicht dabei? Trag die Werte direkt ein oder leg das Lebensmittel an.</p><div class="row-actions"><button class="btn small" data-a="pick-tab:quick">Schnell eintragen</button><button class="btn small" data-a="pk-newfood">Lebensmittel anlegen</button></div></div>`
-    + (FDB.rows ? '<p class="small muted pk-src">Produktdaten: Open Food Facts (ODbL). Allgemeine Werte: Schweizer Nährwertdatenbank.</p>' : '');
+    + (FDB.rows ? `<p class="small muted pk-src">Produktdaten: Open Food Facts (ODbL), ${fmt(FDB.n)} Produkte. Allgemeine Werte: Schweizer Nährwertdatenbank.</p>` : '');
 }
 function pkFoodOf(P) {
   if (String(P.sel).startsWith('r:')) {
@@ -5344,8 +5417,8 @@ function pkDetail(P) {
   let vars = '';
   if (!f.rec) {
     const base = f.src === 'off' ? f.name.split(/[,(]/)[0].split(' ').slice(0, 2).join(' ') : f.name.split(/[,(]/)[0];
-    const vs = fdbSearch(base, 9).filter(x => x.key !== f.key).slice(0, 6);
-    if (vs.length) vars = `<p class="pk-sec">${f.src === 'off' ? 'Ähnliche Produkte' : 'Von Marken'}</p>${vs.map(x => pk2Food(x, `${x.brand ? x.brand + ' · ' : ''}${fmt(x.kcal)} kcal pro 100 g`)).join('')}`;
+    const vs = fdbSearch(base, f.avg ? 13 : 9).filter(x => x.key !== f.key).slice(0, f.avg ? 10 : 6);
+    if (vs.length) vars = `<p class="pk-sec">${f.avg ? 'Einzelne Produkte' : f.src === 'off' ? 'Ähnliche Produkte' : 'Von Marken'}</p>${vs.map(x => pk2Food(x, `${x.brand ? x.brand + ' · ' : ''}${fmt(x.kcal)} kcal pro 100 g`)).join('')}`;
   }
   const bar = (val, goal, c) => `<i class="fs-mb"><i class="${c}" style="width:${goal ? Math.min(100, val / goal * 100).toFixed(1) : 0}%"></i></i>`;
   return `<button class="link" data-a="pick-back">‹ Zurück</button>
@@ -5354,7 +5427,7 @@ function pkDetail(P) {
       <div class="chips pkd-ch">${opts.slice(0, 6).map(([x, l]) => `<button class="chip${Math.round(x) === Math.round(g) ? ' on' : ''}" data-a="pick-g:${x}">${esc(l)}</button>`).join('')}</div>
       <div class="pkd-v" id="pick-calc">${pkCalc2(v, s)}</div>
       <button class="btn primary big wide" data-a="pk-addsel">Zu ${esc(slotName(P.slot))} hinzufügen</button>
-      <p class="small muted" style="margin:10px 2px 0">Pro 100 ${u}: ${fmt(f.kcal)} kcal, ${fmt(f.p, 1)} g Eiweiß, ${fmt(f.c, 1)} g KH, ${fmt(f.f, 1)} g Fett${f.src === 'off' ? ' · Open Food Facts' : f.custom ? '' : f.rec ? '' : ' · Schweizer Nährwertdatenbank'}</p></div>${vars}`;
+      <p class="small muted" style="margin:10px 2px 0">Pro 100 ${u}: ${fmt(f.kcal)} kcal, ${fmt(f.p, 1)} g Eiweiß, ${fmt(f.c, 1)} g KH, ${fmt(f.f, 1)} g Fett${f.avg ? ` · Mittelwert aus ${fmt(f.avg.n)} Produkten, die Hälfte davon liegt zwischen ${fmt(f.avg.lo)} und ${fmt(f.avg.hi)} kcal` : f.src === 'off' ? ' · Open Food Facts' : f.custom ? '' : f.rec ? '' : ' · Schweizer Nährwertdatenbank'}</p></div>${vars}`;
 }
 function pkCalc2(v, s) {
   s = s || S.profile.settings;
@@ -5964,7 +6037,7 @@ let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
 function requestRender() { if (isEditing() || S.ui.importing) { renderQueued = true; return; } render(); }
 function render() {
-  renderQueued = false; applyTheme(); idBtnSync();
+  renderQueued = false; applyTheme(); idBtnSync(); fdbWarm();
   const t = S.ui.tab;
   $('#top-title').textContent = ltTitle(t);
   $('#back').hidden = !SUB[t];
@@ -7705,7 +7778,7 @@ const FOOD_ROWS = [
 const FOODS = FOOD_ROWS.map((r, i) => ({ key: 'db:' + i, name: r[0], kcal: r[1], p: r[2], c: r[3], f: r[4], pn: r[5] || null, pg: r[6] || null, unit: r[7] || 'g', cat: r[8] || '', al: r[9] || '', h: !!((r[10] || 0) & 1), src: !!((r[10] || 0) & 2) }));
 const customFoods = () => (S.profile.foods || []).map(f => ({ ...f, key: 'c:' + f.id, custom: true }));
 const allFoods = () => customFoods().concat(FOODS);
-const foodBy = key => (String(key).startsWith('off:') ? fdbFood(+String(key).slice(4)) : null) || allFoods().find(f => f.key === key);
+const foodBy = key => (String(key).startsWith('off:') ? fdbFood(+String(key).slice(4)) : String(key).startsWith('avg:') ? fdbAvgFood(decodeURIComponent(String(key).slice(4))) : null) || allFoods().find(f => f.key === key);
 const foodByName = n => FOODS.find(f => f.name === n);
 const PLURAL = { Portion: 'Portionen', Scheibe: 'Scheiben', Kugel: 'Kugeln', Schale: 'Schalen', Tasse: 'Tassen', Dose: 'Dosen', Rippe: 'Rippen', 'Hälfte': 'Hälften', Pizza: 'Pizzen' };
 const calcFood = (f, g) => ({ kcal: Math.round(f.kcal * g / 100), p: r1(f.p * g / 100), c: r1(f.c * g / 100), f: r1(f.f * g / 100) });
