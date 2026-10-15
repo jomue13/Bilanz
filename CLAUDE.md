@@ -7,7 +7,8 @@ Persönliche Tracker-App (Training, Essen, Körper, Arbeit/Lohn, Geld, Uni, Foto
 - `local.js`: lokaler Speicher (IndexedDB) mit der Schnittstelle `window.claude.use('db' | 'user' | 'downloads')`. Lädt außerdem Wetter (Open-Meteo) und `sports.json`.
 - `sw.js`: Service Worker, hält alle Dateien offline vor (cache-first). `VERSION` muss sich bei jeder Änderung ändern.
 - `sports.json`: Spielplan und Tabellen, wird wöchentlich von einer geplanten Aufgabe aktualisiert (network-first, braucht keine neue Version).
-- `fonts/`, `vendor/xlsx.full.min.js`, `vendor/zxing.min.js` (Barcode-Scanner, wird erst beim Scannen geladen), Icons, `manifest.webmanifest`.
+- `fonts/` (Nunito als Ersatz für die runde Zahlenschrift außerhalb von Apple-Geräten), `vendor/idiomorph.min.js` (gleicht beim Neuzeichnen nur Geändertes an, damit Übergänge gleiten), `vendor/xlsx.full.min.js`, `vendor/zxing.min.js` (Barcode-Scanner, wird erst beim Scannen geladen), Icons, `manifest.webmanifest`.
+- Look: Farben und Schriften als Variablen im CSS-Block „v19: Neuer Look“. Systemschrift für Text, `ui-rounded` für Zahlen, eine Akzentfarbe. Neue Bereiche ruhig halten: weiße Karten, Farbe nur in kleinen Symbolen, Beschriftungen und Balken.
 
 ## Änderungen ausrollen
 1. Änderung in `index.html` (oder `local.js`) machen.
