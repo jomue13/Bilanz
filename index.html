@@ -2088,12 +2088,125 @@ div.mrow{display:block;padding:0;border-radius:0}
 .wl-rest button{min-height:36px;border:0;border-radius:11px;background:rgba(127,127,127,.25);color:inherit;font-weight:700;font-size:14px;padding:0 10px}
 .wl-rest.over{background:var(--good);color:#fff}
 #main[data-tab="trcal"]>section:first-of-type .panel-h h2{display:none}
+
+/* ---------- v24: Packliste & Ideen ---------- */
+:root{--d-pack:#8B5E34;--d-idea:#B5179E}
+.pl-newb{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 12px;min-height:50px}
+.pl-newb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.pl-trs{display:flex;flex-direction:column;gap:8px}
+.pl-tr,.pl-base,.pl-db{display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:var(--r-card);background:var(--surface);padding:12px 14px;text-align:left;color:var(--ink)}
+.pl-tr:active,.pl-base:active,.pl-db:active{transform:scale(.98)}
+.pl-tr .pl-ic,.pl-db .pl-ic{width:42px;height:42px;border-radius:13px;background:color-mix(in srgb,var(--d-pack) 13%,transparent);display:flex;align-items:center;justify-content:center;flex:none}
+.pl-tr .pl-ic svg,.pl-db .pl-ic svg{width:23px;height:23px;fill:none;stroke:var(--d-pack);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pl-tr .pl-tx,.pl-base .pl-tx,.pl-db .pl-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.pl-tr .pl-tx b,.pl-base .pl-tx b,.pl-db .pl-tx b{font-size:17px;font-weight:700;overflow-wrap:anywhere}
+.pl-tr .pl-tx small,.pl-base .pl-tx small,.pl-db .pl-tx small{font-size:13px;color:var(--muted);line-height:1.35}
+.pl-tr .pl-tx em{font-style:normal;font-weight:600;color:var(--accent)}
+.pl-tr .pl-bar,.pl-db .pl-bar{height:6px;margin-top:7px}
+.pl-tr .pl-pc,.pl-db .pl-pc{font:700 15px var(--font-c);color:var(--muted);white-space:nowrap}
+.pl-tr.all .pl-pc,.pl-db .pl-pc{color:var(--ink)}
+.pl-tr.all .pl-pc,.pl-dash.all .pl-pc{color:var(--good)}
+.pl-tr.big{padding:16px}
+.pl-tr.big .pl-tx b{font-size:21px;letter-spacing:-.01em}
+.pl-tr.big .pl-ic{width:50px;height:50px;border-radius:15px}
+.pl-tr.past .pl-ic{filter:grayscale(1);opacity:.6}
+.pl-base .link{flex:none}
+.pl-sec{display:flex;align-items:center;justify-content:space-between;margin:20px 4px 8px}
+.pl-sec h2{font:700 20px/1.2 var(--font);letter-spacing:-.015em;margin:0}
+.pl-dash{padding:0;overflow:hidden}
+.pl-db{border-radius:0}
+.pl-db .pl-tx small{font-weight:600;color:var(--d-pack)}
+.pl-new{display:flex;flex-direction:column;gap:12px}
+.pl-new h2{margin:0}
+.pl-hint{margin:2px 2px -4px}
+.pl-blk .chip{min-height:36px;padding:6px 13px;font-size:14px}
+.pl-dates input{width:100%}
+.pl-tools{display:flex;flex-wrap:wrap;gap:8px}
+.pl-hero{padding:16px}
+.pl-meta{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pl-meta small{font-size:14px;color:var(--muted);min-width:0}
+.pl-note{margin:10px 0 0;font-size:15px;line-height:1.45;white-space:pre-line;color:var(--ink)}
+.pl-pr{display:flex;align-items:baseline;gap:8px;margin:14px 0 10px}
+.pl-pr b{font:700 42px/1 var(--font-c);letter-spacing:-.02em;transition:color .3s}
+.pl-pr span{font-size:15px;color:var(--muted)}
+.pl-pr em{margin-left:auto;font-style:normal;font-weight:700;color:var(--good);font-size:15px}
+.pl-hero.all .pl-pr b{color:var(--good)}
+.pl-bar{display:block;height:9px;border-radius:5px;background:var(--surface2);overflow:hidden}
+.pl-bar i{display:block;height:100%;border-radius:5px;background:var(--good);transition:width .5s var(--ease-o)}
+.pl-add .quick-in input{background:var(--surface2)}
+.pl-seg{margin:0 0 12px}
+.pl-g{padding:12px 10px 8px}
+.pl-gh{display:flex;align-items:center;gap:8px;padding:2px 6px 8px}
+.pl-gh svg{width:20px;height:20px;fill:none;stroke:var(--accent);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pl-gh h3{margin:0;font-size:17px;font-weight:700;flex:1;min-width:0}
+.pl-gh span{font:600 14px var(--font-c);color:var(--muted);white-space:nowrap}
+.pl-gh.all span{color:var(--good)}
+.pl-gh.all svg{stroke:var(--good)}
+.pl-l{display:flex;flex-direction:column;gap:3px}
+.pl-i{width:100%;display:flex;align-items:center;gap:12px;min-height:50px;border:0;border-radius:14px;background:transparent;padding:6px 10px;text-align:left;color:var(--ink);transition:background-color .3s,transform .35s var(--spring)}
+.pl-i:active{transform:scale(.98)}
+.pl-ck{width:28px;height:28px;flex:none;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;transition:background-color .25s,border-color .25s,transform .4s var(--spring)}
+.pl-ck svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .3s .05s var(--ease-o)}
+.pl-i.on{background:var(--good-soft)}
+.pl-i.on .pl-ck{background:var(--good);border-color:var(--good)}
+.pl-i.on .pl-ck svg{stroke-dashoffset:0}
+.pl-i.on .pl-t b{color:color-mix(in srgb,var(--good) 78%,var(--ink))}
+.pl-i:active .pl-ck{transform:scale(.86)}
+.pl-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.pl-t b{font-size:16px;font-weight:500;line-height:1.3;overflow-wrap:anywhere;transition:color .3s}
+.pl-t small{font-size:13px;color:var(--muted);line-height:1.3;margin-top:1px}
+.pl-q{font:700 15px var(--font-c);color:var(--muted);white-space:nowrap}
+.pl-i.on .pl-q{color:var(--good)}
+.pl-i.ed{gap:6px;padding:3px 2px 3px 4px;min-height:46px}
+.pl-in{flex:1;min-width:0;min-height:42px;font-size:16px;padding:6px 10px;border-radius:10px}
+.pl-qb{min-width:62px;height:38px;border:0;border-radius:10px;background:var(--surface2);font:700 14px var(--font-c);color:var(--ink);padding:0 8px;flex:none}
+.pl-x{width:36px;height:36px;border-radius:50%;border:0;background:var(--surface2);color:var(--muted);font-size:20px;line-height:1;flex:none}
+.pl-none{margin:0 8px 8px;font-size:14px;color:var(--muted);line-height:1.4}
+.pl-alldone{margin:0 8px 8px;font-size:14px;color:var(--good);font-weight:600}
+.pl-gadd{margin:8px 4px 6px}
+.pl-gadd input{flex:1;min-width:0}
+.pb-r+.pb-r{border-top:.5px solid var(--line)}
+.pb-h{display:flex;align-items:center;gap:8px;padding:0 4px}
+.pb-t{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;border:0;background:none;padding:10px 2px;text-align:left;color:var(--ink)}
+.pb-t b{font-size:16px;font-weight:500}
+.pb-t small{font-size:13px;color:var(--muted)}
+.pb-ed{display:flex;flex-direction:column;gap:10px;padding:2px 6px 14px}
+.pb-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pb-row .chip{min-height:34px;padding:5px 12px;font-size:14px}
+/* Ideen */
+#idea-btn[hidden]{display:none}
+.id-hero{padding:16px}
+.id-hn{display:flex;align-items:baseline;gap:8px}
+.id-hn b{font:700 42px/1 var(--font-c);letter-spacing:-.02em}
+.id-hn span{font-size:15px;color:var(--muted)}
+.id-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.id-acts .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.id-acts svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.id-after{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.id-list{padding:6px 14px}
+.id-r+.id-r{border-top:.5px solid var(--line)}
+.id-h{display:flex;align-items:flex-start;gap:12px;padding:12px 0}
+.id-h .mk-ck{margin-top:1px}
+.id-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;border:0;background:none;padding:0;text-align:left;color:var(--ink)}
+.id-tx b{font-size:16px;font-weight:500;line-height:1.38;white-space:pre-line;overflow-wrap:anywhere}
+.id-tx small{font-size:12.5px;color:var(--muted)}
+.id-tg{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.02em}
+.id-tg.fehler{color:var(--warn)}
+.id-tg.frage{color:var(--d-idea)}
+.id-r.done .id-tx b{color:var(--muted)}
+.id-ed{display:flex;flex-direction:column;gap:10px;padding:0 0 14px 40px}
+.id-ed textarea{width:100%;font-size:16px;line-height:1.4}
+.id-form{display:flex;flex-direction:column;gap:14px}
+#id-t{width:100%;font-size:17px;min-height:132px;line-height:1.4}
+.id-areas .chip{min-height:36px;padding:6px 13px;font-size:14px}
+#ids .btn.ghost.wide{margin-top:4px}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="top-l"><button class="nav-back" id="back" data-a="back" aria-label="Zurück" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span id="back-l">Mehr</span></button></div><div id="top-title" aria-hidden="true">Heute</div>
   <div class="top-r"><button class="sync" id="sync" data-a="sync-now" hidden aria-live="polite"></button>
+  <button class="icon-btn" id="idea-btn" data-a="idea-open" aria-label="Idee für die App notieren"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.2 1 2.1h5c0-.9.4-1.7 1-2.1A6 6 0 0 0 12 3z"/></svg></button>
   <button class="icon-btn" data-a="settings-open" aria-label="Einstellungen">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
   </button></div>
@@ -2104,6 +2217,7 @@ div.mrow{display:block;padding:0;border-radius:0}
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Einstellungen"></div>
 <div class="sheet" id="pick" hidden role="dialog" aria-modal="true" aria-label="Essen hinzufügen"></div>
 <div class="sheet" id="alcs" hidden role="dialog" aria-modal="true" aria-label="Getränk eintragen"></div>
+<div class="sheet" id="ids" hidden role="dialog" aria-modal="true" aria-label="Idee notieren"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <datalist id="exlist"></datalist>
 <input type="file" id="photo-input" accept="image/*" hidden>
@@ -2170,7 +2284,7 @@ const emptyBodyForm = () => ({ date: todayKey(), weight: '', kfa: '', waist: '',
 const defaultProfile = () => normProfile({});
 function normProfile(p) {
   p = p && typeof p === 'object' ? clone(p) : {};
-  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null, recipes: Array.isArray(p.recipes) ? p.recipes : [], wish: Array.isArray(p.wish) ? p.wish : [] };
+  return { v: 1, settings: { ...DEFAULT_SETTINGS, ...(p.settings || {}) }, habits: Array.isArray(p.habits) ? p.habits : [], todos: Array.isArray(p.todos) ? p.todos : [], plans: Array.isArray(p.plans) ? p.plans : [], active: p.active && typeof p.active === 'object' ? p.active : null, foods: Array.isArray(p.foods) ? p.foods : [], tmpls: Array.isArray(p.tmpls) ? p.tmpls : [], plan: p.plan && typeof p.plan === 'object' ? p.plan : {}, shop: Array.isArray(p.shop) ? p.shop : [], shopHist: p.shopHist && typeof p.shopHist === 'object' ? p.shopHist : {}, counters: Array.isArray(p.counters) ? p.counters : [], bdays: Array.isArray(p.bdays) ? p.bdays : [], clock: p.clock && typeof p.clock === 'object' && p.clock.start ? p.clock : null, uni: normUni(p.uni), sres: p.sres && typeof p.sres === 'object' ? p.sres : {}, weekVars: p.weekVars && typeof p.weekVars === 'object' ? p.weekVars : {}, weekN: p.weekN && typeof p.weekN === 'object' ? p.weekN : {}, weekVarNotes: p.weekVarNotes && typeof p.weekVarNotes === 'object' ? p.weekVarNotes : {}, restBy: p.restBy && typeof p.restBy === 'object' ? p.restBy : {}, exCfg: p.exCfg && typeof p.exCfg === 'object' ? p.exCfg : {}, home: p.home && typeof p.home === 'object' ? p.home : {}, badges: p.badges && typeof p.badges === 'object' ? p.badges : null, recipes: Array.isArray(p.recipes) ? p.recipes : [], wish: Array.isArray(p.wish) ? p.wish : [], pack: p.pack && typeof p.pack === 'object' && !Array.isArray(p.pack) ? p.pack : {}, ideas: Array.isArray(p.ideas) ? p.ideas : [] };
 }
 function normDay(k, x) {
   x = x && typeof x === 'object' ? clone(x) : {};
@@ -3380,6 +3494,7 @@ function bkPatchSummary(j) {
   if (j.weekVars) { const ns = Object.keys(j.weekVars).map(Number).sort((a, b) => b - a); out.push(`Wochenvarianten für ${ns.join(', ').replace(/, (\d+)$/, ' und $1')} Einheiten`); }
   if (j.uni) out.push(`Uni: ${[Array.isArray(j.uni.cat) ? `Modulhandbuch (${j.uni.cat.length} Module)` : '', j.uni.rules ? 'Regeln der Prüfungsordnung' : '', Array.isArray(j.uni.tasks) && j.uni.tasks.length ? 'Fristen' : ''].filter(Boolean).join(', ')}`);
   if (Array.isArray(j.recipes) && j.recipes.length) out.push(`Rezepte: ${j.recipes.map(r => r.name).join(', ')}`);
+  if (j.pack) { const ps = plSumPatch(j.pack); if (ps) out.push(ps); }
   return out.join('; ');
 }
 function bkPatch(j) {
@@ -3396,9 +3511,9 @@ function bkPatch(j) {
   }
   if (j.weekVars && typeof j.weekVars === 'object') P.weekVars = { ...(P.weekVars || {}), ...j.weekVars };
   if (j.weekVarNotes && typeof j.weekVarNotes === 'object') P.weekVarNotes = { ...(P.weekVarNotes || {}), ...j.weekVarNotes };
-  const rz = Array.isArray(j.recipes) ? rzFromPatch(j.recipes) : null, un = j.uni && typeof j.uni === 'object' ? uPatch(j.uni) : null;
+  const rz = Array.isArray(j.recipes) ? rzFromPatch(j.recipes) : null, un = j.uni && typeof j.uni === 'object' ? uPatch(j.uni) : null, pk = j.pack ? plPatch(j.pack) : [];
   touch('profile'); BK.pending = null; renderSheet(); render();
-  const parts = []; if (np || up) parts.push(`${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}`); if (j.weekVars) parts.push('Wochenvarianten'); if (rz) parts.push(rz.n === 1 ? 'ein Rezept' : `${rz.n} Rezepte`); if (un && un.length) parts.push(...un);
+  const parts = []; if (np || up) parts.push(`${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}`); if (j.weekVars) parts.push('Wochenvarianten'); if (rz) parts.push(rz.n === 1 ? 'ein Rezept' : `${rz.n} Rezepte`); if (un && un.length) parts.push(...un); if (pk.length) parts.push(...pk);
   toast(`Übernommen: ${parts.join(', ') || 'nichts Neues'}${rz && rz.miss.length ? `. Nicht gefunden: ${rz.miss.slice(0, 3).join(', ')}` : ''}`);
 }
 /* ---------- v14: Muskeln, Steigerungs-Coach, Aufwärmsätze, Übung tauschen ---------- */
@@ -3929,7 +4044,7 @@ function vHeute() {
   if (S.ui.homeEdit) return vHomeEdit();
   const R = { sky: vSky, rings: () => vRings(k), checks: () => vChecks(k), quick: vQuick, brief: vBrief, badges: vDashBadges, counters: vDashCounters,
     't-energy': () => vDashEnergy(k), 't-body': vDashBody, 't-alc': vDashAlc2, 't-water': vDashWater, 't-work': vDashWork, 't-fin': vDashFin,
-    uni: () => vDashUni(k), training: () => vDashTrainingNew(k), today: () => vDashToday(k), sport: vDashSport, week: vDashWeek };
+    uni: () => vDashUni(k), training: () => vDashTrainingNew(k), today: () => vDashToday(k), pack: vDashPack, sport: vDashSport, week: vDashWeek };
   const hid = new Set(homeCfg().hidden);
   let out = '', tiles = '';
   const flush = () => { if (tiles) { out += `<div class="tiles">${tiles}</div>`; tiles = ''; } };
@@ -4584,6 +4699,7 @@ function moSet(el, html, track) {
   if (!el) return false;
   if (!window.Idiomorph || !el.firstElementChild) { el.innerHTML = html; return false; }
   MO.ticks = track ? new Set() : null; MO.added = track ? [] : null;
+  try { const ae = document.activeElement; if (ae && ae.tagName === 'BUTTON' && el.contains(ae)) ae.blur(); } catch (e) { }
   try { Idiomorph.morph(el, html, { morphStyle: 'innerHTML', ignoreActiveValue: true, restoreFocus: true, callbacks: MO_CB }); return true; }
   catch (e) { try { console.warn('morph', e); } catch (x) { } el.innerHTML = html; return false; }
   finally { if (!track) { MO.ticks = null; MO.added = null; } }
@@ -4697,7 +4813,7 @@ function sheetDrag(el, close) {
 
 /* Vibration: iOS 18 gibt beim Umlegen eines Schalters ein kurzes Tippen, das nutzen wir */
 var HAPT = { last: 0 };
-var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg|mk-done)\b/;
+var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg|mk-done|pl-ck|id-done|id-save|id-add)\b/;
 function haptic() {
   try { if (S.profile && S.profile.settings && S.profile.settings.haptics === false) return; } catch (e) { }
   const now = Date.now(); if (now - HAPT.last < 50) return; HAPT.last = now;
@@ -4730,7 +4846,7 @@ var TR_IC = {
   hist: '<path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5M4 4v4.5h4.5M12 8v4l3 2"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/>'
 };
-function ltTitle(t) { return t === 'heute' ? 'Heute' : SUB[t] || ((TABS.find(x => x[0] === t) || [0, ''])[1]); }
+function ltTitle(t) { if (t === 'pack' && S.ui && S.ui.tab === 'pack' && S.ui.plT) { const pt = S.ui.plT === 'base' ? 'Grundliste' : (plTour(S.ui.plT) || {}).name; if (pt) return pt; } return t === 'heute' ? 'Heute' : SUB[t] || ((TABS.find(x => x[0] === t) || [0, ''])[1]); }
 function ltHead(t) {
   if (t === 'heute') {
     if (S.ui.homeEdit) return '';
@@ -4747,7 +4863,7 @@ function ltHead(t) {
 })();
 
 /* Startseite: das Wichtigste oben, Wetter steckt in der Überschrift */
-HOME_ITEMS = [['rings', 'Tagesringe'], ['training', 'Training'], ['checks', 'Täglich abhaken'], ['today', 'Termine und To-dos'],
+HOME_ITEMS = [['rings', 'Tagesringe'], ['training', 'Training'], ['checks', 'Täglich abhaken'], ['today', 'Termine und To-dos'], ['pack', 'Packliste vor einer Tour'],
   ['t-body', 'Kachel Gewicht'], ['t-water', 'Kachel Wasser'], ['t-alc', 'Kachel Alkohol'], ['t-work', 'Kachel Arbeit'], ['t-fin', 'Kachel Finanzen'], ['t-energy', 'Kachel Energie'],
   ['sport', 'Spielplan'], ['uni', 'Uni'], ['counters', 'Angeheftete Zähler'], ['week', 'Deine Woche'], ['quick', 'Schnell eintragen'], ['badges', 'Level und Abzeichen'], ['brief', 'Dein Tag'], ['sky', 'Wetter und Sonne']];
 HOME_N = Object.fromEntries(HOME_ITEMS);
@@ -5441,20 +5557,422 @@ function actTrain(c, args) {
   return false;
 }
 
+/* ---------- v24: Packliste für Touren ---------- */
+var PL_IC = '<rect x="3.5" y="7.5" width="17" height="12.5" rx="2.5"/><path d="M9 7.5V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5v2M8 7.5V20M16 7.5V20"/>';
+var PL_CATS = [
+  ['tour', 'Für diese Tour', '<path d="M5.5 21V4M5.5 4.5h11l-2.2 4 2.2 4h-11"/>'],
+  ['doc', 'Dokumente & Geld', '<rect x="3.5" y="6.5" width="17" height="12" rx="2.5"/><path d="M3.5 10.5h17M15 15h2.5"/>'],
+  ['tech', 'Technik', '<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/>'],
+  ['cloth', 'Kleidung', '<path d="M9 4 4.5 6.5l1.8 4 2.2-1V20h7V9.5l2.2 1 1.8-4L15 4a3 3 0 0 1-6 0z"/>'],
+  ['hyg', 'Bad & Pflege', '<path d="M12 3.5s-5.5 6-5.5 10a5.5 5.5 0 0 0 11 0c0-4-5.5-10-5.5-10z"/>'],
+  ['misc', 'Sonstiges', '<path d="M5 8.5h14l-1.2 11.5H6.2z"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>'],
+  ['go', 'Vor dem Losgehen', '<path d="M4 11.5 12 4.5l8 7"/><path d="M6.5 10v10h11V10"/><path d="M10.5 20v-5h3v5"/>']
+];
+var PL_CN = Object.fromEntries(PL_CATS.map(c => [c[0], c[1]]));
+/* Vorschlag für die Grundliste: [Name, Gruppe, Menge (Zahl oder 'd' = eins pro Tag), nur mit Übernachtung, Hinweis] */
+var PL_DEF = [
+  ['Personalausweis', 'doc'], ['Geldbeutel mit Karten', 'doc'], ['Etwas Bargeld', 'doc'], ['Krankenversicherungskarte', 'doc'], ['Schlüssel', 'doc'], ['Tickets und Buchungen aufs Handy laden', 'doc', 1, 0, 'dann klappt es auch ohne Netz'],
+  ['Handy', 'tech'], ['Ladekabel und Netzteil', 'tech'], ['Powerbank', 'tech', 1, 0, 'vorher aufladen'], ['Kopfhörer', 'tech'],
+  ['Unterwäsche', 'cloth', 'd', 1], ['Socken', 'cloth', 'd', 1], ['T-Shirts', 'cloth', 'd', 1], ['Hose', 'cloth'], ['Pullover oder Hoodie', 'cloth'], ['Jacke passend zum Wetter', 'cloth'], ['Schlafsachen', 'cloth', 1, 1], ['Bequeme Schuhe', 'cloth'],
+  ['Zahnbürste und Zahnpasta', 'hyg', 1, 1], ['Deo', 'hyg', 1, 1], ['Duschgel und Shampoo', 'hyg', 1, 1, 'im Hotel oft vorhanden'], ['Haarstyling', 'hyg', 1, 1], ['Parfüm', 'hyg', 1, 1], ['Rasierer', 'hyg', 1, 1], ['Creme', 'hyg', 1, 1], ['Medikamente und Pflaster', 'hyg'],
+  ['Rucksack oder Reisetasche', 'misc'], ['Trinkflasche', 'misc'], ['Snacks für unterwegs', 'misc'], ['Taschentücher', 'misc'], ['Beutel für Schmutzwäsche', 'misc', 1, 1],
+  ['Fenster zu', 'go'], ['Herd und Geräte aus', 'go'], ['Licht aus', 'go'], ['Heizung runterdrehen', 'go', 1, 1], ['Müll rausbringen', 'go', 1, 1], ['Tür abschließen', 'go']
+];
+/* Bausteine: passende Dinge für eine Tour mit einem Tipp dazunehmen */
+var PL_ADD = [
+  ['bahn', 'Bahn', [['Bahnticket in der DB-App'], ['BahnCard'], ['Essen und Getränk für die Fahrt'], ['Etwas zum Lesen oder Filme offline']]],
+  ['auto', 'Auto', [['Führerschein'], ['Fahrzeugschein'], ['Parkticket mitnehmen', 1, 'Foto vom Stellplatz machen'], ['Ladekabel fürs Auto']]],
+  ['flug', 'Flug', [['Bordkarte'], ['Reisepass'], ['Beutel für Flüssigkeiten', 1, 'höchstens 100 ml je Flasche'], ['Steckdosen-Adapter']]],
+  ['hotel', 'Übernachtung', [['Buchungsbestätigung'], ['Ohrstöpsel'], ['Schlafmaske']]],
+  ['stadion', 'Stadion & Konzert', [['Ticket', 1, 'in der App oder ausgedruckt'], ['Fanschal oder Trikot'], ['Kleine Tasche', 1, 'oft nur bis DIN A4 erlaubt'], ['Regenjacke', 1, 'Schirme sind im Stadion meist verboten']]],
+  ['party', 'Ausgehen', [['Outfit für abends'], ['Ausweis für den Einlass'], ['Bargeld für Bar und Garderobe'], ['Kaugummis']]],
+  ['sport', 'Sport', [['Sportsachen'], ['Sportschuhe'], ['Handtuch'], ['Schloss für den Spind']]],
+  ['regen', 'Kalt & Regen', [['Regenjacke'], ['Warmer Pullover'], ['Mütze'], ['Handschuhe']]],
+  ['sonne', 'Sonne & Strand', [['Sonnencreme'], ['Sonnenbrille'], ['Badehose'], ['Strandtuch'], ['Badelatschen'], ['Kappe']]],
+  ['arbeit', 'Arbeit', [['Laptop und Ladegerät'], ['Firmenausweis'], ['Hemd oder Bluse'], ['Notizblock und Stift']]]
+];
+function plData() { const P = S.profile; if (!P.pack || typeof P.pack !== 'object') P.pack = {}; if (!Array.isArray(P.pack.tours)) P.pack.tours = []; return P.pack; }
+function plDefItems() { return PL_DEF.map((a, i) => ({ id: 'b' + i, n: a[0], c: a[1], q: a[2] || 1, o: !!a[3], h: a[4] || '' })); }
+function plBase() { const D = plData(); return Array.isArray(D.base) ? D.base : plDefItems(); }
+function plBaseEdit() { const D = plData(); if (!Array.isArray(D.base)) D.base = plDefItems(); return D.base; }
+function plTours() { return plData().tours; }
+function plTour(id) { return plTours().find(t => t.id === id); }
+function plCat(x) { return PL_CN[x.c] ? x.c : 'misc'; }
+function plNights(t) { return t.from && t.to ? Math.max(0, daysBetween(t.from, t.to)) : 0; }
+function plQty(t, x) { return x.q === 'd' ? plNights(t) + 1 : (+x.q || 1); }
+function plStat(t) { const n = t.items.length, d = t.items.filter(x => x.done).length; return { n, d, p: n ? d / n : 0 }; }
+function plEnd(t) { return t.to || t.from || ''; }
+function plWhen(t) {
+  const tk = todayKey(); if (!t.from) return '';
+  if (plEnd(t) < tk) return 'vorbei';
+  if (t.from === tk) return 'heute';
+  if (t.from < tk) return 'läuft gerade';
+  const d = daysBetween(tk, t.from); return d === 1 ? 'morgen' : `in ${d} Tagen`;
+}
+function plRange(t) {
+  if (!t.from) return 'ohne Datum';
+  const a = shortDate(t.from); if (!t.to || t.to === t.from) return `${a} · Tagestour`;
+  const n = plNights(t); return `${a} bis ${shortDate(t.to)} · ${n === 1 ? '1 Nacht' : n + ' Nächte'}`;
+}
+function plSorted() {
+  const tk = todayKey(), L = plTours();
+  const up = L.filter(t => !t.from || plEnd(t) >= tk).sort((a, b) => String(a.from || '9').localeCompare(String(b.from || '9')));
+  const past = L.filter(t => t.from && plEnd(t) < tk).sort((a, b) => b.from.localeCompare(a.from));
+  return { up, past };
+}
+function plNextTour() { return plSorted().up[0] || null; }
+function plHas(t, n) { const k = nrm(n); return t.items.some(x => nrm(x.n) === k); }
+function plMkItem(n, c, q, h, b) { const o = { id: uid(), n: String(n).trim().slice(0, 80), c: c || 'tour', q: q === 'd' ? 'd' : Math.max(1, Math.min(20, +q || 1)), h: String(h || '').slice(0, 120), done: false }; if (b) o.b = b; return o; }
+function plAddBlock(t, key) {
+  const B = PL_ADD.find(b => b[0] === key); if (!B) return 0;
+  let k = 0; for (const a of B[2]) if (!plHas(t, a[0])) { t.items.push(plMkItem(a[0], 'tour', a[1], a[2], key)); k++; }
+  if (!Array.isArray(t.add)) t.add = []; if (!t.add.includes(key)) t.add.push(key);
+  return k;
+}
+function plFillBase(t) { const night = plNights(t) > 0; let k = 0; for (const x of plBase()) if ((night || !x.o) && !plHas(t, x.n)) { t.items.push(plMkItem(x.n, plCat(x), x.q, x.h)); k++; } return k; }
+function plNewTour(o) {
+  const t = { id: uid(), name: String(o.name || 'Tour').trim().slice(0, 60), from: o.from || '', to: o.to || o.from || '', note: String(o.note || '').slice(0, 600), items: [], add: [], at: todayKey() };
+  if (t.from && t.to && t.to < t.from) [t.from, t.to] = [t.to, t.from];
+  plFillBase(t); (o.add || []).forEach(k => plAddBlock(t, k));
+  plTours().push(t); return t;
+}
+/* „Ticket, 2 Schals, Regenjacke 1x“ → einzelne Dinge mit Menge */
+function plParseList(txt) {
+  return String(txt || '').split(/[,;\n]+/).map(s => s.trim()).filter(Boolean).map(s => {
+    let m, q = 1;
+    if ((m = s.match(/^(\d{1,2})\s*[x×]?\s+(.+)$/i))) { q = +m[1]; s = m[2]; }
+    else if ((m = s.match(/^(.+?)\s+(\d{1,2})\s*[x×]$/i))) { s = m[1]; q = +m[2]; }
+    return { n: s.charAt(0).toUpperCase() + s.slice(1), q };
+  });
+}
+function plAddText(t, txt, c) {
+  const out = [];
+  for (const a of plParseList(txt)) { if (plHas(t, a.n)) continue; t.items.push(plMkItem(a.n, c || 'tour', a.q)); out.push(a.n); }
+  return out;
+}
+function plSub() { const t = plNextTour(); if (!t) return 'Für Touren und Reisen'; const s = plStat(t), w = plWhen(t); return `${t.name}${w ? ' ' + w : ''}: ${s.d} von ${s.n}`; }
+function plGo(id, dir, edit) {
+  const fn = () => { S.ui.plT = id || null; S.ui.plEdit = edit || null; S.ui.plBE = null; S.ui.fresh = true; render(); window.scrollTo(0, 0); };
+  if (S.ui.noVT) fn(); else vtRun(fn, dir || 'push');
+}
+function plBar(p) { return `<span class="pl-bar"><i style="width:${(Math.max(0, Math.min(1, p)) * 100).toFixed(1)}%"></i></span>`; }
+function plTourBtn(t, big) {
+  const s = plStat(t), w = plWhen(t), all = s.n && s.d === s.n;
+  return `<button class="pl-tr${big ? ' big' : ''}${w === 'vorbei' ? ' past' : ''}${all ? ' all' : ''}" data-a="pl-open:${t.id}"><span class="pl-ic"><svg viewBox="0 0 24 24" aria-hidden="true">${PL_IC}</svg></span>
+    <span class="pl-tx"><b>${esc(t.name)}</b><small>${esc(plRange(t))}${w && w !== 'vorbei' ? ` · <em>${w}</em>` : ''}</small>${w === 'vorbei' ? '' : plBar(s.p)}</span><span class="pl-pc">${all ? 'Alles drin' : `${s.d}/${s.n}`}</span></button>`;
+}
+function vPack() {
+  const id = S.ui.plT;
+  if (id === 'base') return vPackBase();
+  const t = id ? plTour(id) : null;
+  return t ? vPackTour(t) : vPackHome();
+}
+function vPackHome() {
+  const { up, past } = plSorted(), N = S.ui.plNew, B = plBase();
+  let h = '';
+  if (N) h += vPackNew(N);
+  else h += `<button class="btn primary wide pl-newb" data-a="pl-new"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Neue Tour</button>`;
+  if (up.length) h += `<div class="pl-trs">${up.map((t, i) => plTourBtn(t, i === 0)).join('')}</div>`;
+  else if (!N) h += `<section class="panel"><p class="small muted" style="margin:0">Noch keine Tour. Leg eine an: Die Grundliste kommt automatisch mit, dazu packst du, was speziell für diese Tour mit muss. Was eingepackt ist, wird grün und bleibt stehen.</p></section>`;
+  const groups = PL_CATS.filter(c => c[0] !== 'tour').map(c => [c, B.filter(x => plCat(x) === c[0]).length]).filter(x => x[1]);
+  h += `<div class="pl-sec"><h2>Immer dabei</h2></div>
+    <button class="pl-base" data-a="pl-open:base"><span class="pl-tx"><b>Grundliste</b><small>${plu(B.length, 'Ding', 'Dinge')} in ${groups.length} Gruppen. Kommt bei jeder neuen Tour mit.</small></span><span class="link">Anpassen</span></button>`;
+  if (past.length) {
+    const open = !!S.ui.plPast;
+    h += `<div class="pl-sec"><h2>Vergangene Touren</h2><button class="link" data-a="pl-past" aria-expanded="${open}">${open ? 'Ausblenden' : `Zeigen (${past.length})`}</button></div>${open ? `<div class="pl-trs">${past.map(t => plTourBtn(t)).join('')}</div>` : ''}`;
+  }
+  return h;
+}
+function vPackNew(N) {
+  return `<section class="panel pl-new"><h2>Neue Tour</h2>
+    <label class="fld"><span>Wohin oder was</span><input id="pkn-name" data-pkn="name" value="${esc(N.name || '')}" placeholder="z. B. Wochenende in Berlin" autocomplete="off" enterkeyhint="done"></label>
+    <div class="grid2 pl-dates"><label class="fld"><span>Von</span><input type="date" data-pkn="from" value="${esc(N.from || '')}"></label><label class="fld"><span>Bis</span><input type="date" data-pkn="to" value="${esc(N.to || '')}"></label></div>
+    <p class="small muted pl-hint">Bausteine dazunehmen, die passenden Dinge kommen automatisch auf die Liste:</p>
+    <div class="chips pl-blk">${PL_ADD.map(b => { const on = (N.add || []).includes(b[0]); return `<button class="chip${on ? ' on' : ''}" data-a="pl-nb:${b[0]}" aria-pressed="${on}">${b[1]}</button>`; }).join('')}</div>
+    <label class="fld"><span>Notiz</span><textarea data-pkn="note" rows="2" placeholder="Abfahrt, Treffpunkt, Unterkunft …">${esc(N.note || '')}</textarea></label>
+    <div class="row-actions"><button class="btn ghost" data-a="pl-new-x">Abbrechen</button><button class="btn primary" data-a="pl-new-ok">Tour anlegen</button></div></section>`;
+}
+function plRow(t, x, edit) {
+  const q = plQty(t, x);
+  if (edit) return `<div class="pl-i ed"><input class="pl-in" data-pki="${t.id}:${x.id}" value="${esc(x.n)}" aria-label="Name" autocomplete="off"><button class="pl-qb" data-a="pl-iq:${t.id}:${x.id}" aria-label="Menge ändern">${x.q === 'd' ? 'pro Tag' : q + '×'}</button><button class="pl-x" data-a="pl-idel:${t.id}:${x.id}" aria-label="${esc(x.n)} entfernen">×</button></div>`;
+  return `<button class="pl-i${x.done ? ' on' : ''}" data-a="pl-ck:${t.id}:${x.id}" aria-pressed="${!!x.done}"><span class="pl-ck">${CHECK_I}</span><span class="pl-t"><b>${esc(x.n)}</b>${x.h ? `<small>${esc(x.h)}</small>` : ''}</span>${q > 1 ? `<span class="pl-q">${q}×</span>` : ''}</button>`;
+}
+function vPackTour(t) {
+  const s = plStat(t), edit = S.ui.plEdit === t.id, only = S.ui.plOnly === t.id, w = plWhen(t), all = s.n && s.d === s.n;
+  let h = `<section class="panel pl-hero${all ? ' all' : ''}"><div class="pl-meta"><small>${esc(plRange(t))}${w ? ` · ${w}` : ''}</small><button class="btn small${edit ? ' primary' : ''}" data-a="pl-edit:${t.id}">${edit ? 'Fertig' : 'Bearbeiten'}</button></div>
+    ${t.note && !edit ? `<p class="pl-note">${esc(t.note)}</p>` : ''}
+    <div class="pl-pr"><b>${s.d}</b><span>von ${s.n} eingepackt</span>${all ? '<em>Alles drin</em>' : ''}</div>${plBar(s.p)}</section>`;
+  if (edit) h += vPackTourEdit(t);
+  else h += `<section class="panel pl-add"><div class="quick-in"><input id="pl-addin" placeholder="Was muss noch mit?" aria-label="Neues Ding für diese Tour" data-enter="pl-add:${t.id}" enterkeyhint="done" autocomplete="off"><button class="btn primary" data-a="pl-add:${t.id}">Dazu</button></div></section>
+    <div class="seg seg6 pl-seg" role="group" aria-label="Anzeigen"><button class="${only ? '' : 'on'}" data-a="pl-only:${t.id}:0" aria-pressed="${!only}">Alles (${s.n})</button><button class="${only ? 'on' : ''}" data-a="pl-only:${t.id}:1" aria-pressed="${only}">Noch offen (${s.n - s.d})</button></div>`;
+  for (const [c, l, ic] of PL_CATS) {
+    const xs = t.items.filter(x => plCat(x) === c), d = xs.filter(x => x.done).length;
+    if (!xs.length && c !== 'tour' && !edit) continue;
+    const vis = only && !edit ? xs.filter(x => !x.done) : xs, gAll = xs.length && d === xs.length;
+    let body = vis.map(x => plRow(t, x, edit)).join('');
+    if (!xs.length && c === 'tour' && !edit) body = `<p class="pl-none">Noch nichts Besonderes. Trag oben ein, was speziell für diese Tour mit muss, oder nimm unter „Bearbeiten“ einen Baustein dazu.</p>`;
+    else if (!vis.length && xs.length) body = `<p class="pl-alldone">Alles eingepackt</p>`;
+    if (edit) body += `<div class="addrow pl-gadd"><input id="pkg-${c}" placeholder="Zu „${l}“ hinzufügen" data-enter="pl-gadd:${t.id}:${c}" enterkeyhint="done" autocomplete="off"><button class="btn" data-a="pl-gadd:${t.id}:${c}">Dazu</button></div>`;
+    h += `<section class="panel pl-g"><div class="pl-gh${gAll ? ' all' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg><h3>${l}</h3>${xs.length ? `<span>${gAll ? 'alles drin' : `${d}/${xs.length}`}</span>` : ''}</div><div class="pl-l">${body}</div></section>`;
+  }
+  return h;
+}
+function vPackTourEdit(t) {
+  const add = Array.isArray(t.add) ? t.add : [];
+  return `<section class="panel pl-new"><h2>Tour</h2>
+    <label class="fld"><span>Name</span><input data-pkf="${t.id}:name" value="${esc(t.name)}" autocomplete="off"></label>
+    <div class="grid2 pl-dates"><label class="fld"><span>Von</span><input type="date" data-pkf="${t.id}:from" value="${esc(t.from || '')}"></label><label class="fld"><span>Bis</span><input type="date" data-pkf="${t.id}:to" value="${esc(t.to || '')}"></label></div>
+    <label class="fld"><span>Notiz</span><textarea data-pkf="${t.id}:note" rows="3" placeholder="Abfahrt, Treffpunkt, Unterkunft …">${esc(t.note || '')}</textarea></label>
+    <p class="small muted pl-hint">Bausteine: antippen nimmt die passenden Dinge dazu, noch mal antippen nimmt sie wieder raus (Eingepacktes bleibt).</p>
+    <div class="chips pl-blk">${PL_ADD.map(b => { const on = add.includes(b[0]); return `<button class="chip${on ? ' on' : ''}" data-a="pl-blk:${t.id}:${b[0]}" aria-pressed="${on}">${b[1]}</button>`; }).join('')}</div>
+    <div class="pl-tools"><button class="btn small" data-a="pl-fill:${t.id}">Fehlendes aus der Grundliste</button><button class="btn small" data-a="pl-reset:${t.id}" data-confirm="Alle Haken entfernen?">Alle Haken entfernen</button><button class="btn small" data-a="pl-copy:${t.id}">Als neue Tour kopieren</button><button class="btn small ghost danger" data-a="pl-del:${t.id}" data-confirm="Tour wirklich löschen?">Tour löschen</button></div></section>`;
+}
+function vPackBase() {
+  const B = plBase(), open = S.ui.plBE;
+  let h = `<section class="panel"><p class="small" style="margin:0">Das kommt bei jeder neuen Tour automatisch mit. Tipp ein Ding an, um es umzubenennen oder die Menge zu ändern. Touren, die schon angelegt sind, bleiben, wie sie sind.</p></section>`;
+  for (const [c, l, ic] of PL_CATS) {
+    if (c === 'tour') continue;
+    const xs = B.filter(x => plCat(x) === c);
+    const rows = xs.map(x => {
+      const sub = [x.q === 'd' ? 'eins pro Tag' : x.q > 1 ? `${x.q} Stück` : '', x.o ? 'nur mit Übernachtung' : '', x.h].filter(Boolean).join(' · ');
+      const o = open === x.id;
+      return `<div class="pb-r${o ? ' open' : ''}"><div class="pb-h"><button class="pb-t" data-a="pl-bopen:${x.id}" aria-expanded="${o}"><b>${esc(x.n)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</button><button class="pl-x" data-a="pl-bdel:${x.id}" aria-label="${esc(x.n)} entfernen">×</button></div>
+        ${o ? `<div class="pb-ed"><label class="fld"><span>Name</span><input data-pkb="${x.id}:n" value="${esc(x.n)}" autocomplete="off"></label>
+          <label class="fld"><span>Hinweis</span><input data-pkb="${x.id}:h" value="${esc(x.h || '')}" placeholder="optional" autocomplete="off"></label>
+          <div class="pb-row"><span class="small muted">Menge</span><div class="chips">${[[1, '1'], [2, '2'], [3, '3'], ['d', 'pro Tag']].map(([v, lb]) => `<button class="chip${String(x.q) === String(v) ? ' on' : ''}" data-a="pl-bq:${x.id}:${v}">${lb}</button>`).join('')}</div></div>
+          <div class="th-row"><span>Nur bei Touren mit Übernachtung</span><button class="sw${x.o ? ' on' : ''}" role="switch" aria-checked="${!!x.o}" data-a="pl-bo:${x.id}" aria-label="Nur bei Touren mit Übernachtung"><i></i></button></div>
+          <label class="fld"><span>Gruppe</span><select data-pkb="${x.id}:c">${PL_CATS.filter(z => z[0] !== 'tour').map(z => `<option value="${z[0]}"${z[0] === c ? ' selected' : ''}>${z[1]}</option>`).join('')}</select></label></div>` : ''}</div>`;
+    }).join('');
+    h += `<section class="panel pl-g"><div class="pl-gh"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg><h3>${l}</h3><span>${xs.length}</span></div>${rows}
+      <div class="addrow pl-gadd"><input id="pkb-${c}" placeholder="Zu „${l}“ hinzufügen" data-enter="pl-badd:${c}" enterkeyhint="done" autocomplete="off"><button class="btn" data-a="pl-badd:${c}">Dazu</button></div></section>`;
+  }
+  if (Array.isArray(plData().base)) h += `<button class="btn wide ghost" data-a="pl-breset" data-confirm="Sicher? Deine Änderungen an der Grundliste gehen verloren">Meinen Vorschlag wiederherstellen</button>`;
+  return h;
+}
+function vDashPack() {
+  const tk = todayKey(), L = plTours().filter(t => t.from && t.from <= addDays(tk, 3) && plEnd(t) >= tk).sort((a, b) => a.from.localeCompare(b.from));
+  if (!L.length) return '';
+  return L.slice(0, 2).map(t => {
+    const s = plStat(t), w = plWhen(t), all = s.n && s.d === s.n;
+    return `<section class="panel pl-dash${all ? ' all' : ''}"><button class="pl-db" data-a="pl-go:${t.id}"><span class="pl-ic"><svg viewBox="0 0 24 24" aria-hidden="true">${PL_IC}</svg></span><span class="pl-tx"><small>Packliste${w ? ' · ' + w : ''}</small><b>${esc(t.name)}</b>${plBar(s.p)}</span><span class="pl-pc">${all ? 'Alles drin' : `${s.d}/${s.n}`}</span></button></section>`;
+  }).join('');
+}
+/* Ergänzungsdatei: {"pack":{"tours":[{"name","from","to","note","add":["bahn"],"items":[{"n","h","q","c"}]}],"baseAdd":[…]}} */
+function plPatch(J) {
+  const out = []; if (!J || typeof J !== 'object') return out;
+  const it = a => typeof a === 'string' ? { n: a } : (a && typeof a === 'object' ? a : {});
+  if (Array.isArray(J.baseAdd)) {
+    const B = plBaseEdit(); let k = 0;
+    for (const r of J.baseAdd) { const a = it(r), n = String(a.n || a.name || '').trim(); if (!n || B.some(x => nrm(x.n) === nrm(n))) continue; B.push({ id: uid(), n: n.slice(0, 80), c: PL_CN[a.c] && a.c !== 'tour' ? a.c : 'misc', q: a.q === 'd' ? 'd' : Math.max(1, Math.min(20, +a.q || 1)), o: !!a.o, h: String(a.h || '').slice(0, 120) }); k++; }
+    if (k) out.push(`${plu(k, 'Ding', 'Dinge')} für die Grundliste`);
+  }
+  if (Array.isArray(J.tours)) for (const o of J.tours) {
+    if (!o || !o.name) continue;
+    const ok = d => /^\d{4}-\d{2}-\d{2}$/.test(String(d || '')), from = ok(o.from) ? o.from : '', to = ok(o.to) ? o.to : from;
+    let t = plTours().find(x => nrm(x.name) === nrm(o.name) && (x.from || '') === from);
+    const isNew = !t, adds = (Array.isArray(o.add) ? o.add : []).filter(k => PL_ADD.some(b => b[0] === k));
+    if (!t) t = plNewTour({ name: o.name, from, to, note: o.note, add: adds });
+    else { if (o.note) t.note = String(o.note).slice(0, 600); if (to) t.to = to; adds.forEach(k => plAddBlock(t, k)); }
+    for (const r of Array.isArray(o.items) ? o.items : []) {
+      const a = it(r), n = String(a.n || a.name || '').trim(); if (!n) continue;
+      const ex = t.items.find(x => nrm(x.n) === nrm(n));
+      if (ex) { if (a.h) ex.h = String(a.h).slice(0, 120); continue; }
+      t.items.push(plMkItem(n, PL_CN[a.c] ? a.c : 'tour', a.q, a.h));
+    }
+    out.push(`Packliste ${t.name}${isNew ? '' : ' aktualisiert'}`);
+  }
+  return out;
+}
+function plSumPatch(J) {
+  if (!J || typeof J !== 'object') return '';
+  const p = [];
+  if (Array.isArray(J.tours) && J.tours.length) p.push(J.tours.filter(t => t && t.name).map(t => `${t.name}${/^\d{4}-\d{2}-\d{2}$/.test(String(t.from || '')) ? ` (${shortDate(t.from)})` : ''}`).join(', '));
+  if (Array.isArray(J.baseAdd) && J.baseAdd.length) p.push('Ergänzungen für die Grundliste');
+  return p.length ? `Packliste: ${p.join(', ')}` : '';
+}
+function actPack(c, args) {
+  const t = args[0] && args[0] !== 'base' ? plTour(args[0]) : null, x = t && args[1] ? t.items.find(i => i.id === args[1]) : null;
+  switch (c) {
+    case 'pl-go': if (S.ui.tab === 'pack') { plGo(args[0] || null); return true; } S.ui.plT = args[0] || null; S.ui.plEdit = null; S.ui.plBE = null; setTab('pack'); return true;
+    case 'pl-open': plGo(args[0]); return true;
+    case 'pl-past': S.ui.plPast = !S.ui.plPast; render(); return true;
+    case 'pl-new': S.ui.plNew = { name: '', from: '', to: '', note: '', add: [] }; render(); setTimeout(() => { const i = $('#pkn-name'); if (i) i.focus(); }, 30); return true;
+    case 'pl-new-x': S.ui.plNew = null; render(); return true;
+    case 'pl-nb': { const N = S.ui.plNew; if (!N) return true; const i = N.add.indexOf(args[0]); if (i >= 0) N.add.splice(i, 1); else N.add.push(args[0]); render(); return true; }
+    case 'pl-new-ok': {
+      const N = S.ui.plNew; if (!N) return true;
+      if (!String(N.name || '').trim()) { const i = $('#pkn-name'); if (i) i.focus(); toast('Gib der Tour einen Namen.'); return true; }
+      const nt = plNewTour(N); S.ui.plNew = null; touch('profile'); haptic();
+      plGo(nt.id); toast(`${nt.name} angelegt, ${plu(nt.items.length, 'Ding', 'Dinge')} auf der Liste`); return true;
+    }
+    case 'pl-ck': if (x) {
+      x.done = !x.done; touch('profile'); render();
+      const s = plStat(t); if (x.done && s.d === s.n) { toast(`Alles eingepackt. Gute Tour!`); try { haptic(); } catch (e) { } }
+    } return true;
+    case 'pl-only': S.ui.plOnly = args[1] === '1' ? args[0] : null; render(); return true;
+    case 'pl-add': if (t) { const inp = $('#pl-addin'), v = inp ? inp.value : ''; if (!v.trim()) { if (inp) inp.focus(); return true; } const a = plAddText(t, v); if (inp) inp.value = ''; touch('profile'); render(); toast(a.length ? `Dazu: ${a.join(', ')}` : 'Steht schon auf der Liste'); } return true;
+    case 'pl-gadd': if (t) { const inp = $('#pkg-' + args[1]), v = inp ? inp.value : ''; if (!v.trim()) { if (inp) inp.focus(); return true; } const a = plAddText(t, v, args[1]); if (inp) inp.value = ''; touch('profile'); render(); if (!a.length) toast('Steht schon auf der Liste'); setTimeout(() => { const i = $('#pkg-' + args[1]); if (i) i.focus(); }, 30); } return true;
+    case 'pl-edit': S.ui.plEdit = S.ui.plEdit === args[0] ? null : args[0]; render(); return true;
+    case 'pl-iq': if (x) { const seq = [1, 2, 3, 4, 5, 'd']; const i = seq.findIndex(v => String(v) === String(x.q)); x.q = seq[(i + 1) % seq.length]; touch('profile'); render(); } return true;
+    case 'pl-idel': if (x) { const i = t.items.indexOf(x); t.items.splice(i, 1); touch('profile'); render(); toast(`${x.n} entfernt`, () => { t.items.splice(i, 0, x); touch('profile'); render(); }); } return true;
+    case 'pl-blk': if (t) {
+      const key = args[1], on = Array.isArray(t.add) && t.add.includes(key);
+      if (on) { const rm = t.items.filter(i => i.b === key && !i.done); t.items = t.items.filter(i => !rm.includes(i)); t.add = t.add.filter(k => k !== key); touch('profile'); render(); toast(rm.length ? `${plu(rm.length, 'Ding', 'Dinge')} rausgenommen` : 'Baustein entfernt'); }
+      else { const n = plAddBlock(t, key); touch('profile'); render(); toast(n ? `${plu(n, 'Ding', 'Dinge')} dazu` : 'Schon alles auf der Liste'); }
+    } return true;
+    case 'pl-fill': if (t) { const n = plFillBase(t); touch('profile'); render(); toast(n ? `${plu(n, 'Ding', 'Dinge')} aus der Grundliste ergänzt` : 'Es fehlt nichts aus der Grundliste'); } return true;
+    case 'pl-reset': if (t) { const was = t.items.filter(i => i.done); was.forEach(i => i.done = false); touch('profile'); render(); toast('Alle Haken entfernt', () => { was.forEach(i => i.done = true); touch('profile'); render(); }); } return true;
+    case 'pl-copy': if (t) { const nt = { id: uid(), name: `${t.name} (Kopie)`.slice(0, 60), from: '', to: '', note: t.note || '', add: (t.add || []).slice(), items: t.items.map(i => ({ ...i, id: uid(), done: false })), at: todayKey() }; plTours().push(nt); touch('profile'); plGo(nt.id, 'push', nt.id); toast('Kopie angelegt, trag noch die Daten ein'); } return true;
+    case 'pl-del': if (t) { const L = plTours(), i = L.indexOf(t); L.splice(i, 1); touch('profile'); plGo(null, 'pop'); toast(`${t.name} gelöscht`, () => { L.splice(i, 0, t); touch('profile'); render(); }); } return true;
+    case 'pl-bopen': S.ui.plBE = S.ui.plBE === args[0] ? null : args[0]; render(); return true;
+    case 'pl-bdel': { const B = plBaseEdit(), i = B.findIndex(b => b.id === args[0]); if (i < 0) return true; const [it] = B.splice(i, 1); touch('profile'); render(); toast(`${it.n} aus der Grundliste entfernt`, () => { B.splice(i, 0, it); touch('profile'); render(); }); return true; }
+    case 'pl-bq': { const b = plBaseEdit().find(z => z.id === args[0]); if (b) { b.q = args[1] === 'd' ? 'd' : +args[1]; touch('profile'); render(); } return true; }
+    case 'pl-bo': { const b = plBaseEdit().find(z => z.id === args[0]); if (b) { b.o = !b.o; touch('profile'); render(); } return true; }
+    case 'pl-badd': { const inp = $('#pkb-' + args[0]), v = inp ? inp.value : ''; if (!v.trim()) { if (inp) inp.focus(); return true; } const B = plBaseEdit(); let n = 0; for (const a of plParseList(v)) { if (B.some(z => nrm(z.n) === nrm(a.n))) continue; B.push({ id: uid(), n: a.n.slice(0, 80), c: args[0], q: a.q, o: false, h: '' }); n++; } if (inp) inp.value = ''; touch('profile'); render(); if (!n) toast('Steht schon in der Grundliste'); setTimeout(() => { const i = $('#pkb-' + args[0]); if (i) i.focus(); }, 30); return true; }
+    case 'pl-breset': { const old = plData().base; delete plData().base; S.ui.plBE = null; touch('profile'); render(); toast('Vorschlag wiederhergestellt', () => { plData().base = old; touch('profile'); render(); }); return true; }
+  }
+  return false;
+}
+document.addEventListener('input', e => {
+  const el = e.target, ds = el && el.dataset; if (!ds) return;
+  if (ds.pkn && S.ui.plNew) { S.ui.plNew[ds.pkn] = el.value; return; }
+  if (ds.pkf) { const [id, f] = ds.pkf.split(':'), t = plTour(id); if (!t) return; if (f === 'name') t.name = el.value.slice(0, 60); else if (f === 'note') t.note = el.value.slice(0, 600); else if (f === 'from' || f === 'to') t[f] = /^\d{4}-\d{2}-\d{2}$/.test(el.value) ? el.value : ''; touch('profile'); return; }
+  if (ds.pki) { const [id, iid] = ds.pki.split(':'), t = plTour(id), x = t && t.items.find(i => i.id === iid); if (x) { x.n = el.value.slice(0, 80); touch('profile'); } return; }
+  if (ds.pkb) { const [id, f] = ds.pkb.split(':'), b = plBaseEdit().find(z => z.id === id); if (!b) return; if (f === 'c') { if (PL_CN[el.value]) b.c = el.value; } else b[f] = el.value.slice(0, f === 'h' ? 120 : 80); touch('profile'); return; }
+});
+document.addEventListener('change', e => {
+  const el = e.target, ds = el && el.dataset; if (!ds) return;
+  if (ds.pkf && /:(from|to)$/.test(ds.pkf)) { const t = plTour(ds.pkf.split(':')[0]); if (t && t.from && t.to && t.to < t.from) t.to = t.from; render(); }
+  if (ds.pkn && (ds.pkn === 'from' || ds.pkn === 'to') && S.ui.plNew) { const N = S.ui.plNew; if (ds.pkn === 'from' && N.from && (!N.to || N.to < N.from)) { N.to = N.from; render(); } }
+  if (ds.pkb && ds.pkb.endsWith(':c')) render();
+});
+
+/* ---------- v24: Ideen für die App ---------- */
+var ID_IC = '<path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.2 1 2.1h5c0-.9.4-1.7 1-2.1A6 6 0 0 0 12 3z"/>';
+var COPY_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></svg>';
+var SHARE_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11M8 7.5l4-4 4 4"/><path d="M6.5 11H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5"/></svg>';
+var ID_AREAS = ['Allgemein', 'Start', 'Training', 'Essen', 'Körper', 'Alkohol', 'Arbeit', 'Geld', 'Uni', 'Packliste', 'Merkliste', 'Design'];
+var ID_KINDS = [['idee', 'Idee'], ['fehler', 'Fehler'], ['frage', 'Frage']];
+var APPVER = '';
+try { caches.keys().then(ks => { const k = ks.find(x => x.startsWith('bilanz-')); if (k) APPVER = k.slice(7); }).catch(() => { }); } catch (e) { }
+function idList() { if (!Array.isArray(S.profile.ideas)) S.profile.ideas = []; return S.profile.ideas; }
+function idFind(id) { return idList().find(x => x.id === id); }
+function idAreaOf(t) {
+  const m = { heute: 'Start', training: 'Training', essen: 'Essen', koerper: 'Körper', alkohol: 'Alkohol', arbeit: 'Arbeit', finanzen: 'Geld', uni: 'Uni', pack: 'Packliste', merk: 'Merkliste', mahlzeiten: 'Essen', rezepte: 'Essen', schritte: 'Körper', fotos: 'Körper' };
+  if (m[t]) return m[t]; if (/^tr/.test(t)) return 'Training'; if (t === 'mehr' || t === 'ideen' || !SUB[t]) return 'Allgemein'; return SUB[t];
+}
+function idKind(k) { return (ID_KINDS.find(x => x[0] === k) || ID_KINDS[0])[1]; }
+function idAdd(t, a, k) { const x = { id: uid(), t: String(t).trim().slice(0, 1500), a: a || 'Allgemein', k: k || 'idee', at: new Date().toISOString(), done: null }; idList().unshift(x); touch('profile'); return x; }
+function idText(xs) {
+  const head = `Ideen und Änderungswünsche für meine App Bilanz (Stand ${new Date().toLocaleDateString(DE)}${APPVER ? `, Version ${APPVER}` : ''}):`;
+  const by = {}; xs.slice().reverse().forEach(x => (by[x.a || 'Allgemein'] = by[x.a || 'Allgemein'] || []).push(x));
+  let n = 0;
+  return head + '\n' + Object.entries(by).map(([a, ys]) => `\n${a}:\n` + ys.map(x => `${++n}. ${x.k && x.k !== 'idee' ? `[${idKind(x.k)}] ` : ''}${String(x.t).trim().replace(/\s*\n\s*/g, '\n   ')}`).join('\n')).join('\n');
+}
+function idCopy(txt) {
+  const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px'; document.body.appendChild(ta); ta.select(); try { ta.setSelectionRange(0, txt.length); } catch (e) { } let ok = false; try { ok = document.execCommand('copy'); } catch (e) { } ta.remove(); return ok; };
+  try { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(txt).then(() => true, () => fb()); } catch (e) { }
+  return Promise.resolve(fb());
+}
+function idDoCopy() {
+  const xs = idList().filter(x => !x.done); if (!xs.length) return;
+  idCopy(idText(xs)).then(ok => { if (ok) { S.ui.idCopied = true; render(); toast('Kopiert. Jetzt im Chat einfügen.'); } else toast('Kopieren hat nicht geklappt, nimm „Teilen“.'); });
+}
+function idBtnSync() { const b = $('#idea-btn'); if (b) b.hidden = S.profile.settings.ideaBtn === false; }
+function idOpen() {
+  S.ui.idSheet = { a: idAreaOf(S.ui.tab), k: 'idee', t: '' };
+  renderIdSheet(); const el = $('#ids'); sheetShow(el); el.hidden = false; el.scrollTop = 0;
+  const ta = $('#id-t'); if (ta) ta.focus();
+}
+function idClose(y) { S.ui.idSheet = null; const ta = $('#id-t'); if (ta) ta.blur(); sheetHide($('#ids'), y); }
+function renderIdSheet() {
+  const I = S.ui.idSheet; if (!I) return;
+  const areas = ID_AREAS.includes(I.a) ? ID_AREAS : [I.a, ...ID_AREAS], open = idList().filter(x => !x.done).length;
+  moSet($('#ids'), `<div class="sheet-in"><div class="sheet-h"><h2>Idee notieren</h2><button class="btn small ghost" data-a="id-close">Abbrechen</button></div>
+    <section class="panel id-form">
+      <div class="seg seg6" role="group" aria-label="Art">${ID_KINDS.map(([k, l]) => `<button class="${I.k === k ? 'on' : ''}" data-a="id-kind:${k}" aria-pressed="${I.k === k}">${l}</button>`).join('')}</div>
+      <textarea id="id-t" data-idf="t" rows="5" placeholder="${I.k === 'fehler' ? 'Was klappt nicht? Wo und wann passiert es?' : I.k === 'frage' ? 'Was möchtest du wissen?' : 'Was ist dir eingefallen oder aufgefallen?'}" aria-label="Text">${esc(I.t)}</textarea>
+      <div><p class="small muted" style="margin:0 2px 8px">Bereich</p><div class="chips id-areas">${areas.map(a => `<button class="chip${a === I.a ? ' on' : ''}" data-a="id-area:${esc(a)}" aria-pressed="${a === I.a}">${esc(a)}</button>`).join('')}</div></div>
+      <button class="btn primary wide" data-a="id-save">Notieren</button>
+    </section>
+    <button class="btn ghost wide" data-a="id-all">${open ? `${plu(open, 'offene Idee', 'offene Ideen')} ansehen` : 'Alle Ideen ansehen'}</button></div>`);
+}
+function idRow(x) {
+  const ed = S.ui.idEd === x.id, d = new Date(x.at), when = isNaN(d) ? '' : `${x.done ? `besprochen ${shortDate(x.done)} · ` : ''}notiert ${shortDate(keyOf(d))}`;
+  return `<div class="id-r${x.done ? ' done' : ''}${ed ? ' open' : ''}"><div class="id-h"><button class="mk-ck${x.done ? ' on' : ''}" data-a="id-done:${x.id}" aria-pressed="${!!x.done}" aria-label="${x.done ? 'Wieder offen' : 'Als besprochen markieren'}">${CHECK_I}</button>
+    <button class="id-tx" data-a="id-ed:${x.id}" aria-expanded="${ed}"><span class="id-tg ${esc(x.k || 'idee')}">${idKind(x.k)} · ${esc(x.a || 'Allgemein')}</span><b>${esc(x.t)}</b><small>${when}</small></button></div>
+    ${ed ? `<div class="id-ed"><textarea data-idx="${x.id}" rows="4" aria-label="Text">${esc(x.t)}</textarea>
+      <div class="seg seg6" role="group" aria-label="Art">${ID_KINDS.map(([k, l]) => `<button class="${x.k === k ? 'on' : ''}" data-a="id-ekind:${x.id}:${k}">${l}</button>`).join('')}</div>
+      <div class="chips id-areas">${(ID_AREAS.includes(x.a) ? ID_AREAS : [x.a, ...ID_AREAS]).map(a => `<button class="chip${a === x.a ? ' on' : ''}" data-a="id-earea:${x.id}:${esc(a)}">${esc(a)}</button>`).join('')}</div>
+      <div class="row-actions"><button class="btn small ghost danger" data-a="id-del:${x.id}" data-confirm="Wirklich löschen?">Löschen</button><button class="btn small primary" data-a="id-ed:${x.id}">Fertig</button></div></div>` : ''}</div>`;
+}
+function vIdeen() {
+  const L = idList(), open = L.filter(x => !x.done), done = L.filter(x => x.done).sort((a, b) => String(b.done).localeCompare(String(a.done))), sd = !!S.ui.idDone;
+  return `<section class="panel id-hero"><div class="id-hn"><b>${open.length}</b><span>${open.length === 1 ? 'offene Idee' : 'offene Ideen'}</span></div>
+      <p class="small muted" style="margin:6px 0 0">Sammle hier, was dir an der App einfällt oder auffällt. Wenn du so weit bist: alles kopieren oder teilen und in den Chat mit Claude einfügen.</p>
+      <div class="id-acts"><button class="btn primary" data-a="id-copy" ${open.length ? '' : 'disabled'}>${COPY_I}Alle kopieren</button><button class="btn" data-a="id-share" ${open.length ? '' : 'disabled'}>${SHARE_I}Teilen</button></div>
+      ${S.ui.idCopied && open.length ? `<div class="id-after"><span>Schon im Chat besprochen? Dann hak sie ab, damit die Liste frisch bleibt.</span><button class="btn small" data-a="id-doneall">Alle als besprochen abhaken</button></div>` : ''}</section>
+    <section class="panel"><div class="quick-in"><input id="id-in" placeholder="Neue Idee …" aria-label="Neue Idee" data-enter="id-add" enterkeyhint="done" autocomplete="off"><button class="btn primary" data-a="id-add">Notieren</button></div>
+      <p class="small muted" style="margin:6px 2px 0">Schneller geht's mit der Glühbirne oben rechts: Die gibt es auf jeder Seite, und der Bereich ist dann schon ausgewählt.</p></section>
+    <section class="panel id-list">${open.length ? open.map(idRow).join('') : '<p class="small muted" style="margin:4px 0">Gerade nichts offen.</p>'}</section>
+    ${done.length ? `<div class="pl-sec"><h2>Besprochen</h2><button class="link" data-a="id-showdone" aria-expanded="${sd}">${sd ? 'Ausblenden' : `Zeigen (${done.length})`}</button></div>${sd ? `<section class="panel id-list">${done.map(idRow).join('')}</section>` : ''}` : ''}
+    <section class="panel"><div class="th-row"><span>Glühbirne oben rechts anzeigen</span><button class="sw${S.profile.settings.ideaBtn !== false ? ' on' : ''}" role="switch" aria-checked="${S.profile.settings.ideaBtn !== false}" data-a="id-btn" aria-label="Glühbirne oben rechts anzeigen"><i></i></button></div></section>`;
+}
+function idSub() { const n = idList().filter(x => !x.done).length; return n ? `${plu(n, 'Idee', 'Ideen')} offen, zum Mitbringen in den Chat` : 'Einfälle sammeln und in den Chat mitbringen'; }
+function actIdea(c, args) {
+  const x = args[0] ? idFind(args[0]) : null;
+  switch (c) {
+    case 'idea-open': idOpen(); return true;
+    case 'id-close': idClose(); return true;
+    case 'id-kind': if (S.ui.idSheet) { S.ui.idSheet.k = args[0]; renderIdSheet(); } return true;
+    case 'id-area': if (S.ui.idSheet) { S.ui.idSheet.a = args[0]; renderIdSheet(); } return true;
+    case 'id-save': {
+      const I = S.ui.idSheet, txt = (I && I.t || '').trim();
+      if (!txt) { const ta = $('#id-t'); if (ta) ta.focus(); return true; }
+      idAdd(txt, I.a, I.k); haptic(); idClose(); render(); toast(`Notiert. Alle findest du unter Mehr → Ideen für die App.`); return true;
+    }
+    case 'id-all': idClose(); setTab('ideen'); return true;
+    case 'id-add': { const inp = $('#id-in'), v = inp ? inp.value.trim() : ''; if (!v) { if (inp) inp.focus(); return true; } idAdd(v, 'Allgemein', 'idee'); inp.value = ''; haptic(); render(); toast('Notiert'); return true; }
+    case 'id-done': if (x) { x.done = x.done ? null : todayKey(); if (x.done) S.ui.idEd = null; touch('profile'); render(); } return true;
+    case 'id-ed': S.ui.idEd = S.ui.idEd === args[0] ? null : args[0]; render(); return true;
+    case 'id-ekind': if (x) { x.k = args[1]; touch('profile'); render(); } return true;
+    case 'id-earea': if (x) { x.a = args[1]; touch('profile'); render(); } return true;
+    case 'id-del': if (x) { const L = idList(), i = L.indexOf(x); L.splice(i, 1); S.ui.idEd = null; touch('profile'); render(); toast('Gelöscht', () => { L.splice(i, 0, x); touch('profile'); render(); }); } return true;
+    case 'id-copy': idDoCopy(); return true;
+    case 'id-share': {
+      const xs = idList().filter(z => !z.done); if (!xs.length) return true;
+      const txt = idText(xs);
+      if (navigator.share) navigator.share({ title: 'Ideen für Bilanz', text: txt }).then(() => { S.ui.idCopied = true; render(); }, () => { });
+      else idDoCopy();
+      return true;
+    }
+    case 'id-doneall': { const xs = idList().filter(z => !z.done), tk = todayKey(); xs.forEach(z => z.done = tk); S.ui.idCopied = false; touch('profile'); render(); toast(`${plu(xs.length, 'Idee', 'Ideen')} abgehakt`, () => { xs.forEach(z => z.done = null); touch('profile'); render(); }); return true; }
+    case 'id-showdone': S.ui.idDone = !S.ui.idDone; render(); return true;
+    case 'id-btn': S.profile.settings.ideaBtn = S.profile.settings.ideaBtn === false; touch('profile'); idBtnSync(); render(); return true;
+  }
+  return false;
+}
+document.addEventListener('input', e => {
+  const el = e.target, ds = el && el.dataset; if (!ds) return;
+  if (ds.idf && S.ui.idSheet) { S.ui.idSheet.t = el.value; return; }
+  if (ds.idx) { const x = idFind(ds.idx); if (x) { x.t = el.value.slice(0, 1500); touch('profile'); } }
+});
+sheetDrag($('#ids'), y => { idClose(y); });
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
 function requestRender() { if (isEditing() || S.ui.importing) { renderQueued = true; return; } render(); }
 function render() {
-  renderQueued = false; applyTheme();
+  renderQueued = false; applyTheme(); idBtnSync();
   const t = S.ui.tab;
   $('#top-title').textContent = ltTitle(t);
   $('#back').hidden = !SUB[t];
-  if (SUB[t]) { const bt = S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'; $('#back-l').textContent = ltTitle(bt); $('#back').setAttribute('aria-label', 'Zurück zu ' + ltTitle(bt)); }
+  if (SUB[t]) { const bt = S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'; $('#back-l').textContent = ltTitle(bt); $('#back').setAttribute('aria-label', 'Zurück zu ' + ltTitle(bt)); if (t === 'pack' && S.ui.plT) { $('#back-l').textContent = 'Packliste'; $('#back').setAttribute('aria-label', 'Zurück zur Packliste'); } }
   const hl = SUB[t] ? (TABS.some(x => x[0] === S.ui.backTo) ? S.ui.backTo : 'mehr') : t;
   moTabs(hl);
   const m = $('#main');
-  const V = { heute: vHeute, kalender: vKalender, training: vTrainingNew2, essen: vEssen2, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol2, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte, merk: vMerk, ...TR_SUBV };
+  const V = { heute: vHeute, kalender: vKalender, training: vTrainingNew2, essen: vEssen2, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol2, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte, merk: vMerk, pack: vPack, ideen: vIdeen, ...TR_SUBV };
   V.routinen = () => vRoutHero() + vRoutinen() + vHabitHeat(); V.koerper = () => vBodyHero() + vKoerper();
   document.documentElement.style.setProperty('--area', `var(--${AREA[t] || 'd-slate'})`);
   const enter = S.ui.enter; S.ui.enter = false;
@@ -7471,7 +7989,7 @@ function briefing() {
 /* ---------- Views: Start ---------- */
 function vQuick() {
   return `<div class="quick-in"><input id="quick" placeholder="Schnell eintragen …" aria-label="Schnelleingabe" enterkeyhint="send" data-enter="quick-add" autocomplete="off" ${S.ui.quickBusy ? 'disabled' : ''}><button class="btn primary" data-a="quick-add" ${S.ui.quickBusy ? 'disabled' : ''}>${S.ui.quickBusy ? 'Moment …' : 'Eintragen'}</button></div>
-  <p class="quick-hint">Zum Beispiel „Friseur 11.10 8:30“, „2 Bier“, „Milch, Eier kaufen“, „Döner 8,50 €“, „Arbeit 8-16:30“, „8.400 Schritte“ oder „Film Dune gesehen 8/10“ oder „merken Laufschuhe 89 €“</p>`;
+  <p class="quick-hint">Zum Beispiel „Friseur 11.10 8:30“, „2 Bier“, „Milch, Eier kaufen“, „Döner 8,50 €“, „Arbeit 8-16:30“, „8.400 Schritte“ oder „Film Dune gesehen 8/10“, „merken Laufschuhe 89 €“ oder „idee Knopf größer machen“</p>`;
 }
 function vBrief() {
   const b = briefing(); if (!b.length) return '';
@@ -8535,6 +9053,7 @@ function vMehr() {
     T('tab:arbeit', 'Arbeitszeit', ICON.arbeit, c ? 'Läuft gerade' : `${fmt(wkM / 60, 1)} h diese Woche`, 'd-work'),
     T('tab:routinen', 'Routinen', ICON.routinen, `${hs.length ? `${hs.filter(h => d.habits[h.id]).length} von ${hs.length} heute, ` : ''}${open} offen`, 'd-habit'),
     T('tab:merk', 'Merkliste', MK_IC, mkSub(), 'd-wish'),
+    T('pl-go', 'Packliste', PL_IC, plSub(), 'd-pack'),
     T('tab:einkauf', 'Einkauf', ICON.einkauf, shopN ? `${shopN} ${shopN === 1 ? 'Sache' : 'Sachen'} offen` : 'Liste ist leer', 'd-shop'),
     T('tab:zaehler', 'Zähler', ICON.zaehler, cnx ? `${cnx.name}: ${fmt(Math.abs(daysBetween(String(cnx.at).slice(0, 10), tk)))} Tage` : 'Seit wann, bis wann', 'd-count'),
     T('tab:geburtstage', 'Geburtstage', ICON.geburtstage, bnx ? `${bnx.b.name}: ${bnx.n.days === 0 ? 'heute' : `in ${bnx.n.days} T.`}` : 'Nie mehr vergessen', 'd-bday'),
@@ -8556,7 +9075,7 @@ function vMehr() {
     T('tab:rueckblick', 'Rückblick', ICON_CHART, `Woche ${isoWeek(tk)} und Jahr ${tk.slice(0, 4)}`, 'd-cal'),
     T('tab:wetter', 'Wetter', ICON.wetter, cur ? `${fmt(cur.temperature_2m)}°, ${wxTxt(cur.weather_code)}` : (S.profile.settings.place || 'Vorhersage'), 'd-sky'),
     T('sun-open', 'Sonne', ICON_SUN, sd && sd.set ? `Untergang ${hm(sd.set)}` : 'Sonnenkalender', 'd-sun')
-  ]) + `<button class="mtile mtile-wide" style="--mc:var(--d-slate)" data-a="settings-open"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON_SET}</svg><span><b>Einstellungen</b><span>Ziele, Arbeitszeit, Budget, Import, Export</span></span></button>`;
+  ]) + `<button class="mtile mtile-wide" style="--mc:var(--d-idea)" data-a="tab:ideen"><svg viewBox="0 0 24 24" aria-hidden="true">${ID_IC}</svg><span><b>Ideen für die App</b><span>${esc(idSub())}</span></span></button>` + `<button class="mtile mtile-wide" style="--mc:var(--d-slate)" data-a="settings-open"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON_SET}</svg><span><b>Einstellungen</b><span>Ziele, Arbeitszeit, Budget, Import, Export</span></span></button>`;
 }
 function vDashToday(k) {
   const todos = S.profile.todos.filter(t => !t.done);
@@ -8787,6 +9306,8 @@ function quick6(text, k) {
   if ((m = wt.match(/^(?:arbeit(?:szeit)?|gearbeitet|arbeiten)\s*:?\s+(?:(heute|gestern|vorgestern)\s+)?(?:von\s+)?(\d{1,2}(?:[:.]\d{2})?)\s*(?:uhr\s*)?(?:-|–|bis)\s*(\d{1,2}(?:[:.]\d{2})?)\s*(?:uhr)?(?:\s*,?\s*(?:(\d{1,3})\s*(?:min|minuten)?\s*pause|pause\s*:?\s*(\d{1,3})\s*(?:min|minuten)?))?$/i))) {
     const s = parseHM(m[2]), e = parseHM(m[3]); if (s && e) { const dk = m[1] ? addDays(k, { heute: 0, gestern: -1, vorgestern: -2 }[m[1].toLowerCase()]) : k; let pz = +(m[4] || m[5] || 0); if (m[4] == null && m[5] == null) pz = autoPz(wMin({ s, e, p: 0 })); const x = addWork(dk, s, e, pz, '', hoQ, true); render(); toast(`Arbeit${hoQ ? ' (Homeoffice)' : ''} ${dk === k ? 'heute' : shortDate(dk)} ${s}–${e} eingetragen, ${hmin(wMin(x))} h`, () => removeWork(dk, x.id)); return true; }
   }
+  if ((m = text.match(/^(?:idee|app-?idee|änderung(?:swunsch)?|aenderung|vorschlag|bug)\s*:?\s+(.+)$/i))) { idAdd(m[1], 'Allgemein', /^bug/i.test(text) ? 'fehler' : 'idee'); render(); toast('Idee notiert'); return true; }
+  if ((m = text.match(/^(?:packen|einpacken|packliste)\s*:?\s+(.+)$/i))) { const t = plNextTour(); if (!t) { toast('Leg zuerst unter Mehr → Packliste eine Tour an.'); return true; } const a = plAddText(t, m[1]); touch('profile'); render(); toast(a.length ? `${t.name}: ${a.join(', ')} dazu` : 'Steht schon auf der Packliste'); return true; }
   if ((m = text.match(/^(?:merken|merkliste|vormerken|wunschliste|wunsch)\s*:?\s+(.+)$/i))) { const P = mkParse(m[1]); if (P.t) { mkList().unshift({ id: uid(), t: P.t, url: P.url, price: P.price, shop: P.shop, note: '', cat: 'buy', star: false, at: todayKey(), done: null }); touch('profile'); render(); toast(`Auf der Merkliste: ${P.t}`); return true; } }
   let plus = false, amtS = null, what = '';
   if ((m = text.match(/^(\+)?\s*(\d{1,6}(?:[.,]\d{1,2})?)\s*(?:€|eur|euro)\s+(.+)$/i))) { plus = !!m[1]; amtS = m[2]; what = m[3]; }
@@ -8976,7 +9497,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -9965,7 +10486,7 @@ function act(a, el) {
     case 'sun-today': S.ui.sunDay = todayKey(); render(); break;
     case 'wx-day': { const i = +args[0]; S.ui.wxDay = S.ui.wxDay === i ? null : i; render(); break; }
     case 'sync-now': if (isOffline()) toast('Noch kein Netz. Wird automatisch übertragen, sobald du wieder online bist.'); else { drain(); toast('Wird übertragen …'); } break;
-    case 'back': setTab(S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'); break;
+    case 'back': if (S.ui.tab === 'pack' && S.ui.plT) { plGo(null, 'pop'); break; } setTab(S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'); break;
     case 'undo': if (undoFn) { const f = undoFn; undoFn = null; f(); toast('Rückgängig gemacht'); render(); } break;
     case 'quick-add': { const inp = $('#quick'), v = inp ? inp.value : ''; if (!v.trim()) { inp?.focus(); break; } inp.value = ''; inp.blur(); quickAdd(v); break; }
     case 'water': { const ml = +args[0], k = args[1] || todayKey(); addWater(k, ml); render(); if (ml > 0) toast(`${fmt(ml)} ml Wasser eingetragen`, () => addWater(k, -ml)); break; }
@@ -10127,6 +10648,7 @@ Object.assign(SUB, { abzeichen: 'Abzeichen', rezepte: 'Rezepte' }); AREA.abzeich
 Object.assign(SUB, { trplan: 'Wochenplan', trmus: 'Körperkarte', trrec: 'Rekorde', trstat: 'Statistik', trhist: 'Verlauf' });
 Object.assign(AREA, { trplan: 'd-train', trmus: 'd-train', trrec: 'd-train', trstat: 'd-train', trhist: 'd-train' });
 Object.assign(SUB, { merk: 'Merkliste', trex: 'Übungen', trcal: 'Trainingstage' }); AREA.trex = AREA.trcal = 'd-train'; TR_SUBV.trex = () => vProgress() + vRecords(); TR_SUBV.trcal = () => vTrainHeat(); AREA.merk = 'd-wish'; ICON.merk = MK_IC;
+Object.assign(SUB, { pack: 'Packliste', ideen: 'Ideen für die App' }); AREA.pack = 'd-pack'; AREA.ideen = 'd-idea'; ICON.pack = PL_IC; ICON.ideen = ID_IC;
 /* ---------- Boot ---------- */
 try { const w = JSON.parse(localStorage.getItem('bilanz.wx') || 'null'); if (w && w.hourly) WX.d = w; } catch (e) { }
 setInterval(() => { if (!S.ui.sheet && ['heute', 'sonne', 'wetter'].includes(S.ui.tab)) requestRender(); }, 60000);

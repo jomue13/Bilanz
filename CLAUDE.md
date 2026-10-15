@@ -1,6 +1,6 @@
 # Bilanz – Offline-App
 
-Persönliche Tracker-App (Training, Essen, Körper, Arbeit/Lohn, Geld, Uni, Fotos …) als installierbare Web-App für das iPhone. Ausgeliefert über GitHub Pages: https://jomue13.github.io/Bilanz/
+Persönliche Tracker-App (Training, Essen, Körper, Arbeit/Lohn, Geld, Uni, Fotos, Packliste, Ideen für die App …) als installierbare Web-App für das iPhone. Ausgeliefert über GitHub Pages: https://jomue13.github.io/Bilanz/
 
 ## Aufbau
 - `index.html`: die komplette App (HTML, CSS, JS in einer Datei, inkl. Lebensmittel-Datenbank). Hier werden Änderungen gemacht.
@@ -28,6 +28,7 @@ Claude kommt nicht an die Daten auf dem iPhone. Neue Pläne o. Ä. als Ergänzun
 `{"app":"bilanz","v":1,"kind":"ergaenzung","title":"…","plans":[{"name":"…","loc":"gym|zuhause","ex":[{"name":"…","sets":3,"rest":90}]}],"weekVars":{"4":[{"p":"Planname","alt":"Ersatzplan","add":[{"name":"…","sets":3}]}]},"weekVarNotes":{"4":"…"}}`
 Übungsnamen genau so schreiben wie in den bestehenden Plänen, sonst fehlt der Verlauf.
 Rezepte gehen genauso: `"recipes":[{"name":"…","por":4,"items":["500 g Rinderhack","250 g Reis","2 Paprika"],"steps":["…"]}]`. Die Zutaten werden mit der Lebensmittel-Datenbank abgeglichen, Mengen in g, ml, EL, TL oder Stück.
+Packlisten für Touren: `"pack":{"tours":[{"name":"…","from":"JJJJ-MM-TT","to":"JJJJ-MM-TT","note":"…","add":["bahn","stadion"],"items":[{"n":"…","h":"Hinweis","q":2,"c":"tour"}]}]}`. Die Tour bekommt automatisch die Grundliste des Nutzers, `add` nimmt Bausteine dazu (bahn, auto, flug, hotel, stadion, party, sport, regen, sonne, arbeit), `c` ist die Gruppe (tour, doc, tech, cloth, hyg, misc, go). Steht ein Ding schon drauf, wird nur der Hinweis ergänzt. Gibt es die Tour (gleicher Name und Starttag) schon, wird sie ergänzt statt doppelt angelegt.
 
 ## Wichtig
 - Das Repository ist öffentlich. Keine persönlichen Daten in Code, Texte oder Beispiele schreiben (Name, Wohnort, Arbeitgeber, Studiengang, Prüfungen, Finanzen, Gesundheit). Persönliche Einstellungen kommen aus den Daten auf dem Gerät.
