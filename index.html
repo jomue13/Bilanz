@@ -1460,6 +1460,45 @@ html[data-vt="pop"]::view-transition-new(main){animation-name:vtFadeIn}
 .rz-paste summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:6px 0}
 .rz-paste textarea{width:100%;margin:6px 0 8px}
 .rz-sum{margin:10px 0;font-size:14px;font-weight:600}
+
+/* ---------- v17: Uni nach Prüfungsordnung ---------- */
+.usp-g{margin:10px 0}
+.usp-h{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:5px}
+.usp-h span{color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.usp-bar{position:relative;height:10px;border-radius:5px;background:var(--surface2);overflow:hidden}
+.usp-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.usp-bar .p{background:color-mix(in srgb,var(--c-uni,var(--accent)) 35%,var(--surface2))}
+.usp-bar .d{background:var(--c-uni,var(--accent))}
+.usp-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:12px}
+.usp-terms div{background:var(--surface2);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.usp-terms div.open{box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--warn) 55%,transparent)}
+.usp-terms b{font-size:14px}.usp-terms span{font-size:12.5px;color:var(--muted)}
+.usp-hints{margin:10px 0 0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.ucat-info{background:var(--surface2);border-radius:12px;padding:8px 10px;margin:8px 0;font-size:13px}
+.ucat-info p{margin:2px 0}
+.ucat-info .warn{color:var(--warn);font-weight:600}
+.upg{display:flex;flex-direction:column;gap:6px}
+.upg .fld{display:grid;grid-template-columns:minmax(0,1fr) 96px;align-items:center;gap:10px;margin:0}
+.upg .fld span{margin:0}
+.upg .fld input{text-align:center;font-variant-numeric:tabular-nums}
+.ucat .chips{margin:4px 0 10px}
+.ucat-l{display:flex;flex-direction:column;gap:6px}
+.ucat-r{border-radius:14px;background:var(--surface2)}
+.ucat-r.off{opacity:.55}
+.ucat-h{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:10px 12px;color:var(--ink)}
+.ucat-h>span{flex:1;min-width:0}
+.ucat-h b{display:block;font-size:14.5px;line-height:1.25}
+.ucat-h small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.ucat-h em{font-style:normal;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.ucat-h em.in{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.ucat-h em.lim{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn)}
+.ucat-b{padding:0 12px 12px;font-size:13.5px}
+.ucat-b p{margin:0 0 6px}
+.ucat-b .addrow{margin-top:8px}
+.upo-r{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}
+.upo-r:last-of-type{border-bottom:0}
+.upo-r b{font-size:14.5px}.upo-r span{font-size:13.5px;color:var(--muted)}
+.upo-r .usp-bar{margin-top:4px}
 </style>
 </head>
 <body>
@@ -2746,6 +2785,7 @@ function bkPatchSummary(j) {
   const out = [];
   if (Array.isArray(j.plans) && j.plans.length) out.push(`Pläne: ${j.plans.map(p => p.name).join(', ')}`);
   if (j.weekVars) { const ns = Object.keys(j.weekVars).map(Number).sort((a, b) => b - a); out.push(`Wochenvarianten für ${ns.join(', ').replace(/, (\d+)$/, ' und $1')} Einheiten`); }
+  if (j.uni) out.push(`Uni: ${[Array.isArray(j.uni.cat) ? `Modulhandbuch (${j.uni.cat.length} Module)` : '', j.uni.rules ? 'Regeln der Prüfungsordnung' : '', Array.isArray(j.uni.tasks) && j.uni.tasks.length ? 'Fristen' : ''].filter(Boolean).join(', ')}`);
   if (Array.isArray(j.recipes) && j.recipes.length) out.push(`Rezepte: ${j.recipes.map(r => r.name).join(', ')}`);
   return out.join('; ');
 }
@@ -2763,9 +2803,9 @@ function bkPatch(j) {
   }
   if (j.weekVars && typeof j.weekVars === 'object') P.weekVars = { ...(P.weekVars || {}), ...j.weekVars };
   if (j.weekVarNotes && typeof j.weekVarNotes === 'object') P.weekVarNotes = { ...(P.weekVarNotes || {}), ...j.weekVarNotes };
-  const rz = Array.isArray(j.recipes) ? rzFromPatch(j.recipes) : null;
+  const rz = Array.isArray(j.recipes) ? rzFromPatch(j.recipes) : null, un = j.uni && typeof j.uni === 'object' ? uPatch(j.uni) : null;
   touch('profile'); BK.pending = null; renderSheet(); render();
-  const parts = []; if (np || up) parts.push(`${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}`); if (j.weekVars) parts.push('Wochenvarianten'); if (rz) parts.push(rz.n === 1 ? 'ein Rezept' : `${rz.n} Rezepte`);
+  const parts = []; if (np || up) parts.push(`${np === 1 ? 'ein neuer Plan' : np + ' neue Pläne'}${up ? `, ${up} aktualisiert` : ''}`); if (j.weekVars) parts.push('Wochenvarianten'); if (rz) parts.push(rz.n === 1 ? 'ein Rezept' : `${rz.n} Rezepte`); if (un && un.length) parts.push(...un);
   toast(`Übernommen: ${parts.join(', ') || 'nichts Neues'}${rz && rz.miss.length ? `. Nicht gefunden: ${rz.miss.slice(0, 3).join(', ')}` : ''}`);
 }
 /* ---------- v14: Muskeln, Steigerungs-Coach, Aufwärmsätze, Übung tauschen ---------- */
@@ -3726,6 +3766,206 @@ function rzFromPatch(list) {
     const i = L.findIndex(y => nrm(y.name) === nrm(rec.name)); if (i >= 0) { rec.id = L[i].id; L[i] = rec; } else L.push(rec); n++;
   }
   return { n, miss };
+}
+
+/* ---------- v17: Uni nach Prüfungsordnung und Modulhandbuch (Daten kommen per Ergänzungsdatei) ---------- */
+var UGRP = { wp: 'Wahlpflicht', pa: 'Projektarbeit', ma: 'Abschlussarbeit', ext: 'Aus anderem Studiengang' };
+var UTURN = { WS: 'jedes Wintersemester', SS: 'jedes Sommersemester', 'WS/SS': 'jedes Semester', Bedarf: 'nach Bedarf', nicht: 'derzeit nicht angeboten' };
+var UFORM = { 'Klausur': 'Klausur', 'Seminar- oder Hausarbeit': 'Hausarbeit', 'Referat': 'Vortrag', 'Projektpräsentation': 'Vortrag', 'Mündliche Prüfung': 'Mündliche Prüfung', 'Masterarbeit': '' };
+function uRules() { const r = U().rules; return r && typeof r === 'object' ? r : null; }
+function uCat() { return Array.isArray(U().cat) ? U().cat : []; }
+function uCatFor(m) {
+  const C = uCat(); if (!C.length || !m) return null;
+  if (m.code) { const c = C.find(x => x.code === m.code); if (c) return c; }
+  const n = nrm(m.name), s = nrm(m.short || '');
+  return C.find(x => nrm(x.name) === n) || C.find(x => (x.alias || []).some(a => nrm(a) === n)) || (s ? C.find(x => x.short && nrm(x.short) === s) : null) || null;
+}
+function uGrp(m) { if (m.grp) return m.grp; const c = uCatFor(m); return c && c.grp ? c.grp : 'wp'; }
+function uGroups() { const R = uRules(); return R && Array.isArray(R.groups) && R.groups.length ? R.groups : null; }
+function uGrpName(id) { const g = (uGroups() || []).find(x => x.id === id); return g ? g.name : UGRP[id] || id; }
+function uTerm(m) { return m.term || U().sem; }
+function termParse(t) { const m = String(t || '').match(/(WiSe|SoSe|WS|SS)\s*(\d{4})/i); return m ? { w: /^w/i.test(m[1]), y: +m[2] } : null; }
+function termName(o) { return o.w ? `WiSe ${o.y}/${String(o.y + 1).slice(2)}` : `SoSe ${o.y}`; }
+function termNext(t) { const o = termParse(t); return o ? (o.w ? termName({ w: false, y: o.y + 1 }) : termName({ w: true, y: o.y })) : t; }
+function termKey(t) { const o = termParse(t); return o ? o.y + (o.w ? 0.5 : 0) : 0; }
+function uTerms() { const a = U().sem, b = termNext(a), c = termNext(b); return [a, b, c]; }
+var fmtGr = (x, d) => Number(x).toLocaleString(DE, { minimumFractionDigits: 1, maximumFractionDigits: d == null ? 2 : Math.max(1, d) });
+var uPgTxt = pg => pg ? `Modulnote ${pg.all ? '' : 'bisher '}${fmtGr(pg.g, 2)}${pg.all ? '' : ` (${pg.n} von ${pg.of} Teilen)`}` : 'Die Modulnote rechnet die App aus den Teilnoten aus.';
+function uTrunc(x, d) { const f = 10 ** (d || 0); return Math.floor(x * f + 1e-9) / f; }
+function addMonthsK(k, n) { const d = parseKey(k), day = d.getDate(); d.setDate(1); d.setMonth(d.getMonth() + n); d.setDate(Math.min(day, new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate())); return keyOf(d); }
+function uParts(m) { if (Array.isArray(m.parts) && m.parts.length) return m.parts; const c = uCatFor(m); return c && Array.isArray(c.parts) ? c.parts.map(p => ({ f: p.f, w: p.w })) : []; }
+function uPartGrade(m) {
+  const P = uParts(m).filter(p => +p.w > 0); if (P.length < 2) return null;
+  const done = P.filter(p => p.g != null && +p.g >= 1 && +p.g <= 5); if (!done.length) return null;
+  const W = done.reduce((a, p) => a + +p.w, 0);
+  return { g: done.reduce((a, p) => a + p.g * p.w, 0) / W, all: done.length === P.length, n: done.length, of: P.length };
+}
+/* Fristen aus der Prüfungsordnung als Aufgaben, damit sie im Kalender und bei den Fristen auftauchen */
+function uPoSync() {
+  const u = U(), R = uRules(); if (!R || !R.thesis) return;
+  const T = R.thesis, e = uECTS(); let ch = false;
+  if (T.lateEcts && e >= T.lateEcts && !u.e60) { u.e60 = todayKey(); ch = true; }
+  const up = (id, text, date) => {
+    const i = u.tasks.findIndex(x => x.id === id), t = i >= 0 ? u.tasks[i] : null;
+    if (!date) { if (t && !t.done) { u.tasks.splice(i, 1); ch = true; } return; }
+    if (!t) { u.tasks.push({ id, text, date, done: false, mod: '', auto: true }); ch = true; }
+    else if (t.date !== date || t.text !== text) { t.date = date; t.text = text; ch = true; }
+  };
+  up('po-ma-late', 'Masterarbeit spätestens anmelden, sonst gilt der erste Versuch als nicht bestanden', u.e60 && T.lateMonths ? addMonthsK(u.e60, T.lateMonths) : null);
+  const ma = u.mods.find(m => uGrp(m) === 'ma');
+  up('po-ma-due', 'Abgabe Masterarbeit', ma && ma.start && T.weeks ? addDays(ma.start, T.weeks * 7) : null);
+  if (ch) touch('profile');
+}
+function uPlanStats() {
+  const u = U(), G = (uGroups() || []).map(g => ({ ...g, plan: 0, sure: 0, done: 0 })), terms = {};
+  let ext = 0;
+  for (const m of u.mods) {
+    if (m.st === 'alt') continue;
+    const e = +m.ects || 0, gid = uGrp(m), g = G.find(x => x.id === (gid === 'ext' ? 'wp' : gid)) || G[0];
+    if (gid === 'ext') ext += e;
+    if (g) { g.plan += e; if (!m.st) g.sure += e; if (uPassed(m)) g.done += e; }
+    const t = uTerm(m); (terms[t] || (terms[t] = { ects: 0, wait: 0 })).ects += e; if (m.st === 'wait') terms[t].wait += e;
+  }
+  return { G, terms, ext };
+}
+function uStudyPlan() {
+  const R = uRules(); if (!R || !uGroups()) return '';
+  const S2 = uPlanStats(), per = +R.perTerm || 0;
+  for (const t of uTerms()) if (!S2.terms[t] && Object.keys(S2.terms).some(k => termKey(k) > termKey(t))) S2.terms[t] = { ects: 0, wait: 0 };
+  const terms = Object.keys(S2.terms).sort((a, b) => termKey(a) - termKey(b));
+  const tot = S2.G.reduce((a, g) => a + g.ects, 0), plan = S2.G.reduce((a, g) => a + Math.min(g.plan, g.ects), 0);
+  const bar = g => { const mx = Math.max(g.ects, g.plan) || 1; return `<div class="usp-g"><div class="usp-h"><b>${esc(g.name)}</b><span>${fmt(g.plan)} / ${fmt(g.ects)} ECTS${g.done ? `, ${fmt(g.done)} bestanden` : ''}</span></div><div class="usp-bar"><i class="p" style="width:${(Math.min(g.plan, mx) / mx * 100).toFixed(1)}%"></i><i class="d" style="width:${(Math.min(g.done, mx) / mx * 100).toFixed(1)}%"></i></div></div>`; };
+  const hints = [];
+  for (const g of S2.G) { if (g.plan < g.ects) hints.push(`${g.name}: noch ${fmt(g.ects - g.plan)} ECTS einzuplanen.`); else if (g.plan > g.ects) hints.push(`${g.name}: ${fmt(g.plan - g.ects)} ECTS mehr geplant als nötig.`); }
+  if (R.extMax && S2.ext > R.extMax) hints.push(`Aus anderen Studiengängen sind höchstens ${fmt(R.extMax)} ECTS erlaubt, geplant sind ${fmt(S2.ext)}.`);
+  return `<section class="panel usp"><div class="panel-h"><h2>Studienplan</h2><span class="small muted">${fmt(plan)} von ${fmt(tot)} ECTS geplant</span></div>
+    ${S2.G.map(bar).join('')}
+    ${terms.length ? `<div class="usp-terms">${terms.map(t => { const x = S2.terms[t], miss = per ? per - x.ects : 0; return `<div class="${miss > 0 ? 'open' : ''}"><b>${esc(t)}</b><span>${fmt(x.ects)} ECTS${x.wait ? `, ${fmt(x.wait)} unsicher` : ''}${miss > 0 ? ` · noch ${fmt(miss)} offen` : ''}</span></div>`; }).join('')}</div>` : ''}
+    ${hints.length ? `<ul class="usp-hints">${hints.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : '<p class="small" style="margin:8px 0 0">Alles eingeplant.</p>'}
+    <p class="small muted" style="margin-top:8px">Module mit Status „Alternative“ zählen hier nicht mit.</p></section>`;
+}
+function uModsGrouped(card) {
+  const u = U(), by = {}; for (const m of u.mods) (by[uTerm(m)] || (by[uTerm(m)] = [])).push(m);
+  const ts = Object.keys(by).sort((a, b) => termKey(a) - termKey(b));
+  if (ts.length < 2) return u.mods.map(card).join('');
+  return ts.map(t => `<p class="pk-sec">${esc(t)} · ${fmt(by[t].filter(m => m.st !== 'alt').reduce((a, m) => a + (+m.ects || 0), 0))} ECTS</p>${by[t].map(card).join('')}`).join('');
+}
+function uModExtra(m) {
+  const c = uCatFor(m), R = uRules(), ts = uTerms(), cur = uTerm(m); if (!ts.includes(cur)) ts.push(cur);
+  const gs = (uGroups() || [{ id: 'wp', name: UGRP.wp }]).map(g => [g.id, g.name]).concat([['ext', UGRP.ext]]);
+  let h = `<div class="grid2"><label class="fld"><span>Semester</span><select data-change="uf:${m.id}:term" style="max-width:none;width:100%">${ts.sort((a, b) => termKey(a) - termKey(b)).map(t => `<option ${t === cur ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></label>
+    <label class="fld"><span>Zählt als</span><select data-change="uf:${m.id}:grp" style="max-width:none;width:100%">${gs.map(([id, n]) => `<option value="${id}" ${uGrp(m) === id ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select></label></div>`;
+  if (c) h += `<div class="ucat-info"><p><b>Laut Modulhandbuch:</b> ${esc(UTURN[c.sem] || c.sem)}${c.who ? ` · ${esc(c.who)}` : ''}${c.lim ? ' · begrenzte Plätze' : ''}</p>${c.parts && c.parts.length ? `<p>Prüfung: ${esc(c.parts.map(p => `${p.f} ${p.w ? p.w + ' %' : '(unbenotet)'}`).join(' · '))}</p>` : ''}${c.pre ? `<p>Empfohlen: ${esc(c.pre)}</p>` : ''}${c.sem === 'WS' && !/wise|ws/i.test(cur) ? '<p class="warn">Wird nur im Wintersemester angeboten.</p>' : c.sem === 'SS' && !/sose|ss/i.test(cur) ? '<p class="warn">Wird nur im Sommersemester angeboten.</p>' : ''}</div>`;
+  const P = uParts(m), PW = P.filter(p => +p.w > 0);
+  if (PW.length > 1) {
+    const pg = uPartGrade(m);
+    h += `<p class="pk-sec">Teilnoten</p><div class="upg">${P.map((p, i) => +p.w > 0 ? `<label class="fld"><span>${esc(p.f)} · ${p.w} %</span><input data-upg="${m.id}:${i}" inputmode="decimal" placeholder="Note" value="${p.g != null ? fmtIn(p.g) : ''}" autocomplete="off"></label>` : '').join('')}</div>
+      <p class="small" id="upg-${m.id}">${uPgTxt(pg)}</p><p class="small muted" style="margin:2px 0 0">Nach Gewicht gemittelt. Weicht die offizielle Note ab, trag sie oben bei „Note“ ein.</p>`;
+  }
+  if (uGrp(m) === 'ma') {
+    const T = R && R.thesis ? R.thesis : null;
+    h += `<label class="fld"><span>Thema ausgegeben am</span><input type="date" data-change="uf:${m.id}:start" value="${esc(m.start || '')}"></label>${m.start && T && T.weeks ? `<p class="small">Abgabe spätestens ${longDate(addDays(m.start, T.weeks * 7))} ${addDays(m.start, T.weeks * 7).slice(0, 4)}${T.extWeeks ? `, auf Antrag bis zu ${T.extWeeks} Wochen später` : ''}.</p>` : ''}`;
+  }
+  if (R && R.retryTxt && uPassed(m) && m.grade && uGrp(m) !== 'ma') h += `<p class="small muted" style="margin:6px 0 0">${esc(R.retryTxt)}</p>`;
+  return h;
+}
+function uCatPanel() {
+  const C = uCat(); if (!C.length) return '';
+  const f = S.ui.ucatF || 'all', open = S.ui.ucatO, have = c => U().mods.find(m => uCatFor(m) === c);
+  const L = C.filter(c => f === 'all' ? true : f === 'ws' ? /WS/.test(c.sem) : f === 'ss' ? /SS/.test(c.sem) : !have(c) && c.sem !== 'nicht');
+  const ts = uTerms();
+  const defTerm = c => c.sem === 'SS' ? ts.find(t => /sose/i.test(t)) : c.sem === 'WS' ? ts.find(t => /wise/i.test(t)) : ts[0];
+  const row = c => {
+    const h = have(c), isO = open === c.code, ps = (c.parts || []).filter(p => p.w).map(p => `${p.f} ${p.w} %`).join(', ');
+    return `<div class="ucat-r${isO ? ' open' : ''}${c.sem === 'nicht' ? ' off' : ''}"><button class="ucat-h" data-a="ucat-open:${c.code}" aria-expanded="${isO}"><span><b>${esc(c.name)}</b><small>${fmt(c.ects)} ECTS · ${esc(c.sem === 'WS/SS' ? 'Winter und Sommer' : c.sem === 'WS' ? 'Winter' : c.sem === 'SS' ? 'Sommer' : c.sem === 'nicht' ? 'nicht angeboten' : 'nach Bedarf')}${ps ? ` · ${esc(ps)}` : ''}</small></span>${h ? `<em class="in">${esc(uTerm(h))}</em>` : c.lim ? '<em class="lim">begrenzt</em>' : ''}</button>
+      ${isO ? `<div class="ucat-b">${c.about ? `<p>${esc(c.about)}</p>` : ''}<p class="small muted">${[c.who, UTURN[c.sem], c.typ, c.pre ? `Empfohlen: ${c.pre}` : ''].filter(Boolean).map(esc).join(' · ')}</p>
+        ${h ? `<p class="small">Steht schon in deinem Plan (${esc(uTerm(h))}).</p>` : c.sem === 'nicht' ? '' : `<div class="addrow"><select id="ucat-term" aria-label="Semester">${ts.map(t => `<option ${t === defTerm(c) ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select><button class="btn primary" data-a="ucat-add:${c.code}">Einplanen</button></div>`}</div>` : ''}</div>`;
+  };
+  return `<section class="panel ucat"><div class="panel-h"><h2>Modulhandbuch</h2><span class="small muted">${C.length} Module</span></div>
+    <div class="chips">${[['all', 'Alle'], ['ws', 'Winter'], ['ss', 'Sommer'], ['free', 'Noch nicht geplant']].map(([k, l]) => `<button class="chip${f === k ? ' on' : ''}" data-a="ucat-f:${k}" aria-pressed="${f === k}">${l}</button>`).join('')}</div>
+    <div class="ucat-l">${L.map(row).join('') || '<p class="small muted">Nichts in dieser Auswahl.</p>'}</div></section>`;
+}
+function uPoPanel() {
+  const R = uRules(); if (!R) return '';
+  const u = U(), e = uECTS(), T = R.thesis || {}, ma = u.mods.find(m => uGrp(m) === 'ma'), rows = [];
+  if (T.minEcts) rows.push(`<div class="upo-r"><b>Masterarbeit anmelden</b><span>${e >= T.minEcts ? 'Ab jetzt möglich.' : `Frühestens ab ${fmt(T.minEcts)} ECTS, du hast ${fmt(e)}.`}</span><div class="usp-bar"><i class="d" style="width:${Math.min(100, e / T.minEcts * 100).toFixed(1)}%"></i></div></div>`);
+  if (T.lateEcts) rows.push(`<div class="upo-r"><b>Spätester Anmeldetermin</b><span>${u.e60 ? `${longDate(addMonthsK(u.e60, T.lateMonths))} ${addMonthsK(u.e60, T.lateMonths).slice(0, 4)}, ${T.lateMonths} Monate nach Erreichen von ${fmt(T.lateEcts)} ECTS.` : `${T.lateMonths} Monate nach Erreichen von ${fmt(T.lateEcts)} ECTS. Die App trägt die Frist ein, sobald du so weit bist.`}</span>${u.e60 ? `<label class="fld"><span>${fmt(T.lateEcts)} ECTS bekanntgegeben am</span><input type="date" data-change="us:e60" value="${esc(u.e60)}"></label>` : ''}</div>`);
+  if (T.weeks) rows.push(`<div class="upo-r"><b>Bearbeitungszeit</b><span>${fmt(T.weeks)} Wochen${T.extWeeks ? `, auf Antrag bis zu ${fmt(T.extWeeks)} länger` : ''}.${ma ? (ma.start ? ` Abgabe: ${longDate(addDays(ma.start, T.weeks * 7))} ${addDays(ma.start, T.weeks * 7).slice(0, 4)}.` : ' Trag beim Modul ein, wann das Thema ausgegeben wurde, dann steht die Abgabe hier.') : ''}${T.colloq ? ` ${T.colloq}.` : ''}</span></div>`);
+  const notes = Array.isArray(R.notes) ? R.notes : [];
+  return `<section class="panel upo"><h2>Aus deiner Prüfungsordnung</h2>${rows.join('')}${notes.length ? `<ul class="usp-hints">${notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}</section>`;
+}
+function uCalc() {
+  const u = U(), R = uRules(), av = uAvg(), T = +u.target || 90, tr = R && R.trunc != null ? +R.trunc : null, hon = R && R.honors ? +R.honors : null;
+  const want = num(S.ui.uWant), thg = num(S.ui.uThesis), maG = (uGroups() || []).find(g => g.id === 'ma'), thE = maG ? +maG.ects : 0;
+  const ma = u.mods.find(m => uGrp(m) === 'ma'), thDone = ma && ma.grade;
+  const show = x => tr != null ? uTrunc(x, tr) : x;
+  let cur = 'Noch keine Noten eingetragen.';
+  if (av) { const s = show(av.avg); cur = `Aktuell <b>${fmtGr(s, tr != null ? tr : 2)}</b>${tr != null && av.avg - s > 0.0001 ? ` (genau ${fmtGr(av.avg, 2)})` : ''} aus ${fmt(av.ects)} benoteten ECTS.${hon && s <= hon + 1e-9 ? ` Das wäre „${esc(R.honorsTxt || 'mit Auszeichnung')}“.` : ''}`; }
+  let res = '';
+  if (want && av) {
+    const lim = tr != null ? want + 1 / 10 ** tr - 1e-6 : want, open = Math.max(0, T - av.ects);
+    const useTh = thg && thE && !thDone && open > thE, rest = useTh ? open - thE : open;
+    const need = rest > 0 ? (lim * T - av.avg * av.ects - (useTh ? thg * thE : 0)) / rest : null;
+    const tail = tr != null ? ` Weil nach der ${tr === 1 ? 'ersten' : tr + '.'} Nachkommastelle abgeschnitten wird, reicht am Ende alles unter ${fmtGr(want + 1 / 10 ** tr, tr)}.` : '';
+    res = need == null ? '' : need < 1 ? `Das wird knapp: selbst mit lauter 1,0 kämst du auf etwa ${fmtGr(show((av.avg * av.ects + (useTh ? thg * thE : 0) + rest) / T), 1)}.` : need >= 4 ? `Das schaffst du locker, rechnerisch reicht in den übrigen ${fmt(rest)} ECTS eine 4,0.` : `Für eine ${fmtGr(want, 1)} brauchst du in den übrigen ${fmt(rest)} ECTS${useTh ? ` (ohne Masterarbeit)` : ''} im Schnitt höchstens eine <b>${fmtGr(Math.floor(need * 100) / 100, 2)}</b>.${tail}`;
+  } else if (want && !av) res = 'Sobald du die erste Note einträgst, rechnet die App mit.';
+  const thTxt = thE && T ? `Die Masterarbeit zählt ${fmt(thE)} von ${fmt(T)} ECTS${thE * 3 === T ? ', also ein Drittel deiner Endnote' : ''}.` : `Die Masterarbeit zählt mit in die ${fmt(T)} ECTS.`;
+  return `<section class="panel"><h2>Notenrechner</h2><p class="small" style="margin:0 0 8px">${cur}</p>
+    <div class="grid2" style="margin-top:0"><label class="fld"><span>Wunschnote</span><input id="u-want" inputmode="decimal" placeholder="z. B. 1,5" value="${esc(S.ui.uWant || '')}" data-enter="uni-calc" autocomplete="off"></label>${thE && !thDone ? `<label class="fld"><span>Erwartete Note Masterarbeit</span><input id="u-thesis" inputmode="decimal" placeholder="optional" value="${esc(S.ui.uThesis || '')}" data-enter="uni-calc" autocomplete="off"></label>` : ''}</div>
+    <button class="btn wide" style="margin-top:8px" data-a="uni-calc">Rechnen</button>${res ? `<p class="small" style="margin-top:10px">${res}</p>` : ''}
+    <p class="small muted" style="margin-top:8px">${thTxt}${hon ? ` Bis ${fmt(hon, 1)} gibt es „${esc(R.honorsTxt || 'mit Auszeichnung')}“.` : ''}</p></section>`;
+}
+document.addEventListener('input', e => {
+  const v = e.target && e.target.dataset && e.target.dataset.upg; if (!v) return;
+  const [id, i] = v.split(':'), m = uMod(id); if (!m) return;
+  if (!Array.isArray(m.parts) || !m.parts.length) m.parts = uParts(m).map(p => ({ ...p }));
+  const p = m.parts[+i]; if (!p) return;
+  const g = num(e.target.value); p.g = g != null && g >= 1 && g <= 5 ? g : null;
+  const pg = uPartGrade(m); if (pg && pg.all) { m.grade = Math.round(pg.g * 100) / 100; m.gAuto = true; } else if (m.gAuto) { m.grade = null; m.gAuto = false; }
+  touch('profile');
+  const el = $('#upg-' + id); if (el) el.textContent = uPgTxt(pg);
+  const gi = $(`[data-uf="${id}:grade"]`); if (gi) gi.value = m.grade != null ? fmtIn(m.grade) : '';
+});
+function actUni2(c, args) {
+  switch (c) {
+    case 'ucat-f': S.ui.ucatF = args[0]; render(); return true;
+    case 'ucat-open': S.ui.ucatO = S.ui.ucatO === args[0] ? null : args[0]; render(); return true;
+    case 'ucat-add': {
+      const cat = uCat().find(x => x.code === args[0]); if (!cat) return true;
+      const term = (($('#ucat-term') || {}).value) || U().sem, u = U();
+      if (u.mods.some(m => uCatFor(m) === cat)) { toast('Steht schon in deinem Plan.'); return true; }
+      const main = (cat.parts || []).filter(p => p.w).sort((a, b) => b.w - a.w)[0];
+      const m = { id: uid(), name: cat.name, code: cat.code, ects: cat.ects, form: main ? (UFORM[main.f] ?? 'Sonstiges') : '', grade: null, exam: null, done: false, term, c: u.mods.length };
+      if (cat.short) m.short = cat.short; if (cat.grp && cat.grp !== 'wp') m.grp = cat.grp;
+      u.mods.push(m); touch('profile'); S.ui.ucatO = null; render();
+      const wrong = (cat.sem === 'WS' && /sose/i.test(term)) || (cat.sem === 'SS' && /wise/i.test(term));
+      toast(wrong ? `${cat.name} eingeplant. Achtung: wird laut Modulhandbuch nur im ${cat.sem === 'WS' ? 'Winter' : 'Sommer'} angeboten.` : `${cat.name} für ${term} eingeplant`); return true;
+    }
+  }
+  return false;
+}
+/* Ergänzungsdatei: Modulhandbuch, Regeln, Fristen */
+function uPatch(x) {
+  const u = U(), out = [];
+  if (Array.isArray(x.cat)) { u.cat = x.cat; out.push(`Modulhandbuch mit ${x.cat.length} Modulen`); }
+  if (x.rules && typeof x.rules === 'object') { u.rules = x.rules; out.push('Regeln der Prüfungsordnung'); }
+  let nt = 0;
+  for (const t of Array.isArray(x.tasks) ? x.tasks : []) {
+    if (!t || !t.text) continue;
+    const hit = t.match ? u.tasks.find(y => nrm(y.text).includes(nrm(t.match))) : null;
+    if (hit) { if (t.date) hit.date = t.date; hit.text = t.text; nt++; }
+    else if (!u.tasks.some(y => nrm(y.text) === nrm(t.text))) { u.tasks.push({ id: uid(), text: String(t.text).slice(0, 200), date: t.date || null, done: false, mod: '' }); nt++; }
+  }
+  if (nt) out.push(nt === 1 ? 'eine Frist' : `${nt} Fristen`);
+  let nm = 0;
+  for (const a of Array.isArray(x.addMods) ? x.addMods : []) {
+    const cat = uCat().find(c => c.code === a.code); if (!cat || u.mods.some(m => uCatFor(m) === cat)) continue;
+    const main = (cat.parts || []).filter(p => p.w).sort((p, q) => q.w - p.w)[0];
+    const m = { id: uid(), name: cat.name, code: cat.code, ects: cat.ects, form: main ? (UFORM[main.f] ?? 'Sonstiges') : '', grade: null, exam: null, done: false, term: a.term || u.sem, c: u.mods.length };
+    if (cat.grp && cat.grp !== 'wp') m.grp = cat.grp; u.mods.push(m); nm++;
+  }
+  if (nm) out.push(nm === 1 ? 'ein Modul' : `${nm} Module`);
+  return out;
 }
 
 /* ---------- Render ---------- */
@@ -7253,7 +7493,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actDesign(c, args, el) && !actRez(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -7295,7 +7535,7 @@ ICON.wrap = '<path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1-5.1-1.9 5
 const UNI_FORMS = ['Klausur', 'Vortrag', 'Semesterarbeit', 'Hausarbeit', 'Projektarbeit', 'Mündliche Prüfung', 'Testat', 'Portfolio', 'Sonstiges'];
 const UNI_KINDS = ['Vorlesung', 'Übung', 'Seminar', 'Labor', 'Online', 'Tutorium'];
 const UCOL = ['#2D62D3', '#C2416B', '#0E8A6E', '#C98A00', '#7646C8', '#E07A1F', '#0E9BB8', '#5BAA3A', '#B03A2E', '#3F48B0'];
-function normUni(u) { u = u && typeof u === 'object' ? u : {}; return { sem: u.sem || 'WiSe 2026/27', from: u.from || '2026-10-05', to: u.to || '2027-01-30', off: Array.isArray(u.off) ? u.off : [], target: +u.target || 90, mods: Array.isArray(u.mods) ? u.mods : [], slots: Array.isArray(u.slots) ? u.slots : [], tasks: Array.isArray(u.tasks) ? u.tasks : [], timer: u.timer && u.timer.start ? u.timer : null }; }
+function normUni(u) { u = u && typeof u === 'object' ? u : {}; return { sem: u.sem || 'WiSe 2026/27', from: u.from || '2026-10-05', to: u.to || '2027-01-30', off: Array.isArray(u.off) ? u.off : [], target: +u.target || 90, mods: Array.isArray(u.mods) ? u.mods : [], slots: Array.isArray(u.slots) ? u.slots : [], tasks: Array.isArray(u.tasks) ? u.tasks : [], timer: u.timer && u.timer.start ? u.timer : null, cat: Array.isArray(u.cat) ? u.cat : [], rules: u.rules && typeof u.rules === 'object' ? u.rules : null, e60: u.e60 || null }; }
 const U = () => (S.profile.uni ||= normUni());
 const uMod = id => U().mods.find(m => m.id === id) || null;
 const uCol = m => m ? UCOL[(m.c != null ? m.c : Math.max(0, U().mods.indexOf(m))) % UCOL.length] : 'var(--muted)';
@@ -7320,7 +7560,7 @@ const inDays = k => { const d = daysBetween(todayKey(), k); return d < 0 ? `seit
 function semWeek() { const u = U(), tk = todayKey(), tot = Math.max(1, Math.ceil((daysBetween(u.from, u.to) + 1) / 7)); if (tk < u.from) return { w: 0, tot, before: daysBetween(tk, u.from) }; const w = Math.min(tot, Math.floor(daysBetween(u.from, tk) / 7) + 1); return { w, tot, after: tk > u.to }; }
 
 function vUni() {
-  const u = U(), tab = S.ui.uTab || 'home', tk = todayKey(), sw = semWeek(), av = uAvg(), ects = uECTS(), nx = uNext();
+  uPoSync(); const u = U(), tab = S.ui.uTab || 'home', tk = todayKey(), sw = semWeek(), av = uAvg(), ects = uECTS(), nx = uNext();
   const nExam = nx.find(x => x.kind === 'exam');
   const hero = `<section class="hero6" style="--hc:var(--d-uni)"><span class="lbl">${esc(u.sem)}</span><span class="big">${sw.w ? `Woche ${sw.w}<small>von ${sw.tot}</small>` : `${sw.before}<small>Tage bis Vorlesungsbeginn</small>`}</span>
     <div class="h6-bar"><i style="width:${Math.min(100, sw.w / sw.tot * 100).toFixed(0)}%"></i></div>
@@ -7374,21 +7614,22 @@ function uPlan() {
 function uMods() {
   const u = U(), open = S.ui.uOpen, tk = todayKey();
   const card = m => { const isO = open === m.id, st = (() => { let s = 0; for (const k of Object.keys(S.days)) s += +((S.days[k].study || {})[m.id] || 0); return s; })(), tasks = u.tasks.filter(t => t.mod === m.id);
-    return `<div class="umod ${isO ? 'open' : ''}" style="--mc:${uCol(m)}"><button class="umod-h" data-a="uni-mod-open:${m.id}"><i></i><span><b>${esc(m.name)}${uStB(m)}</b><small>${[m.ects ? `${fmt(m.ects)} ECTS` : '', m.form || '', m.exam ? `${shortDate(m.exam)}${m.exam >= tk ? ` (${inDays(m.exam)})` : ''}` : ''].filter(Boolean).map(esc).join(' · ')}</small></span><span class="umod-g">${m.grade ? fmt(m.grade, 1) : uPassed(m) ? '✓' : ''}</span></button>
+    return `<div class="umod ${isO ? 'open' : ''}" style="--mc:${uCol(m)}"><button class="umod-h" data-a="uni-mod-open:${m.id}"><i></i><span><b>${esc(m.name)}${uStB(m)}</b><small>${[m.ects ? `${fmt(m.ects)} ECTS` : '', uTerm(m) !== u.sem ? uTerm(m) : '', uGrp(m) !== 'wp' ? uGrpName(uGrp(m)) : '', m.form || '', m.exam ? `${shortDate(m.exam)}${m.exam >= tk ? ` (${inDays(m.exam)})` : ''}` : ''].filter((x, i, a) => x && a.indexOf(x) === i).map(esc).join(' · ')}</small></span><span class="umod-g">${m.grade ? fmt(m.grade, 1) : uPassed(m) ? '✓' : ''}</span></button>
       ${isO ? `<div class="umod-b"><div class="grid2"><label class="fld"><span>Name</span><input data-uf="${m.id}:name" value="${esc(m.name)}" autocomplete="off"></label><label class="fld"><span>ECTS</span><input data-uf="${m.id}:ects" inputmode="numeric" value="${esc(m.ects ?? '')}" autocomplete="off"></label></div>
         <div class="grid2"><label class="fld"><span>Prüfungsform</span><select data-change="uf:${m.id}:form" style="max-width:none;width:100%"><option value="">offen</option>${UNI_FORMS.map(f => `<option ${m.form === f ? 'selected' : ''}>${f}</option>`).join('')}</select></label><label class="fld"><span>Note</span><input data-uf="${m.id}:grade" inputmode="decimal" placeholder="z. B. 1,7" value="${m.grade != null ? fmtIn(m.grade) : ''}" autocomplete="off"></label></div>
         <div class="grid2"><label class="fld"><span>Prüfungstermin</span><input type="date" data-change="uf:${m.id}:exam" value="${esc(m.exam || '')}"></label><label class="fld"><span>Uhrzeit</span><input type="time" data-change="uf:${m.id}:examTime" value="${esc(m.examTime || '')}"></label></div>
         <label class="fld"><span>Status</span><select data-change="uf:${m.id}:st" style="max-width:none;width:100%"><option value="">Fest belegt</option><option value="wait" ${m.st === 'wait' ? 'selected' : ''}>Unsicher, Warteliste</option><option value="alt" ${m.st === 'alt' ? 'selected' : ''}>Alternative, falls etwas nicht klappt</option></select></label>
-        <label class="fld"><span>Notizen</span><textarea data-uf="${m.id}:note" rows="2" placeholder="Thema, Dozent, Raum …">${esc(m.note || '')}</textarea></label>
+        ${uModExtra(m)}<label class="fld"><span>Notizen</span><textarea data-uf="${m.id}:note" rows="2" placeholder="Thema, Dozent, Raum …">${esc(m.note || '')}</textarea></label>
         ${tasks.length ? `<p class="pk-sec">Aufgaben</p>${tasks.map(t => `<div class="udl"><button class="tbox ${t.done ? 'on' : ''}" data-a="uni-task-toggle:${t.id}" aria-label="Erledigt"></button><span class="udl-t"><b class="${t.done ? 'strike' : ''}">${esc(t.text)}</b><small>${t.date ? shortDate(t.date) : 'ohne Datum'}</small></span><span></span><button class="x" data-a="uni-task-del:${t.id}" data-confirm="Löschen?" aria-label="Löschen">×</button></div>`).join('')}` : ''}
         <p class="small muted" style="margin:8px 0 0">Gelernt: ${hmin(st)} h</p>
         <div class="row-actions"><button class="btn small" data-a="uni-mod-done:${m.id}">${m.done ? 'Nicht bestanden markieren' : 'Als bestanden markieren'}</button><button class="btn small ghost danger" data-a="uni-mod-del:${m.id}" data-confirm="Wirklich löschen?">Löschen</button></div></div>` : ''}</div>`; };
   const eSum = st => u.mods.filter(m => (m.st || '') === st).reduce((a, m) => a + (+m.ects || 0), 0), eF = eSum(''), eW = eSum('wait'), eA = eSum('alt');
   const plan = u.mods.length ? `<div class="uects"><div><b>${fmt(eF + eW)}</b><span>ECTS geplant</span></div><div><b>${fmt(eF)}</b><span>davon sicher</span></div>${eW ? `<div class="w"><b>${fmt(eW)}</b><span>Warteliste</span></div>` : ''}${eA ? `<div class="a"><b>${fmt(eA)}</b><span>Alternative</span></div>` : ''}</div>` : '';
-  return `<section class="panel">${plan}${u.mods.length ? u.mods.map(card).join('') : '<p class="small muted">Noch keine Module.</p>'}</section>
+  return `${uStudyPlan()}<section class="panel">${plan}${u.mods.length ? uModsGrouped(card) : '<p class="small muted">Noch keine Module.</p>'}</section>
   <section class="panel"><h2>Modul hinzufügen</h2><div class="grid2"><label class="fld"><span>Name</span><input id="um-name" placeholder="z. B. Energiewirtschaft" autocomplete="off" data-enter="uni-mod-add"></label><label class="fld"><span>ECTS</span><input id="um-ects" inputmode="numeric" value="5" autocomplete="off"></label></div>
     <label class="fld" style="margin-top:8px"><span>Prüfungsform</span><select id="um-form" style="max-width:none;width:100%"><option value="">noch offen</option>${UNI_FORMS.map(f => `<option>${f}</option>`).join('')}</select></label>
     <button class="btn primary wide" style="margin-top:10px" data-a="uni-mod-add">Modul anlegen</button></section>
+  ${uCatPanel()}
   ${uCalc()}`;
 }
 function uDeadlines(nx) {
@@ -7398,9 +7639,9 @@ function uDeadlines(nx) {
   <section class="panel"><h2>Aufgabe oder Abgabe</h2><label class="fld"><span>Was</span><input id="ut-text" placeholder="z. B. Folien für den Vortrag fertig" autocomplete="off" data-enter="uni-task-add"></label>
     <div class="grid2" style="margin-top:8px"><label class="fld"><span>Modul</span><select id="ut-tmod" style="max-width:none;width:100%">${modOpts('', true)}</select></label><label class="fld"><span>Fällig am</span><input id="ut-date" type="date"></label></div>
     <button class="btn primary wide" style="margin-top:10px" data-a="uni-task-add">Speichern</button>
-    <p class="small muted" style="margin-top:8px">Prüfungstermine trägst du direkt beim Modul ein. Per Schnelleingabe geht auch „Abgabe Hausarbeit 20.11.“ oder „Prüfung Statistik 4.2.“.</p></section>`;
+    <p class="small muted" style="margin-top:8px">Prüfungstermine trägst du direkt beim Modul ein. Per Schnelleingabe geht auch „Abgabe Hausarbeit 20.11.“ oder „Prüfung Statistik 4.2.“.</p></section>${uPoPanel()}`;
 }
-function uCalc() {
+function uCalcOld() {
   const u = U(), av = uAvg(), want = num(S.ui.uWant), open = Math.max(0, u.target - (av ? av.ects : 0));
   let res = '';
   if (want && av && open > 0) { const need = (want * u.target - av.avg * av.ects) / open; res = need < 1 ? `Selbst mit lauter 1,0 bleibst du bei etwa ${fmt((av.avg * av.ects + open) / u.target, 2)}.` : need > 4 ? `Das schaffst du locker, du darfst im Schnitt bei ${fmt(4, 1)} landen.` : `Für einen Schnitt von ${fmt(want, 1)} brauchst du in den restlichen ${fmt(open)} ECTS im Schnitt eine <b>${fmt(need, 2)}</b>.`; }
@@ -7467,7 +7708,7 @@ function actUni(c, args) {
     case 'uni-showdone': S.ui.uDone = !S.ui.uDone; render(); return true;
     case 'uni-timer-start': { const mod = $('#ut-mod')?.value || ''; u.timer = { mod, start: Date.now() }; touch('profile'); render(); toast(`Lernzeit für ${uName(mod)} läuft`); return true; }
     case 'uni-timer-stop': { const t = u.timer; if (!t) return true; const mins = (Date.now() - t.start) / 60000, k = keyOf(new Date(t.start)); u.timer = null; touch('profile'); if (mins >= 1) addStudy(k, t.mod || 'x', mins); render(); toast(mins >= 1 ? `${hmin(mins)} h für ${uName(t.mod)} gespeichert` : 'Weniger als eine Minute, nichts gespeichert.'); return true; }
-    case 'uni-calc': S.ui.uWant = $('#u-want')?.value || ''; render(); return true;
+    case 'uni-calc': S.ui.uWant = $('#u-want')?.value || ''; S.ui.uThesis = $('#u-thesis')?.value || ''; render(); return true;
   }
   return false;
 }
@@ -8335,7 +8576,7 @@ document.addEventListener('input', e => {
   else if (ds.pf) { const p = findPlan(ds.pf); if (p) { p.name = el.value.slice(0, 40); touch('profile'); } }
   else if (ds.pq) { const P = S.ui.pick; if (P) { P.q = el.value; P.sel = null; renderPickBody(); document.querySelectorAll('.pk-seg button').forEach(b => b.classList.toggle('on', !el.value && b.dataset.a === 'pick-tab:' + P.tab)); } }
   else if (ds.pg) { const P = S.ui.pick; if (P) { P.g = num(el.value); const f = foodBy(P.sel), c = $('#pick-calc'); if (f && c) c.innerHTML = pkCalc(calcFood(f, P.g || 0)); } }
-  else if (ds.uf) { const [id, f] = ds.uf.split(':'), m = uMod(id); if (m) { if (f === 'ects') m.ects = num(el.value) || 0; else if (f === 'grade') { const g = num(el.value); m.grade = g != null && g >= 1 && g <= 5 ? g : null; } else m[f] = el.value.slice(0, f === 'note' ? 500 : 60); touch('profile'); } }
+  else if (ds.uf) { const [id, f] = ds.uf.split(':'), m = uMod(id); if (m) { if (f === 'ects') m.ects = num(el.value) || 0; else if (f === 'grade') { const g = num(el.value); m.grade = g != null && g >= 1 && g <= 5 ? g : null; m.gAuto = false; } else m[f] = el.value.slice(0, f === 'note' ? 500 : 60); touch('profile'); } }
   else if (ds.us) { const u = U(); if (ds.us === 'target') u.target = num(el.value) || 0; else u.sem = el.value.slice(0, 40); touch('profile'); }
   else if (ds.finq) { S.ui.finQ = el.value; const L = $('#fin-list'); if (L) { const ym = S.ui.finMonth || monthKey(todayKey()); L.innerHTML = finList(finFiltered(finMonth(ym))); } }
   else if (ds.mnote) { const it = mFind(ds.mnote); if (it) { it.note = el.value.slice(0, 140); touch('media'); } }
