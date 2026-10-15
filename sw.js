@@ -1,5 +1,5 @@
 /* Bilanz Offline: hält die App auf dem Gerät, damit sie ohne Internet startet. */
-const VERSION = '20261015-5ece9713';
+const VERSION = '20261015-1066bb40';
 const CACHE = 'bilanz-' + VERSION;
 const CORE = ["./", "./index.html", "./local.js", "./manifest.webmanifest", "./fonts/fonts.css", "./fonts/nunito-latin-600-normal.woff2", "./fonts/nunito-latin-700-normal.woff2", "./fonts/nunito-latin-800-normal.woff2", "./vendor/xlsx.full.min.js", "./vendor/zxing.min.js", "./vendor/idiomorph.min.js", "./foods-de.json", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 self.addEventListener('install', e => {
