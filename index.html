@@ -2200,6 +2200,109 @@ div.mrow{display:block;padding:0;border-radius:0}
 #id-t{width:100%;font-size:17px;min-height:132px;line-height:1.4}
 .id-areas .chip{min-height:36px;padding:6px 13px;font-size:14px}
 #ids .btn.ghost.wide{margin-top:4px}
+
+/* ---------- v26: Filme & Serien ---------- */
+.mv-tabs{margin:0 0 12px;display:flex}
+.mv-tabs button{flex:1 1 auto;padding:0 6px;font-size:14px;min-width:0;white-space:nowrap}
+.mv-tabs .mv-tst{flex:0 0 44px;display:flex;align-items:center;justify-content:center}
+.mv-tst svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.mv-hero{padding:16px}
+.mv-hn{display:flex;align-items:baseline;gap:8px}
+.mv-hn b{font:700 42px/1 var(--font-c);letter-spacing:-.02em;color:var(--d-media)}
+.mv-hn span{font-size:15px;color:var(--muted)}
+.mv-hero .h6-row{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:12px}
+.mv-hero .h6-row span{font-size:12px;color:var(--muted)}
+.mv-hero .h6-row b{font-size:18px}
+.mv-search{padding:10px}
+.mv-sb{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:14px;padding:0 6px 0 12px;min-height:48px;border:1.5px solid transparent}
+.mv-sb:focus-within{border-color:var(--accent);background:var(--surface)}
+.mv-sb>svg{width:20px;height:20px;fill:none;stroke:var(--muted);stroke-width:2.2;stroke-linecap:round;flex:none}
+.mv-sb input{flex:1;min-width:0;border:0;background:none;min-height:44px;padding:0;font-size:17px;outline:none}
+.mv-sb input::-webkit-search-cancel-button{display:none}
+.mv-sb input:placeholder-shown+.pk-clr{display:none}
+.mv-sr{margin-top:6px}
+.mv-own{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 4px 2px;border-top:1px solid var(--line);margin-top:6px}
+.mv-list{padding:4px 10px}
+.mv-r{display:flex;align-items:center;gap:10px;width:100%;padding:8px 2px;border:0;background:none;text-align:left;color:var(--ink);position:relative}
+.mv-list>.mv-r+.mv-r,.mv-sr>.mv-r+.mv-r{border-top:.5px solid var(--line)}
+.mv-r.seen .mv-rt b{color:color-mix(in srgb,var(--good) 70%,var(--ink))}
+.mv-rk{width:26px;flex:none;text-align:center;font:700 16px var(--font-c);color:var(--muted)}
+.mv-rm{flex:1;min-width:0;display:flex;align-items:center;gap:12px;border:0;background:none;padding:0;text-align:left;color:inherit}
+.mv-rt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mv-rt b{font-size:16px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.mv-rt small{font-size:13px;color:var(--muted);line-height:1.3}
+.mv-rt small.mv-o{font-style:italic;opacity:.85}
+.mv-rt .mv-st{margin-top:2px;font-size:13px}
+.mv-ra{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.mv-im{display:inline-flex;align-items:center;gap:3px;font:700 13px var(--font-c);color:var(--muted)}
+.mv-im svg{width:13px;height:13px;fill:#E5A50A;stroke:none}
+.mv-ck{width:34px;height:34px;border-radius:50%;border:2px solid var(--line2);background:none;display:flex;align-items:center;justify-content:center;padding:0;transition:background-color .25s,border-color .25s,transform .4s var(--spring)}
+.mv-ck svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .3s .05s var(--ease-o)}
+.mv-ck.want{border-color:var(--accent);border-style:dashed}
+.mv-ck.on{background:var(--good);border-color:var(--good);border-style:solid}
+.mv-ck.on svg{stroke-dashoffset:0}
+.mv-ck:active{transform:scale(.86)}
+.mv-when{font-size:13px;color:var(--muted);white-space:nowrap;flex:none}
+.mv-sug .mv-rm{align-self:stretch}
+.mv-sa{display:flex;flex-direction:column;gap:6px;flex:none}
+.mv-sa .btn{min-height:32px;padding:0 10px;font-size:13px}
+.mv-done{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--good);white-space:nowrap}
+.mv-done svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.btn.on-want{background:var(--accent-soft);color:var(--accent)}
+/* Poster aus Farbe und Schrift */
+.mv-ps{width:44px;height:64px;flex:none;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(155deg,color-mix(in srgb,var(--pc) 82%,#fff),var(--pc) 45%,color-mix(in srgb,var(--pc) 70%,#000));box-shadow:inset 0 0 0 .5px rgba(255,255,255,.18),0 2px 6px -3px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.mv-ps::after{content:"";position:absolute;inset:auto -30% -40% auto;width:70%;height:70%;border-radius:50%;background:rgba(255,255,255,.08)}
+.mv-ps b{font:800 24px/1 var(--font-c);opacity:.95;position:relative}
+.mv-pl{width:112px;height:168px;flex:none;border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;padding:10px 10px 9px;color:#fff;background:linear-gradient(160deg,color-mix(in srgb,var(--pc) 78%,#fff),var(--pc) 42%,color-mix(in srgb,var(--pc) 62%,#000));box-shadow:0 10px 24px -14px rgba(0,0,0,.55),inset 0 0 0 .5px rgba(255,255,255,.2);position:relative;overflow:hidden}
+.mv-pl::after{content:"";position:absolute;right:-34px;top:-34px;width:96px;height:96px;border-radius:50%;border:14px solid rgba(255,255,255,.08)}
+.mv-pl small{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;position:relative}
+.mv-pl b{font:800 16px/1.15 var(--font);letter-spacing:-.01em;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;position:relative}
+.mv-pl i{font:700 13px var(--font-c);font-style:normal;opacity:.8;position:relative}
+/* Top-100-Karten und Ringe */
+.mv-tcs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
+.mv-tc{display:flex;align-items:center;gap:10px;border:0;border-radius:var(--r-card);background:var(--surface);padding:12px;text-align:left;color:var(--ink)}
+.mv-tc span{display:flex;flex-direction:column;min-width:0}
+.mv-tc b{font-size:15px;font-weight:700;line-height:1.2}
+.mv-tc small{font-size:12.5px;color:var(--muted)}
+.mv-tc:active{transform:scale(.97)}
+.mv-ring{width:48px;height:48px;flex:none}
+.mv-ring circle{fill:none;stroke-width:5}
+.mv-ring .bg{stroke:var(--surface2)}
+.mv-ring .fg{stroke:var(--good);stroke-linecap:round;transition:stroke-dasharray .6s var(--ease-o)}
+.mv-ring text{font:700 14px var(--font-c);fill:var(--ink)}
+.mv-tp{padding:14px 16px}
+.mv-tph{display:flex;align-items:center;gap:14px}
+.mv-tph .mv-ring{width:64px;height:64px}
+.mv-tph b{display:block;font:700 24px/1.1 var(--font-c)}
+.mv-tph span{font-size:14px;color:var(--muted)}
+.mv-fl{margin:0 0 10px}
+.mv-fl .chip,.mv-scroll .chip{min-height:34px;padding:5px 12px;font-size:14px;flex:none;white-space:nowrap}
+.mv-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px 8px;padding:2px 16px}
+.mv-scroll::-webkit-scrollbar{display:none}
+.mv-sort{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
+.mv-sort .seg{margin:0;flex:1;min-width:220px}
+.mv-hide{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
+.mv-hide input{width:18px;height:18px;min-height:0;margin:0;accent-color:var(--good)}
+/* Detail */
+.mv-dh{display:flex;gap:14px;align-items:flex-start;padding:14px}
+.mv-di{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.mv-kind{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--d-media)}
+.mv-orig{margin:0;font-size:15px;font-style:italic;color:var(--muted)}
+.mv-meta{margin:0;font-size:15px;line-height:1.35}
+.mv-by{margin:0;font-size:14px;color:var(--muted)}
+.mv-imdb{display:flex;align-items:center;gap:5px;margin:4px 0 0;flex-wrap:wrap}
+.mv-imdb svg{width:20px;height:20px;fill:#E5A50A}
+.mv-imdb b{font:700 22px var(--font-c)}
+.mv-imdb span{font-size:13px;color:var(--muted)}
+.mv-rate{display:flex;flex-direction:column;gap:4px;margin:0 0 12px}
+.mv-rate .stars{font-size:30px}
+.mv-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.mv-acts .btn,.mv-me .btn.wide,.mv-ext{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.mv-acts svg,.mv-me .btn svg,.mv-ext svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mv-ext{margin:0 0 10px;text-decoration:none}
+.mv-del{margin-top:4px}
+.mv-src{margin:14px 4px 0}
+#main[data-tab="medien"]>.hero6{display:none}
 </style>
 </head>
 <body>
@@ -4813,7 +4916,7 @@ function sheetDrag(el, close) {
 
 /* Vibration: iOS 18 gibt beim Umlegen eines Schalters ein kurzes Tippen, das nutzen wir */
 var HAPT = { last: 0 };
-var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg|mk-done|pl-ck|id-done|id-save|id-add)\b/;
+var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg|mk-done|pl-ck|id-done|id-save|id-add|mv-ck|mv-seen|mv-want)\b/;
 function haptic() {
   try { if (S.profile && S.profile.settings && S.profile.settings.haptics === false) return; } catch (e) { }
   const now = Date.now(); if (now - HAPT.last < 50) return; HAPT.last = now;
@@ -4846,7 +4949,7 @@ var TR_IC = {
   hist: '<path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5M4 4v4.5h4.5M12 8v4l3 2"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/>'
 };
-function ltTitle(t) { if (t === 'pack' && S.ui && S.ui.tab === 'pack' && S.ui.plT) { const pt = S.ui.plT === 'base' ? 'Grundliste' : (plTour(S.ui.plT) || {}).name; if (pt) return pt; } return t === 'heute' ? 'Heute' : SUB[t] || ((TABS.find(x => x[0] === t) || [0, ''])[1]); }
+function ltTitle(t) { if (t === 'medien' && S.ui && S.ui.tab === 'medien' && S.ui.mvT) { const k = S.ui.mvT, x = k.startsWith('i:') ? mFind(k.slice(2)) : mvCat(k); const nm = x && (x.title || x.t); if (nm) return nm; } if (t === 'pack' && S.ui && S.ui.tab === 'pack' && S.ui.plT) { const pt = S.ui.plT === 'base' ? 'Grundliste' : (plTour(S.ui.plT) || {}).name; if (pt) return pt; } return t === 'heute' ? 'Heute' : SUB[t] || ((TABS.find(x => x[0] === t) || [0, ''])[1]); }
 function ltHead(t) {
   if (t === 'heute') {
     if (S.ui.homeEdit) return '';
@@ -6032,6 +6135,268 @@ document.addEventListener('input', e => {
 });
 sheetDrag($('#ids'), y => { idClose(y); });
 
+/* ---------- v26: Filme & Serien wie eine eigene App (Gesehen, Merkliste, Top 100, Entdecken, Statistik) ---------- */
+/* Katalog: media-de.txt aus den IMDb-Datensätzen (nur privat, nicht kommerziell). Eine Zeile pro Titel:
+   Nummer, Art (f/s), deutscher Titel, Originaltitel, Jahr, Endjahr, Minuten, Genres, Bewertung×10, Stimmen, Regie, Staffeln, Top-100-Platz */
+var MV = { L: null, by: null, p: null, err: false };
+var MV_IC = {
+  eye: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  mark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v15.5L12 16.4l-6.5 4.1V5A1.5 1.5 0 0 1 7 3.5z"/></svg>',
+  search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>',
+  star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg>',
+  ext: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></svg>',
+  trophy: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/></svg>'
+};
+var MV_COL = { Drama: '#34478A', Krimi: '#7A1F2E', Thriller: '#26394D', Komödie: '#C4621C', Action: '#A82820', Abenteuer: '#1D6A50', 'Science-Fiction': '#175C78', Fantasy: '#5A3B8E',
+  Horror: '#2A1418', Animation: '#C98415', Romantik: '#A93763', Doku: '#4C6A33', Western: '#8A5326', Krieg: '#4D5933', Biografie: '#5C4A3B', Geschichte: '#6B4B26',
+  Musik: '#86307A', Musical: '#86307A', Familie: '#1F7F8C', Mystery: '#3B2D60', Sport: '#235F86', 'Film noir': '#202020', Reality: '#5A5A5A' };
+var MV_DEC = [['', 'Alle Jahre'], ['2020', '2020er'], ['2010', '2010er'], ['2000', '2000er'], ['1990', '90er'], ['1980', '80er'], ['old', 'Älter']];
+function mvLoad() {
+  if (MV.L) return Promise.resolve();
+  if (MV.p) return MV.p;
+  MV.err = false;
+  MV.p = fetch('media-de.txt').then(r => r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status))).then(t => {
+    const L = [], by = new Map();
+    for (const l of t.split('\n')) {
+      if (!l) continue; const f = l.split('\t');
+      const c = { id: 'tt' + f[0], k: f[1] === 's' ? 'serie' : 'film', t: f[2], o: f[3] || '', y: +f[4] || 0, e: +f[5] || 0, m: +f[6] || 0, g: f[7] ? f[7].split(',') : [], r: (+f[8] || 0) / 10, v: +f[9] || 0, by: f[10] || '', s: +f[11] || 0, top: +f[12] || 0 };
+      c.q = ' ' + nrm(c.t + ' ' + c.o).replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ') + ' ';
+      L.push(c); by.set(c.id, c);
+    }
+    MV.L = L; MV.by = by; mvLinkAll();
+  }).catch(() => { MV.err = true; }).finally(() => { MV.p = null; if (S.ui.tab === 'medien') render(); });
+  return MV.p;
+}
+function mvCat(id) { return MV.by ? MV.by.get(id) || null : null; }
+function mvQ(s) { return nrm(s).replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim(); }
+/* bestehende Einträge ohne Zuordnung bekommen den passenden Titel aus dem Katalog (gleicher Name, gleiche Art, der bekannteste) */
+function mvFindTitle(title, kind) {
+  if (!MV.L) return null; const q = ' ' + mvQ(title) + ' ';
+  if (q.length < 3) return null;
+  let best = null;
+  for (const c of MV.L) { if (kind && c.k !== kind) continue; if (' ' + mvQ(c.t) + ' ' === q || (c.o && ' ' + mvQ(c.o) + ' ' === q)) { if (!best || c.v > best.v) best = c; } }
+  return best;
+}
+function mvApply(it, c) {
+  it.imdb = c.id; it.title = c.t.slice(0, 100); it.kind = c.k; if (!it.year && c.y) it.year = c.y; if (!it.genre && c.g.length) it.genre = c.g.slice(0, 2).join(', ');
+  if (c.k === 'film' && !it.mins && c.m) it.mins = c.m; if (c.k === 'serie' && !it.seasons && c.s) it.seasons = c.s; if (!it.by && c.by) it.by = c.by;
+  if (c.o && !it.orig) it.orig = c.o;
+}
+function mvLinkAll() { let n = 0; for (const it of S.media.items) { if (it.imdb || it.noCat) continue; const c = mvFindTitle(it.title, it.kind); if (c) { mvApply(it, c); n++; } } if (n) touch('media'); }
+function mvItemOf(c) { return S.media.items.find(x => x.imdb === c.id) || null; }
+function mvAddCat(c, st, dateK) {
+  let it = mvItemOf(c);
+  if (!it) { it = { id: uid(), title: c.t.slice(0, 100), kind: c.k, st: 'want', added: Date.now() }; mvApply(it, c); S.media.items.unshift(it); }
+  if (st === 'seen') { if (it.st !== 'seen') { it.st = 'seen'; it.seen = dateK || null; } }
+  else if (st === 'want' && it.st !== 'seen') it.st = 'want';
+  touch('media'); return it;
+}
+function mvSearch(q, lim) {
+  if (!MV.L) return [];
+  const toks = mvQ(q).split(' ').filter(Boolean); if (!toks.length) return [];
+  const out = [];
+  for (const c of MV.L) {
+    let sc = 0, ok = true;
+    for (let j = 0; j < toks.length; j++) { const p = c.q.indexOf(toks[j]); if (p < 0) { ok = false; break; } if (c.q.charCodeAt(p - 1) === 32) sc += 2; if (j === 0 && p === 1) sc += 3; }
+    if (!ok) continue;
+    out.push([sc + Math.log10(c.v + 10) * 1.6 - (c.q.length > 40 ? 1 : 0), c]);
+    if (out.length > 4000) break;
+  }
+  out.sort((a, b) => b[0] - a[0]);
+  return out.slice(0, lim || 8).map(x => x[1]);
+}
+function mvColor(g) { return MV_COL[(g || [])[0]] || '#3A4556'; }
+function mvPoster(o, big) {
+  const g = o.g || String(o.genre || '').split(/,\s*/).filter(Boolean), col = mvColor(g), t = o.t || o.title || '', y = o.y || o.year || '';
+  const ini = (t.replace(/^(der|die|das|the|ein|eine|a)\s+/i, '').trim()[0] || '?').toUpperCase();
+  if (!big) return `<span class="mv-ps" style="--pc:${col}" aria-hidden="true"><b>${esc(ini)}</b></span>`;
+  return `<span class="mv-pl" style="--pc:${col}" aria-hidden="true"><small>${(o.k || o.kind) === 'serie' ? 'Serie' : 'Film'}</small><b>${esc(t)}</b><i>${esc(String(y))}</i></span>`;
+}
+function mvMeta(c) {
+  const yr = c.k === 'serie' ? (c.y ? `${c.y}${c.e && c.e !== c.y ? '–' + c.e : !c.e ? '–' : ''}` : '') : (c.y || '');
+  return [yr, c.k === 'serie' ? (c.s ? plu(c.s, 'Staffel', 'Staffeln') : 'Serie') : (c.m ? `${Math.floor(c.m / 60)} h ${c.m % 60} min` : ''), c.g.slice(0, 2).join(', ')].filter(Boolean).join(' · ');
+}
+function mvVotes(v) { return v >= 1e6 ? `${fmt(v / 1e6, 1)} Mio.` : v >= 1000 ? `${fmt(Math.round(v / 1000))}.000` : fmt(v); }
+function mvRowCat(c, rank) {
+  const it = mvItemOf(c), seen = it && it.st === 'seen', want = it && it.st !== 'seen';
+  return `<div class="mv-r${seen ? ' seen' : ''}">${rank ? `<span class="mv-rk">${rank}</span>` : ''}<button class="mv-rm" data-a="mv-open:${c.id}">${mvPoster(c)}<span class="mv-rt"><b>${esc(c.t)}</b><small>${esc(mvMeta(c))}</small>${c.o ? `<small class="mv-o">${esc(c.o)}</small>` : ''}</span></button>
+    <span class="mv-ra"><span class="mv-im">${MV_IC.star}${fmt(c.r, 1)}</span><button class="mv-ck${seen ? ' on' : ''}${want ? ' want' : ''}" data-a="mv-ck:${c.id}" aria-pressed="${!!seen}" aria-label="${seen ? 'Gesehen, antippen zum Entfernen' : 'Als gesehen markieren'}">${CHECK_I}</button></span></div>`;
+}
+function mvRowItem(it) {
+  const c = it.imdb ? mvCat(it.imdb) : null;
+  const sub = c ? mvMeta(c) : [it.year, it.kind === 'serie' ? 'Serie' : 'Film', it.genre].filter(Boolean).join(' · ');
+  const when = it.st === 'seen' ? (it.seen ? shortDate(it.seen) : 'früher') : '';
+  return `<button class="mv-r mv-ri" data-a="mv-open:${c ? c.id : 'i:' + it.id}">${mvPoster(c || it)}<span class="mv-rt"><b>${esc(it.title)}</b><small>${esc(sub)}</small>${it.r ? `<span class="mv-st">${stars(it.r)}</span>` : ''}</span>${when ? `<span class="mv-when">${esc(when)}</span>` : ''}</button>`;
+}
+function mvTopStat(kind) { if (!MV.L) return null; const T = MV.L.filter(c => c.top && c.k === kind), n = T.filter(c => { const it = mvItemOf(c); return it && it.st === 'seen'; }).length; return { n, of: T.length }; }
+function mvRing(p, lbl) { const C = 2 * Math.PI * 22; return `<svg class="mv-ring" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="22" class="bg"/>${p > 0 ? `<circle cx="26" cy="26" r="22" class="fg" stroke-dasharray="${(C * p).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 26 26)"/>` : ''}<text x="26" y="30.5" text-anchor="middle">${lbl}</text></svg>`; }
+function vMedien2() {
+  if (!MV.L && !MV.p && !MV.err) mvLoad();
+  if (S.ui.mvT) { const h = vMvDetail(S.ui.mvT); if (h) return h; S.ui.mvT = null; }
+  const tab = S.ui.mvTab || 'seen';
+  const tabs = `<div class="seg seg6 mv-tabs" role="group" aria-label="Bereich">${[['seen', 'Gesehen'], ['want', 'Merken'], ['top', 'Top 100'], ['disc', 'Entdecken']].map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" data-a="mv-tab:${k}" aria-pressed="${tab === k}">${l}</button>`).join('')}<button class="mv-tst${tab === 'stats' ? ' on' : ''}" data-a="mv-tab:stats" aria-pressed="${tab === 'stats'}" aria-label="Statistik"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON_CHART}</svg></button></div>`;
+  let body = '';
+  if (tab === 'seen') body = vMvSeen(); else if (tab === 'want') body = vMvWant(); else if (tab === 'top') body = vMvTop(); else if (tab === 'disc') body = vMvDisc();
+  else { const seen = S.media.items.filter(x => x.st === 'seen'); body = vMvTopCards() + vMediaStats(seen, todayKey().slice(0, 4)); }
+  return tabs + body + `<p class="small muted mv-src">Titel, Bewertungen und Infos: IMDb (imdb.com), nur für den privaten Gebrauch.</p>`;
+}
+function vMvSearch(ph) {
+  const q = S.ui.mvQ || '', res = q.trim().length >= 2 ? mvSearch(q, 8) : [];
+  const own = q.trim().length >= 2 ? S.media.items.filter(x => !x.imdb && nrm(x.title).includes(nrm(q))).slice(0, 4) : [];
+  let list = '';
+  if (q.trim().length >= 2) {
+    list = `<div class="mv-sr">${own.map(mvRowItem).join('')}${res.map(c => mvRowSug(c)).join('')}
+      ${MV.L ? '' : MV.err ? '<p class="small muted">Die Film-Datenbank konnte nicht geladen werden. Mit Internet klappt es beim nächsten Öffnen.</p>' : '<p class="small muted">Film-Datenbank wird geladen …</p>'}
+      <div class="mv-own"><span class="small muted">Nicht dabei?</span><button class="btn small" data-a="mv-ownadd:film:seen">„${esc(q.trim().slice(0, 40))}“ als Film</button><button class="btn small" data-a="mv-ownadd:serie:seen">als Serie</button></div></div>`;
+  }
+  return `<section class="panel mv-search"><label class="mv-sb">${MV_IC.search}<input id="mv-q" type="search" data-mvq="1" value="${esc(q)}" placeholder="${ph || 'Film oder Serie suchen'}" aria-label="Film oder Serie suchen" autocomplete="off" enterkeyhint="search"><button class="pk-clr" data-a="mv-qclr" aria-label="Suche leeren">×</button></label>${list}</section>`;
+}
+function mvRowSug(c) {
+  const it = mvItemOf(c), seen = it && it.st === 'seen', want = it && it.st !== 'seen';
+  return `<div class="mv-r mv-sug"><button class="mv-rm" data-a="mv-open:${c.id}">${mvPoster(c)}<span class="mv-rt"><b>${esc(c.t)}</b><small>${esc(mvMeta(c))}</small>${c.o ? `<small class="mv-o">${esc(c.o)}</small>` : ''}</span></button>
+    <span class="mv-sa">${seen ? `<span class="mv-done">${CHECK_I}Gesehen</span>` : `<button class="btn small primary" data-a="mv-seen:${c.id}">Heute gesehen</button><button class="btn small${want ? ' on-want' : ''}" data-a="mv-want:${c.id}">${want ? 'Gemerkt' : 'Merken'}</button>`}</span></div>`;
+}
+function vMvSeen() {
+  const tk = todayKey(), y = tk.slice(0, 4), seen = S.media.items.filter(x => x.st === 'seen');
+  const dated = seen.filter(x => x.seen).sort((a, b) => b.seen.localeCompare(a.seen)), old = seen.filter(x => !x.seen);
+  const yr = dated.filter(x => x.seen.startsWith(y)), films = yr.filter(x => x.kind !== 'serie').length, mins = yr.filter(x => x.kind !== 'serie').reduce((a, x) => a + (x.mins || 0), 0);
+  const rated = seen.filter(x => x.r);
+  let diary = '';
+  if (dated.length) {
+    const by = {}; for (const x of dated) (by[x.seen.slice(0, 7)] = by[x.seen.slice(0, 7)] || []).push(x);
+    diary = Object.entries(by).map(([m, xs]) => `<div class="pl-sec"><h2>${MON[+m.slice(5, 7) - 1]}${m.slice(0, 4) !== y ? ' ' + m.slice(0, 4) : ''}</h2><span class="small muted">${xs.length}</span></div><section class="panel mv-list">${xs.map(mvRowItem).join('')}</section>`).join('');
+  }
+  const showOld = !!S.ui.mvOld;
+  return `<section class="panel mv-hero"><div class="mv-hn"><b>${yr.length}</b><span>${y} gesehen</span></div>
+      <div class="h6-row"><div><span>Filme</span><b>${films}</b></div><div><span>Serien</span><b>${yr.length - films}</b></div><div><span>Filmzeit</span><b>${mins ? fmt(mins / 60) + ' h' : '–'}</b></div><div><span>Ø Sterne</span><b>${rated.length ? fmt(rated.reduce((a, x) => a + x.r, 0) / rated.length / 2, 1) : '–'}</b></div></div></section>
+    ${vMvSearch('Was hast du gesehen?')}
+    ${vMvTopCards()}
+    ${diary || (!old.length ? '<section class="panel"><p class="small muted" style="margin:0">Noch nichts eingetragen. Such oben nach einem Film oder einer Serie und tipp auf „Heute gesehen“. In „Top 100“ kannst du alles abhaken, was du schon kennst.</p></section>' : '')}
+    ${old.length ? `<div class="pl-sec"><h2>Früher gesehen</h2><button class="link" data-a="mv-old" aria-expanded="${showOld}">${showOld ? 'Ausblenden' : `Zeigen (${old.length})`}</button></div>${showOld ? `<section class="panel mv-list">${old.slice().sort((a, b) => (b.r || 0) - (a.r || 0) || a.title.localeCompare(b.title, 'de')).map(mvRowItem).join('')}</section>` : ''}` : ''}`;
+}
+function vMvTopCards() {
+  const f = mvTopStat('film'), s = mvTopStat('serie'); if (!f) return '';
+  const card = (k, l, st) => `<button class="mv-tc" data-a="mv-gotop:${k}">${mvRing(st.of ? st.n / st.of : 0, st.n)}<span><b>${l}</b><small>${st.n} von ${st.of} gesehen</small></span></button>`;
+  return `<div class="mv-tcs">${card('film', 'Top 100 Filme', f)}${card('serie', 'Top 100 Serien', s)}</div>`;
+}
+function vMvWant() {
+  const want = S.media.items.filter(x => x.st !== 'seen');
+  return vMvSearch('Was willst du sehen?') + (want.length ? `<section class="panel mv-list">${want.map(it => { const c = it.imdb ? mvCat(it.imdb) : null; return c ? mvRowCat(c) : mvRowItem(it); }).join('')}</section>`
+    : `<section class="panel"><p class="small muted" style="margin:0">Noch nichts gemerkt. Such oben nach einem Titel und tipp auf „Merken“, oder stöber in „Top 100“ und „Entdecken“.</p></section>`);
+}
+function vMvTop() {
+  if (!MV.L) return `<section class="panel"><p class="small muted" style="margin:0">${MV.err ? 'Die Film-Datenbank konnte nicht geladen werden. Mit Internet klappt es beim nächsten Öffnen.' : 'Lade die Bestenliste …'}</p></section>`;
+  const k = S.ui.mvTopK || 'film', fl = S.ui.mvTopF || 'all';
+  const T = MV.L.filter(c => c.top && c.k === k).sort((a, b) => a.top - b.top), st = mvTopStat(k);
+  const vis = T.filter(c => { const it = mvItemOf(c), s = it && it.st === 'seen'; return fl === 'all' || (fl === 'seen' ? s : !s); });
+  return `<div class="seg seg6" role="group" aria-label="Filme oder Serien">${[['film', 'Filme'], ['serie', 'Serien']].map(([x, l]) => `<button class="${k === x ? 'on' : ''}" data-a="mv-topk:${x}" aria-pressed="${k === x}">${l}</button>`).join('')}</div>
+    <section class="panel mv-tp"><div class="mv-tph">${mvRing(st.of ? st.n / st.of : 0, st.n)}<div><b>${st.n} von ${st.of}</b><span>${st.n === st.of ? 'Alle gesehen. Respekt!' : st.n ? `noch ${st.of - st.n} ${k === 'film' ? 'Filme' : 'Serien'} offen` : 'Hak ab, was du schon gesehen hast'}</span></div></div>
+      <p class="small muted" style="margin:10px 0 0">Die 100 am besten bewerteten ${k === 'film' ? 'Filme' : 'Serien'} bei IMDb, gewichtet nach Bewertung und Anzahl der Stimmen.</p></section>
+    <div class="chips mv-fl">${[['all', 'Alle'], ['open', 'Noch nicht gesehen'], ['seen', 'Gesehen']].map(([x, l]) => `<button class="chip${fl === x ? ' on' : ''}" data-a="mv-topf:${x}">${l}</button>`).join('')}</div>
+    <section class="panel mv-list">${vis.length ? vis.map(c => mvRowCat(c, c.top)).join('') : '<p class="small muted" style="margin:4px 0">Hier ist gerade nichts.</p>'}</section>`;
+}
+function vMvDisc() {
+  if (!MV.L) return `<section class="panel"><p class="small muted" style="margin:0">${MV.err ? 'Die Film-Datenbank konnte nicht geladen werden.' : 'Lade …'}</p></section>`;
+  const k = S.ui.mvDk || 'film', g = S.ui.mvDg || '', dec = S.ui.mvDd || '', sort = S.ui.mvDs || 'best', hide = !!S.ui.mvDh, lim = S.ui.mvDn || 40;
+  const C = 7, m = k === 'film' ? 25000 : 15000;
+  let xs = MV.L.filter(c => c.k === k && (!g || c.g.includes(g)) && (!dec || (dec === 'old' ? c.y && c.y < 1980 : c.y >= +dec && c.y < +dec + 10)));
+  if (hide) xs = xs.filter(c => { const it = mvItemOf(c); return !(it && it.st === 'seen'); });
+  const wr = c => (c.v / (c.v + m)) * c.r + (m / (c.v + m)) * C;
+  xs = sort === 'best' ? xs.slice().sort((a, b) => wr(b) - wr(a)) : sort === 'new' ? xs.filter(c => c.v >= 20000).sort((a, b) => b.y - a.y || b.v - a.v) : xs;
+  const genres = Object.keys(MV_COL).filter(x => !['Musical', 'Film noir', 'Reality'].includes(x));
+  return `<div class="seg seg6" role="group" aria-label="Filme oder Serien">${[['film', 'Filme'], ['serie', 'Serien']].map(([x, l]) => `<button class="${k === x ? 'on' : ''}" data-a="mv-dk:${x}" aria-pressed="${k === x}">${l}</button>`).join('')}</div>
+    <div class="mv-scroll">${[['', 'Alle Genres'], ...genres.map(x => [x, x])].map(([x, l]) => `<button class="chip${g === x ? ' on' : ''}" data-a="mv-dg:${esc(x)}">${esc(l)}</button>`).join('')}</div>
+    <div class="mv-scroll">${MV_DEC.map(([x, l]) => `<button class="chip${dec === x ? ' on' : ''}" data-a="mv-dd:${x}">${l}</button>`).join('')}</div>
+    <div class="mv-sort"><div class="seg seg6" role="group" aria-label="Sortieren">${[['best', 'Beste'], ['pop', 'Bekannteste'], ['new', 'Neueste']].map(([x, l]) => `<button class="${sort === x ? 'on' : ''}" data-a="mv-ds:${x}">${l}</button>`).join('')}</div>
+      <label class="mv-hide"><input type="checkbox" data-a="mv-dh" ${hide ? 'checked' : ''}> Gesehene ausblenden</label></div>
+    <section class="panel mv-list">${xs.length ? xs.slice(0, lim).map(c => mvRowCat(c)).join('') : '<p class="small muted" style="margin:4px 0">Nichts gefunden.</p>'}</section>
+    ${xs.length > lim ? `<button class="btn wide" data-a="mv-dmore">Mehr zeigen</button>` : ''}`;
+}
+function vMvDetail(key) {
+  let c = null, it = null;
+  if (key.startsWith('i:')) { it = mFind(key.slice(2)); if (!it) return ''; c = it.imdb ? mvCat(it.imdb) : null; }
+  else { c = mvCat(key); if (!c) return MV.L ? '' : '<section class="panel"><p class="small muted">Lade …</p></section>'; it = mvItemOf(c); }
+  const tk = todayKey(), seen = it && it.st === 'seen', want = it && it.st !== 'seen', id = it ? it.id : '';
+  const o = c || { t: it.title, k: it.kind, y: it.year, g: String(it.genre || '').split(/,\s*/).filter(Boolean) };
+  let h = `<section class="panel mv-dh">${mvPoster(o, true)}<div class="mv-di"><span class="mv-kind">${o.k === 'serie' ? 'Serie' : 'Film'}${c && c.top ? ` · Platz ${c.top} der Top 100` : ''}</span>
+      ${c && c.o ? `<p class="mv-orig">${esc(c.o)}</p>` : ''}
+      <p class="mv-meta">${esc(c ? mvMeta(c) : [it.year, it.genre].filter(Boolean).join(' · '))}</p>
+      ${c && c.by ? `<p class="mv-by">Regie: ${esc(c.by)}</p>` : ''}
+      ${c ? `<p class="mv-imdb">${MV_IC.star}<b>${fmt(c.r, 1)}</b><span>IMDb · ${mvVotes(c.v)} Stimmen</span></p>` : ''}</div></section>`;
+  if (seen) {
+    h += `<section class="panel mv-me"><div class="panel-h"><h2>Gesehen</h2><span class="mv-done">${CHECK_I}${it.seen ? shortDate(it.seen) : 'früher'}</span></div>
+      <div class="mv-rate"><span class="small muted">Deine Bewertung${it.r ? ` · ${fmt(it.r / 2, 1)} von 5` : ''}</span>${stars(it.r || 0, `m-rate:${id}`)}</div>
+      <div class="grid2"><label class="fld"><span>Gesehen am</span><input type="date" data-mvd="${id}" value="${esc(it.seen || '')}" max="${tk}"></label><label class="fld"><span>Notiz</span><input data-mnote="${id}" value="${esc(it.note || '')}" placeholder="optional" autocomplete="off"></label></div>
+      ${(it.rw || []).length ? `<p class="small muted" style="margin-top:6px">Auch gesehen: ${it.rw.map(x => x ? shortDate(x) : 'früher').join(', ')}</p>` : ''}
+      <div class="row-actions"><button class="btn small" data-a="m-again:${id}">Nochmal gesehen</button><button class="btn small ghost" data-a="mv-unseen:${id}">Doch nicht gesehen</button></div></section>`;
+  } else {
+    h += `<section class="panel mv-me"><div class="mv-acts"><button class="btn primary" data-a="${c ? `mv-seen:${c.id}` : `mv-iseen:${id}`}">${MV_IC.eye}Heute gesehen</button><button class="btn" data-a="${c ? `mv-seenold:${c.id}` : `mv-iseenold:${id}`}">Früher gesehen</button></div>
+      ${c ? `<button class="btn wide${want ? ' on-want' : ''}" data-a="mv-want:${c.id}">${MV_IC.mark}${want ? 'Auf der Merkliste' : 'Auf die Merkliste'}</button>` : ''}</section>`;
+  }
+  if (c) h += `<a class="btn wide ghost mv-ext" href="https://www.imdb.com/title/${esc(c.id)}/" target="_blank" rel="noopener noreferrer">${MV_IC.ext}Auf IMDb ansehen</a>`;
+  if (!c && it && MV.L) {
+    const cand = mvSearch(it.title, 6);
+    h += `<section class="panel"><h2>Zuordnen</h2><p class="small muted" style="margin:0 0 8px">Dieser Eintrag hat noch keine Infos. Welcher Titel ist es?</p>${cand.length ? cand.map(x => `<button class="mv-r mv-ri" data-a="mv-link:${id}:${x.id}">${mvPoster(x)}<span class="mv-rt"><b>${esc(x.t)}</b><small>${esc(mvMeta(x))}</small></span></button>`).join('') : '<p class="small muted">Nichts Passendes gefunden.</p>'}</section>`;
+  }
+  if (it) h += `<button class="btn wide ghost danger mv-del" data-a="mv-del:${id}" data-confirm="Eintrag wirklich löschen?">Eintrag löschen</button>`;
+  return h;
+}
+function mvGo(key, dir) {
+  const fn = () => { S.ui.mvT = key || null; S.ui.fresh = true; render(); window.scrollTo(0, 0); };
+  if (S.ui.noVT) fn(); else vtRun(fn, dir || 'push');
+}
+function actFilm(c, args) {
+  const cat = args[0] && args[0].startsWith('tt') ? mvCat(args[0]) : null, tk = todayKey();
+  switch (c) {
+    case 'mv-tab': S.ui.mvTab = args[0]; render(); window.scrollTo(0, 0); return true;
+    case 'mv-open': mvGo(args.join(':')); return true;
+    case 'mv-qclr': S.ui.mvQ = ''; render(); setTimeout(() => { const i = $('#mv-q'); if (i) i.focus(); }, 30); return true;
+    case 'mv-seen': if (cat) { const it = mvAddCat(cat, 'seen', tk); if (it.st === 'seen' && !it.seen) { it.seen = tk; touch('media'); } S.ui.mvQ = ''; haptic(); render(); toast(`${cat.t}: heute gesehen. Sterne vergibst du im Eintrag.`, () => { it.st = 'want'; it.seen = null; touch('media'); render(); }); } return true;
+    case 'mv-seenold': if (cat) { mvAddCat(cat, 'seen', null); haptic(); render(); toast(`${cat.t}: früher gesehen`); } return true;
+    case 'mv-ck': if (cat) {
+      const it = mvItemOf(cat), L = S.media.items;
+      if (it && it.st === 'seen') {
+        const prev = it.seen, i = L.indexOf(it), keep = it.r || it.note || (it.rw || []).length;
+        if (keep) { it.st = 'want'; it.seen = null; } else L.splice(i, 1);
+        touch('media'); render(); toast(`${cat.t}: nicht gesehen`, () => { if (!keep) L.splice(i, 0, it); it.st = 'seen'; it.seen = prev; touch('media'); render(); }); return true;
+      }
+      const had = !!it, n = mvAddCat(cat, 'seen', null); haptic(); render();
+      toast(`${cat.t}: gesehen`, () => { if (had) { n.st = 'want'; n.seen = null; } else S.media.items = S.media.items.filter(x => x !== n); touch('media'); render(); });
+    } return true;
+    case 'mv-want': if (cat) { const it = mvItemOf(cat); if (it && it.st !== 'seen') { S.media.items = S.media.items.filter(x => x !== it); touch('media'); render(); toast('Von der Merkliste genommen'); return true; } mvAddCat(cat, 'want'); haptic(); render(); toast(`${cat.t} gemerkt`); } return true;
+    case 'mv-iseen': { const it = mFind(args[0]); if (it) { it.st = 'seen'; it.seen = tk; touch('media'); render(); toast(`${it.title}: heute gesehen`); } return true; }
+    case 'mv-iseenold': { const it = mFind(args[0]); if (it) { it.st = 'seen'; it.seen = null; touch('media'); render(); } return true; }
+    case 'mv-unseen': { const it = mFind(args[0]); if (it) { it.st = 'want'; it.seen = null; touch('media'); render(); toast('Wieder auf der Merkliste'); } return true; }
+    case 'mv-del': { const it = mFind(args[0]); if (!it) return true; const L = S.media.items, i = L.indexOf(it); L.splice(i, 1); touch('media'); mvGo(null, 'pop'); toast(`${it.title} gelöscht`, () => { L.splice(i, 0, it); touch('media'); render(); }); return true; }
+    case 'mv-link': { const it = mFind(args[0]), x = mvCat(args[1]); if (it && x) { if (mvItemOf(x) && mvItemOf(x) !== it) { toast('Den Titel hast du schon eingetragen.'); return true; } it.title = x.t; it.kind = x.k; mvApply(it, x); touch('media'); S.ui.mvT = x.id; render(); toast('Zugeordnet'); } return true; }
+    case 'mv-ownadd': {
+      const q = String(S.ui.mvQ || '').trim(); if (!q) return true;
+      const it = mAdd(q, args[0], args[1] === 'seen'); if (!it) return true; it.noCat = true; touch('media'); S.ui.mvQ = ''; render(); toast(`${it.title}: heute gesehen`); return true;
+    }
+    case 'mv-old': S.ui.mvOld = !S.ui.mvOld; render(); return true;
+    case 'mv-gotop': S.ui.mvTab = 'top'; S.ui.mvTopK = args[0]; render(); window.scrollTo(0, 0); return true;
+    case 'mv-topk': S.ui.mvTopK = args[0]; render(); return true;
+    case 'mv-topf': S.ui.mvTopF = args[0]; render(); return true;
+    case 'mv-dk': S.ui.mvDk = args[0]; S.ui.mvDn = 40; S.ui.mvDg = S.ui.mvDg && MV_COL[S.ui.mvDg] ? S.ui.mvDg : ''; render(); return true;
+    case 'mv-dg': S.ui.mvDg = args.join(':'); S.ui.mvDn = 40; render(); return true;
+    case 'mv-dd': S.ui.mvDd = args[0] || ''; S.ui.mvDn = 40; render(); return true;
+    case 'mv-ds': S.ui.mvDs = args[0]; S.ui.mvDn = 40; render(); return true;
+    case 'mv-dh': S.ui.mvDh = !S.ui.mvDh; render(); return true;
+    case 'mv-dmore': S.ui.mvDn = (S.ui.mvDn || 40) + 40; render(); return true;
+  }
+  return false;
+}
+document.addEventListener('input', e => {
+  const el = e.target; if (!el || !el.dataset) return;
+  if (el.dataset.mvq) { S.ui.mvQ = el.value; render(); }
+});
+document.addEventListener('change', e => {
+  const el = e.target; if (!el || !el.dataset || !el.dataset.mvd) return;
+  const it = mFind(el.dataset.mvd); if (!it) return;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(el.value)) it.seen = el.value; else if (!el.value) it.seen = null;
+  touch('media'); el.blur(); render();
+});
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
@@ -6041,11 +6406,11 @@ function render() {
   const t = S.ui.tab;
   $('#top-title').textContent = ltTitle(t);
   $('#back').hidden = !SUB[t];
-  if (SUB[t]) { const bt = S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'; $('#back-l').textContent = ltTitle(bt); $('#back').setAttribute('aria-label', 'Zurück zu ' + ltTitle(bt)); if (t === 'pack' && S.ui.plT) { $('#back-l').textContent = 'Packliste'; $('#back').setAttribute('aria-label', 'Zurück zur Packliste'); } }
+  if (SUB[t]) { const bt = S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'; $('#back-l').textContent = ltTitle(bt); $('#back').setAttribute('aria-label', 'Zurück zu ' + ltTitle(bt)); if (t === 'medien' && S.ui.mvT) { $('#back-l').textContent = 'Filme'; $('#back').setAttribute('aria-label', 'Zurück zu Filme & Serien'); } if (t === 'pack' && S.ui.plT) { $('#back-l').textContent = 'Packliste'; $('#back').setAttribute('aria-label', 'Zurück zur Packliste'); } }
   const hl = SUB[t] ? (TABS.some(x => x[0] === S.ui.backTo) ? S.ui.backTo : 'mehr') : t;
   moTabs(hl);
   const m = $('#main');
-  const V = { heute: vHeute, kalender: vKalender, training: vTrainingNew2, essen: vEssen2, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol2, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte, merk: vMerk, pack: vPack, ideen: vIdeen, ...TR_SUBV };
+  const V = { heute: vHeute, kalender: vKalender, training: vTrainingNew2, essen: vEssen2, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol2, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien2, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte, merk: vMerk, pack: vPack, ideen: vIdeen, ...TR_SUBV };
   V.routinen = () => vRoutHero() + vRoutinen() + vHabitHeat(); V.koerper = () => vBodyHero() + vKoerper();
   document.documentElement.style.setProperty('--area', `var(--${AREA[t] || 'd-slate'})`);
   const enter = S.ui.enter; S.ui.enter = false;
@@ -6082,6 +6447,7 @@ function toast(msg, undo) {
   toastT = setTimeout(() => { t.classList.remove('show', 'act'); undoFn = null; }, undo ? 6000 : 2800);
 }
 function setTab(t, focusSel, el) {
+  if (t === 'medien' && S.ui.tab !== 'medien') S.ui.mvT = null;
   const from = S.ui.tab, scr = S.ui.scr || (S.ui.scr = {});
   if (from !== t) scr[from] = window.scrollY;
   if (SUB[t] && !SUB[S.ui.tab]) S.ui.backTo = S.ui.tab;
@@ -8832,6 +9198,7 @@ function mAdd(title, kind, seen, r) {
   if (ex) { if (seen && ex.st !== 'seen') { ex.st = 'seen'; ex.seen = todayKey(); if (r) ex.r = r; touch('media'); } return ex; }
   const it = { id: uid(), title: title.slice(0, 100), kind: kind === 'serie' ? 'serie' : 'film', st: seen ? 'seen' : 'want', added: Date.now() };
   if (seen) it.seen = todayKey(); if (r) it.r = r;
+  if (MV.L) { const c = mvFindTitle(it.title, it.kind); if (c && !S.media.items.some(x => x.imdb === c.id)) mvApply(it, c); }
   S.media.items.unshift(it); touch('media'); mEnrich(it, true); return it;
 }
 function vMedien() {
@@ -9570,7 +9937,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -10559,7 +10926,7 @@ function act(a, el) {
     case 'sun-today': S.ui.sunDay = todayKey(); render(); break;
     case 'wx-day': { const i = +args[0]; S.ui.wxDay = S.ui.wxDay === i ? null : i; render(); break; }
     case 'sync-now': if (isOffline()) toast('Noch kein Netz. Wird automatisch übertragen, sobald du wieder online bist.'); else { drain(); toast('Wird übertragen …'); } break;
-    case 'back': if (S.ui.tab === 'pack' && S.ui.plT) { plGo(null, 'pop'); break; } setTab(S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'); break;
+    case 'back': if (S.ui.tab === 'pack' && S.ui.plT) { plGo(null, 'pop'); break; } if (S.ui.tab === 'medien' && S.ui.mvT) { mvGo(null, 'pop'); break; } setTab(S.ui.backTo && !SUB[S.ui.backTo] ? S.ui.backTo : 'mehr'); break;
     case 'undo': if (undoFn) { const f = undoFn; undoFn = null; f(); toast('Rückgängig gemacht'); render(); } break;
     case 'quick-add': { const inp = $('#quick'), v = inp ? inp.value : ''; if (!v.trim()) { inp?.focus(); break; } inp.value = ''; inp.blur(); quickAdd(v); break; }
     case 'water': { const ml = +args[0], k = args[1] || todayKey(); addWater(k, ml); render(); if (ml > 0) toast(`${fmt(ml)} ml Wasser eingetragen`, () => addWater(k, -ml)); break; }

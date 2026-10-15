@@ -22,15 +22,16 @@ for c in core:
     if not os.path.isfile(p):
         sys.exit(f'Datei aus CORE fehlt: {c}')
     h.update(open(p, 'rb').read())
-# Produktdatenbank: eigene Kennung, damit das iPhone sie nur bei Änderungen neu lädt
-m_fv = re.search(r"^const FOODS_VER = '([0-9a-f]{8})';$", sw, re.M)
-fp = os.path.join(ROOT, 'foods-de.txt')
-if m_fv and os.path.isfile(fp):
-    fv = hashlib.sha1(open(fp, 'rb').read()).hexdigest()[:8]
-    h.update(fv.encode())
-    if fv != m_fv.group(1):
-        sw = sw.replace(m_fv.group(0), f"const FOODS_VER = '{fv}';")
-        print('neue Produktdatenbank', fv)
+# Große Datendateien: eigene Kennung, damit das iPhone sie nur bei Änderungen neu lädt
+for var, fn in (('FOODS_VER', 'foods-de.txt'), ('MEDIA_VER', 'media-de.txt')):
+    m_fv = re.search(r"^const %s = '([0-9a-f]{8})';$" % var, sw, re.M)
+    fp = os.path.join(ROOT, fn)
+    if m_fv and os.path.isfile(fp):
+        fv = hashlib.sha1(open(fp, 'rb').read()).hexdigest()[:8]
+        h.update(fv.encode())
+        if fv != m_fv.group(1):
+            sw = sw.replace(m_fv.group(0), f"const {var} = '{fv}';")
+            print('neue Datei', fn, fv)
 digest = h.hexdigest()[:8]
 if digest == m_ver.group(2):
     print('unverändert', m_ver.group(1) + '-' + digest)
