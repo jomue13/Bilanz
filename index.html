@@ -13,6 +13,7 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
 <script src="local.js"></script>
+<script src="vendor/idiomorph.min.js"></script>
 <title>Bilanz</title>
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
@@ -1499,6 +1500,57 @@ html[data-vt="pop"]::view-transition-new(main){animation-name:vtFadeIn}
 .upo-r:last-of-type{border-bottom:0}
 .upo-r b{font-size:14.5px}.upo-r span{font-size:13.5px;color:var(--muted)}
 .upo-r .usp-bar{margin-top:4px}
+
+/* ---------- v18: Flüssige Bedienung ---------- */
+:root{--spring:cubic-bezier(.25,1.15,.5,1);--ios:cubic-bezier(.32,.72,0,1);--ease-o:cubic-bezier(.2,.8,.2,1)}
+@supports (transition-timing-function: linear(0, 1)){
+  :root{--spring:linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001 85.9%, 1)}
+}
+/* Beim Wechseln nur noch eine Bewegung, keine hochfliegenden Kästen */
+.enter>*{animation:none}
+.tabs.enter button[aria-current="page"]::before,.tabs.enter button[aria-current="page"] svg{animation:none}
+/* Tab-Leiste: die Markierung gleitet zum neuen Tab */
+.tabs button[aria-current="page"]::before{display:none}
+.tab-ind{position:absolute;top:7px;left:max(4px, calc((100% - 560px) / 2));width:calc((100% - 2 * max(4px, calc((100% - 560px) / 2))) / 5);height:32px;transform:translateX(calc(var(--i, 0) * 100%));transition:transform .5s var(--spring);pointer-events:none}
+.tab-ind::before{content:"";position:absolute;left:50%;top:0;width:56px;height:32px;margin-left:-28px;border-radius:12px;background:color-mix(in srgb,var(--area) 18%,transparent);transition:background-color .3s}
+.tabs button{z-index:1}
+.tabs button svg{transition:transform .4s var(--spring),stroke .25s}
+.tabs button:active svg{transform:scale(.84);transition-duration:.06s}
+/* Seitenwechsel wie in iOS: Unterseiten schieben sich von rechts drüber */
+#main{view-transition-name:none}
+header.top{view-transition-name:topbar}
+#tabs{view-transition-name:tabs}
+#live{view-transition-name:live}
+::view-transition-group(topbar),::view-transition-group(tabs),::view-transition-group(live){animation:none}
+::view-transition-old(topbar),::view-transition-old(tabs),::view-transition-old(live){display:none}
+::view-transition-new(topbar),::view-transition-new(tabs),::view-transition-new(live){animation:none}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.44s;animation-timing-function:var(--ios);animation-fill-mode:both}
+html[data-vt="push"]::view-transition-old(root){animation-name:v18Back}
+html[data-vt="push"]::view-transition-new(root){animation-name:v18InR;box-shadow:-14px 0 34px -16px rgba(0,0,0,.35)}
+html[data-vt="pop"]::view-transition-old(root){animation-name:v18OutR;z-index:2;box-shadow:-14px 0 34px -16px rgba(0,0,0,.35)}
+html[data-vt="pop"]::view-transition-new(root){animation-name:v18FromBack}
+@keyframes v18Back{to{transform:translateX(-26%)}}
+@keyframes v18InR{from{transform:translateX(100%)}}
+@keyframes v18OutR{to{transform:translateX(100%)}}
+@keyframes v18FromBack{from{transform:translateX(-26%)}}
+html.edge-drag #main{box-shadow:-14px 0 34px -16px rgba(0,0,0,.35);background:var(--bg)}
+/* Karten wachsen und schrumpfen weich */
+.mo-clip{overflow:hidden}
+/* Balken und Ringe gleiten zum neuen Wert */
+#main i[style*="width"],#main span[style*="width"],#main div[style*="width"]{transition:width .7s var(--ease-o)}
+#main circle{transition:stroke-dasharray .8s var(--ease-o),stroke-dashoffset .8s var(--ease-o)}
+/* Fenster gleiten von unten rein und raus */
+.sheet:not([hidden]){animation:v18Up .5s var(--ios)}
+@keyframes v18Up{from{transform:translateY(100%)}}
+.sheet.dragging{transition:none!important;box-shadow:0 -10px 40px -10px rgba(0,0,0,.35)}
+.sheet.wrap:not([hidden]){animation:v18Fade .3s ease-out}
+@keyframes v18Fade{from{opacity:0}}
+/* Antippen fühlt sich an wie Drücken */
+.btn,.chip,.ck,.icon-btn,.seg button,.tcard,.cd,.add-btn,.dbtn,.pk-row,.umod-h,.ucat-h,.lv-i,.tbox,.tile,.mtile{transition:transform .42s var(--spring),background-color .2s,color .2s,border-color .2s,box-shadow .2s,opacity .2s}
+.btn:active,.chip:active,.ck:active,.icon-btn:active,.seg button:active,.tcard:active,.cd:active,.pk-row:active,.umod-h:active,.ucat-h:active,.lv-i:active,.tbox:active,.dbtn:active{transform:scale(.96);transition-duration:.06s}
+.tile:active,.mtile:active{transform:scale(.97);transition-duration:.06s}
+.add-btn:active{transform:scale(.92);transition-duration:.06s}
+@media (prefers-reduced-motion: reduce){.tab-ind,.tab-ind::before{transition:none}.sheet:not([hidden]){animation:none}}
 </style>
 </head>
 <body>
@@ -2445,8 +2497,8 @@ function renderSheet() {
     ${bkPanel()}
     <section class="panel"><h2>Speicherort</h2><p class="small">${IS_LOCAL_APP ? 'Deine Daten liegen nur auf diesem iPhone, in der App und nicht im Internet. Löschst du die App vom Home-Bildschirm, sind sie weg, deshalb das Backup oben.' : S.mode === 'cloud' ? `Deine Daten liegen in deinem Claude-Konto und sind auf allen Geräten gleich, auf denen du angemeldet bist. ${dirty.size ? `${dirty.size} ${dirty.size === 1 ? 'Eintrag ist' : 'Einträge sind'} noch nur auf diesem Gerät und ${dirty.size === 1 ? 'wird' : 'werden'} übertragen, sobald du Netz hast.` : 'Alles ist übertragen.'}` : S.mode === 'local' ? 'Deine Daten liegen nur in diesem Browser auf diesem Gerät.' : 'Verbindung wird hergestellt …'}</p></section></div>`;
 }
-function openSettings() { S.ui.sheet = true; renderSheet(); const sh = $('#sheet'); sh.hidden = false; sh.scrollTop = 0; }
-function closeSettings() { S.ui.sheet = false; $('#sheet').hidden = true; render(); }
+function openSettings() { S.ui.sheet = true; renderSheet(); const sh = $('#sheet'); sheetShow(sh); sh.hidden = false; sh.scrollTop = 0; }
+function closeSettings(y) { S.ui.sheet = false; sheetHide($('#sheet'), y); render(); }
 
 /* ---------- v13: Gym-Modus ---------- */
 var GYM = { lock: null, lockFail: false, locking: false, ac: null, sel: null, doneT: null, touch: null, step: new Map(), cc: null, swap: null, rng: null, swapL: [] };
@@ -2600,11 +2652,14 @@ function renderGym() {
   if (!GYM) return;
   const g = $('#gym'); if (!g) return;
   const a = gymA();
-  if (!a) { if (!g.hidden) { g.hidden = true; g.innerHTML = ''; document.documentElement.classList.remove('gym-on'); } gymLock(false); return; }
-  const wasHidden = g.hidden; GYM.cc = null;
+  if (!a) { if (!g.hidden && !g.dataset.closing) { const y = GYM.closeY || 0; GYM.closeY = 0; GYM.lastEx = null; document.documentElement.classList.remove('gym-on'); sheetHide(g, y, () => { if (!gymA()) g.innerHTML = ''; }); } gymLock(false); return; }
+  const wasHidden = g.hidden || !!g.dataset.closing; GYM.cc = null; sheetShow(g);
   g.hidden = false; document.documentElement.classList.add('gym-on');
-  g.innerHTML = vGym(a);
+  if (wasHidden) g.innerHTML = vGym(a); else moSet(g, vGym(a));
   if (wasHidden) g.scrollTop = 0;
+  const exI = gymExIdx(a);
+  if (!wasHidden && GYM.lastEx != null && GYM.lastEx !== exI && !moReduce()) { const dir = exI > GYM.lastEx ? 1 : -1; g.querySelectorAll('.gy-ex,.gy-card,.gy-coach').forEach(x => x.animate([{ transform: `translateX(${dir * 40}px)`, opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 320, easing: MO_EASE })); g.scrollTo({ top: 0, behavior: 'smooth' }); }
+  GYM.lastEx = exI;
   gymLock(true); tickTimer();
 }
 function gymTick() {
@@ -2614,7 +2669,7 @@ function gymTick() {
   const t = g.querySelector('[data-rest-t]'); if (t) t.textContent = gymMMSS(left);
   const r = g.querySelector('[data-rest-ring]'); if (r) r.style.strokeDashoffset = (339.29 * (1 - left / Math.max(1, R.dur))).toFixed(1);
   if (left <= 0 && !R.done) {
-    R.done = true; if (Date.now() - R.end < 4000 && document.visibilityState === 'visible') gymBeep();
+    R.done = true; if (Date.now() - R.end < 4000 && document.visibilityState === 'visible') { gymBeep(); haptic(); }
     touch('profile'); renderGym();
     clearTimeout(GYM.doneT); GYM.doneT = setTimeout(() => { const b = gymA(); if (b && b.rest && b.rest.done) { b.rest = null; touch('profile'); renderGym(); } }, 7000);
   }
@@ -3289,6 +3344,7 @@ function themePanel() {
     <p class="small muted" style="margin:10px 0 8px">Akzentfarbe für Knöpfe und Links</p>
     <div class="th-sw">${Object.entries(THEME_ACC).map(([k, v]) => `<button class="th-c${acc === k ? ' on' : ''}" style="--sw:${dark ? v[2] : v[1]}" data-a="theme-acc:${k}" aria-pressed="${acc === k}" aria-label="${v[0]}"><i></i><span>${v[0]}</span></button>`).join('')}</div>
     <p class="small muted" style="margin-top:8px">„Schwarz“ ist ein echter Nachtmodus mit schwarzem Hintergrund, spart auf dem iPhone-Display Akku.</p>
+    <div class="th-row"><span>Vibration beim Abhaken</span><button class="sw${s.haptics !== false ? ' on' : ''}" role="switch" aria-checked="${s.haptics !== false}" data-a="haptics" aria-label="Vibration beim Abhaken"><i></i></button></div>
     <div class="th-row"><span>Arbeitszeit in der Live-Leiste</span><button class="sw${s.liveWork === true ? ' on' : ''}" role="switch" aria-checked="${s.liveWork === true}" data-a="live-work" aria-label="Arbeitszeit in der Live-Leiste anzeigen"><i></i></button></div>
     <button class="btn wide" style="margin-top:10px" data-a="home-edit">Startseite anpassen</button></section>`;
 }
@@ -3387,7 +3443,7 @@ function vRings(k) {
     { id: 'p', l: 'Eiweiß', v: t.p, g: +s.protein || 0, u: ' g', c: 'var(--prot)' },
     { id: 'st', l: 'Schritte', v: d.steps || 0, g: stepGoal(), u: '', c: 'var(--c-steps)' }
   ];
-  const key = R.map(r => Math.round(r.v)).join('|'), anim = S.ui.ringsK == null || Date.now() - (S.ui.enterT || 0) < 1500 || S.ui.ringsK !== key;
+  const key = R.map(r => Math.round(r.v)).join('|'), anim = S.ui.ringsK == null || Date.now() - (S.ui.enterT || 0) < 1500;
   S.ui.ringsK = key;
   const rad = [44, 33, 22];
   const rings = R.map((r, i) => {
@@ -3442,7 +3498,7 @@ function tabDir(from, to) {
 (() => {
   const m = $('#main'); if (!m) return; let T = null;
   const NOSW = 'input,textarea,select,button.sw,.hm-wrap,.chips,.sky-hours,.fcats,.phcmp,.he-list,.swipe-li,.chart,.wkdots,[data-noswipe],.mrows,.mm,.sky-arc';
-  m.addEventListener('touchstart', e => { if (e.touches.length !== 1 || S.ui.sheet || S.ui.pick) { T = null; return; } const t = e.touches[0]; if (e.target.closest && e.target.closest(NOSW)) { T = null; return; } if (t.clientX < 18 || t.clientX > innerWidth - 18) { T = null; return; } T = { x: t.clientX, y: t.clientY, t: Date.now() }; }, { passive: true });
+  m.addEventListener('touchstart', e => { if (e.touches.length !== 1 || S.ui.sheet || S.ui.pick) { T = null; return; } const t = e.touches[0]; if (e.target.closest && e.target.closest(NOSW)) { T = null; return; } if (t.clientX < 28 || t.clientX > innerWidth - 18) { T = null; return; } T = { x: t.clientX, y: t.clientY, t: Date.now() }; }, { passive: true });
   m.addEventListener('touchend', e => {
     if (!T) return; const t = e.changedTouches[0], dx = t.clientX - T.x, dy = t.clientY - T.y, dt = Date.now() - T.t; T = null;
     if (dt > 700 || Math.abs(dx) < 90 || Math.abs(dy) > Math.abs(dx) * 0.45) return;
@@ -3463,7 +3519,7 @@ function tabDir(from, to) {
     if (!W) return; const t = e.touches[0], dx = t.clientX - W.x, dy = t.clientY - W.y;
     if (!W.on) { if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { W = null; return; } if (Math.abs(dx) < 12) return; W.on = true; W.li.classList.add('swiping'); }
     W.dx = Math.max(-140, Math.min(140, dx)); W.li.style.setProperty('--sx', W.dx + 'px');
-    W.li.classList.toggle('sw-r', W.dx > 0); W.li.classList.toggle('sw-l', W.dx < 0); W.li.classList.toggle('arm', Math.abs(W.dx) > 90);
+    W.li.classList.toggle('sw-r', W.dx > 0); W.li.classList.toggle('sw-l', W.dx < 0); { const arm = Math.abs(W.dx) > 90; if (arm && !W.li.classList.contains('arm')) haptic(); W.li.classList.toggle('arm', arm); }
   }, { passive: true });
   document.addEventListener('touchend', () => {
     if (!W) return; const { li, dx, on } = W; W = null; if (!on) return;
@@ -3603,6 +3659,7 @@ function actDesign(c, args, el) {
   switch (c) {
     case 'theme-mode': S.profile.settings.themeMode = args[0]; touch('profile'); applyTheme(); renderSheet(); return true;
     case 'live-work': S.profile.settings.liveWork = S.profile.settings.liveWork !== true; touch('profile'); renderSheet(); renderLive(); return true;
+    case 'haptics': S.profile.settings.haptics = S.profile.settings.haptics === false; touch('profile'); renderSheet(); haptic(); return true;
     case 'theme-acc': S.profile.settings.accent = args[0]; touch('profile'); applyTheme(); renderSheet(); return true;
     case 'home-edit': if (S.ui.sheet) closeSettings(); S.ui.homeEdit = true; if (S.ui.tab !== 'heute') setTab('heute'); else { render(); window.scrollTo(0, 0); } return true;
     case 'home-done': S.ui.homeEdit = false; render(); window.scrollTo(0, 0); toast('Startseite gespeichert'); return true;
@@ -3968,6 +4025,159 @@ function uPatch(x) {
   return out;
 }
 
+/* ---------- v18: Flüssige Bedienung (nur Geändertes neu zeichnen, Bewegung, Gesten, Vibration) ---------- */
+var MO = { tab: null, first: true, ticks: null, added: null };
+var MO_IOS = 'cubic-bezier(.32,.72,0,1)', MO_EASE = 'cubic-bezier(.2,.8,.2,1)';
+var MO_SPRING = (() => { try { return CSS.supports('transition-timing-function', 'linear(0, 1)') ? 'linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001 85.9%, 1)' : 'cubic-bezier(.25,1.15,.5,1)'; } catch (e) { return 'cubic-bezier(.25,1.15,.5,1)'; } })();
+function moReduce() { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+var MO_CB = {
+  beforeNodeMorphed(o, n) {
+    if (MO.ticks && o.nodeType === 3 && n.nodeType === 3 && o.nodeValue !== n.nodeValue && /\d/.test(n.nodeValue)) {
+      const p = o.parentElement;
+      if (p && !p.closest('[data-live],[data-timer],[data-wm],[data-count],.lv-t,.ut-v,input,textarea,select,option,svg')) MO.ticks.add(p);
+    }
+    return true;
+  },
+  afterNodeAdded(n) { if (MO.added && n.nodeType === 1) MO.added.push(n); }
+};
+/* Inhalt angleichen statt ersetzen: bleibende Elemente behalten Fokus, Scroll und können per CSS gleiten */
+function moSet(el, html, track) {
+  if (!el) return false;
+  if (!window.Idiomorph || !el.firstElementChild) { el.innerHTML = html; return false; }
+  MO.ticks = track ? new Set() : null; MO.added = track ? [] : null;
+  try { Idiomorph.morph(el, html, { morphStyle: 'innerHTML', ignoreActiveValue: true, restoreFocus: true, callbacks: MO_CB }); return true; }
+  catch (e) { try { console.warn('morph', e); } catch (x) { } el.innerHTML = html; return false; }
+  finally { if (!track) { MO.ticks = null; MO.added = null; } }
+}
+function moMain(m, html, fresh) {
+  if (fresh || !window.Idiomorph || !m.firstElementChild) { m.innerHTML = html; return; }
+  const R = moReduce(), kids = R ? [] : [...m.children], h0 = kids.map(k => k.offsetHeight);
+  const ok = moSet(m, html, !R);
+  const ticks = MO.ticks, added = MO.added; MO.ticks = null; MO.added = null;
+  if (!ok || R) return;
+  const bulk = added.length > 24;
+  if (bulk) { m.animate([{ opacity: .55 }, { opacity: 1 }], { duration: 200, easing: 'linear' }); return; }
+  /* Karten, die größer oder kleiner werden, gleiten auf ihre neue Höhe */
+  kids.forEach((k, i) => {
+    if (k.parentNode !== m) return;
+    const h1 = k.offsetHeight, d = h1 - h0[i]; if (Math.abs(d) < 3 || Math.abs(d) > 1400) return;
+    k.classList.add('mo-clip');
+    const a = k.animate([{ height: h0[i] + 'px' }, { height: h1 + 'px' }], { duration: Math.min(460, 260 + Math.abs(d) * 0.25), easing: MO_IOS });
+    a.finished.then(() => k.classList.remove('mo-clip'), () => k.classList.remove('mo-clip'));
+  });
+  /* Neues blendet weich ein */
+  for (const n of added) { if (!n.isConnected || n.closest('.mo-skip')) continue; n.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 280, easing: MO_EASE }); }
+  /* Geänderte Zahlen rollen kurz rein */
+  let c = 0;
+  for (const p of ticks) {
+    if (++c > 16 || !p.isConnected || p.textContent.length > 28) continue;
+    const inl = getComputedStyle(p).display === 'inline';
+    p.animate(inl ? [{ opacity: .15 }, { opacity: 1 }] : [{ transform: 'translateY(.35em)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: inl ? 320 : 420, easing: inl ? 'linear' : MO_SPRING });
+  }
+}
+function moEnter() {
+  if (moReduce()) return;
+  const m = $('#main'); m.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 240, easing: MO_EASE });
+}
+function moTabs(hl) {
+  const i = Math.max(0, TABS.findIndex(x => x[0] === hl));
+  const html = `<span class="tab-ind" aria-hidden="true" style="--i:${i}"></span>` + TABS.map(([id, label]) => `<button data-a="tab:${id}" ${id === hl ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[id]}</svg>${label}</button>`).join('');
+  const el = $('#tabs'); if (el.querySelector('.tab-ind')) moSet(el, html); else el.innerHTML = html;
+}
+
+/* Fenster: gleiten raus und lassen sich nach unten wegziehen */
+function sheetShow(el) { if (!el) return; if (el.dataset.closing) { el.getAnimations().forEach(a => a.cancel()); delete el.dataset.closing; } el.style.transform = ''; }
+function sheetHide(el, fromY, then) {
+  if (!el || el.hidden || el.dataset.closing) return;
+  el.style.transform = '';
+  if (moReduce()) { el.hidden = true; if (then) then(); return; }
+  el.dataset.closing = '1';
+  el.getAnimations().forEach(a => a.cancel());
+  const a = el.animate([{ transform: `translateY(${fromY || 0}px)` }, { transform: 'translateY(100%)' }], { duration: fromY ? 300 : 400, easing: fromY ? MO_EASE : MO_IOS, fill: 'forwards' });
+  a.finished.then(() => { if (el.dataset.closing === '1') { el.hidden = true; delete el.dataset.closing; if (then) then(); } a.cancel(); }, () => { });
+}
+function sheetDrag(el, close) {
+  if (!el) return; let d = null;
+  el.addEventListener('touchstart', e => {
+    d = null; if (e.touches.length !== 1 || el.dataset.closing || el.hidden) return;
+    if (e.target.closest && e.target.closest('input,textarea,select,.hm-wrap,.chips,[data-noswipe],.phcmp,.swipe-li,.he-list,.gy-bars')) return;
+    const t = e.touches[0]; d = { x: t.clientX, y: t.clientY, on: false, dy: 0, h: [[t.clientY, performance.now()]] };
+  }, { passive: true });
+  el.addEventListener('touchmove', e => {
+    if (!d) return; const t = e.touches[0], dy = t.clientY - d.y, dx = t.clientX - d.x;
+    if (!d.on) {
+      if (el.scrollTop > 0 || dy <= 0 || Math.abs(dx) >= Math.abs(dy)) { d = null; return; }
+      for (let n = e.target; n && n !== el; n = n.parentElement) if (n.scrollTop > 0) { d = null; return; }
+      d.on = true; el.classList.add('dragging');
+    }
+    e.preventDefault(); d.dy = Math.max(0, dy);
+    el.style.transform = `translateY(${d.dy}px)`;
+    d.h.push([t.clientY, performance.now()]); if (d.h.length > 6) d.h.shift();
+  }, { passive: false });
+  const end = () => {
+    if (!d) return; const X = d; d = null; if (!X.on) return; el.classList.remove('dragging');
+    const h = X.h, v = (h[h.length - 1][0] - h[0][0]) / Math.max(1, h[h.length - 1][1] - h[0][1]);
+    if (X.dy > Math.min(160, el.offsetHeight * 0.22) || (v > 0.5 && X.dy > 24)) { haptic(); close(X.dy); }
+    else { el.style.transform = ''; if (!moReduce()) el.animate([{ transform: `translateY(${X.dy}px)` }, { transform: 'none' }], { duration: 420, easing: MO_SPRING }); }
+  };
+  el.addEventListener('touchend', end); el.addEventListener('touchcancel', end);
+}
+
+/* Unterseiten: vom linken Rand zurückwischen, der Inhalt folgt dem Finger */
+(() => {
+  let E = null;
+  document.addEventListener('touchstart', e => {
+    E = null; if (e.touches.length !== 1 || !SUB[S.ui.tab] || S.ui.sheet || S.ui.pick || document.documentElement.classList.contains('gym-on')) return;
+    const t = e.touches[0]; if (t.clientX > 26) return;
+    E = { x: t.clientX, y: t.clientY, dx: 0, on: false, h: [[t.clientX, performance.now()]] };
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (!E) return; const t = e.touches[0], dx = t.clientX - E.x, dy = t.clientY - E.y;
+    if (!E.on) { if (dx <= 0 || Math.abs(dy) > Math.abs(dx)) { E = null; return; } E.on = true; document.documentElement.classList.add('edge-drag'); }
+    e.preventDefault(); E.dx = Math.max(0, dx);
+    $('#main').style.transform = `translateX(${E.dx}px)`;
+    E.h.push([t.clientX, performance.now()]); if (E.h.length > 6) E.h.shift();
+  }, { passive: false });
+  const end = () => {
+    if (!E) return; const X = E; E = null; if (!X.on) return;
+    const m = $('#main'), w = m.offsetWidth || innerWidth, h = X.h, v = (h[h.length - 1][0] - h[0][0]) / Math.max(1, h[h.length - 1][1] - h[0][1]);
+    if (X.dx > w * 0.33 || (v > 0.45 && X.dx > 30)) {
+      const a = m.animate([{ transform: `translateX(${X.dx}px)` }, { transform: 'translateX(100%)' }], { duration: 170, easing: 'cubic-bezier(.3,.6,.4,1)', fill: 'forwards' });
+      a.finished.then(() => {
+        m.style.transform = ''; document.documentElement.classList.remove('edge-drag');
+        S.ui.noVT = true; act('back'); S.ui.noVT = false; a.cancel();
+        if (!moReduce()) m.animate([{ transform: 'translateX(-24%)', opacity: .5 }, { transform: 'none', opacity: 1 }], { duration: 340, easing: MO_IOS });
+      }, () => { });
+    } else {
+      m.style.transform = ''; document.documentElement.classList.remove('edge-drag');
+      if (!moReduce()) m.animate([{ transform: `translateX(${X.dx}px)` }, { transform: 'none' }], { duration: 380, easing: MO_SPRING });
+    }
+  };
+  document.addEventListener('touchend', end); document.addEventListener('touchcancel', end);
+})();
+
+/* Vibration: iOS 18 gibt beim Umlegen eines Schalters ein kurzes Tippen, das nutzen wir */
+var HAPT = { last: 0 };
+var HAPT_RE = /^(habit-toggle|todo-toggle|uni-task-toggle|shop-toggle|w-toggle|w-done|gym-done|gym-set|water|drink-add|quick-add|c-add|work-in|work-out|uni-timer-start|uni-timer-stop|steps-save|body-save|pick-food-add|meal-add|rz-eat|top-add|w-finish|gym-finish|home-tg)\b/;
+function haptic() {
+  try { if (S.profile && S.profile.settings && S.profile.settings.haptics === false) return; } catch (e) { }
+  const now = Date.now(); if (now - HAPT.last < 50) return; HAPT.last = now;
+  try {
+    if (/iPhone|iPad|iPod/.test(navigator.userAgent) || !navigator.vibrate) {
+      const l = document.createElement('label'), i = document.createElement('input');
+      i.type = 'checkbox'; i.setAttribute('switch', ''); l.setAttribute('aria-hidden', 'true'); l.style.display = 'none';
+      l.appendChild(i); document.head.appendChild(l); l.click(); l.remove();
+    } else navigator.vibrate(8);
+  } catch (e) { }
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest && e.target.closest('[data-a]'); if (!el || el.disabled) return;
+  if (HAPT_RE.test(el.dataset.a || '') && !el.dataset.confirm) haptic();
+}, true);
+sheetDrag($('#sheet'), y => closeSettings(y));
+sheetDrag($('#pick'), y => closePick(y));
+sheetDrag($('#gym'), y => { GYM.closeY = y; act('gym-close'); });
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
@@ -3978,17 +4188,19 @@ function render() {
   $('#top-title').textContent = t === 'heute' ? 'Bilanz' : SUB[t] || (TABS.find(x => x[0] === t) || [0, ''])[1];
   $('#back').hidden = !SUB[t];
   const hl = SUB[t] ? (TABS.some(x => x[0] === S.ui.backTo) ? S.ui.backTo : 'mehr') : t;
-  $('#tabs').innerHTML = TABS.map(([id, label]) => `<button data-a="tab:${id}" ${id === hl ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[id]}</svg>${label}</button>`).join('');
+  moTabs(hl);
   const m = $('#main');
   const V = { heute: vHeute, kalender: vKalender, training: vTraining, essen: vEssen, mehr: vMehr, koerper: vKoerper, wetter: vWetter, sonne: vSonne, alkohol: vAlkohol, rueckblick: vRueck, routinen: () => vRoutinen() + vHabitHeat(), einkauf: vEinkauf, zaehler: vZaehler, sport: vSport, arbeit: vArbeit, geburtstage: vGeburtstage, finanzen: vFinanzen, medien: vMedien, schritte: vSchritte, labor: vLabor, mahlzeiten: vMahlzeiten, uni: vUni, fotos: vFotos, abzeichen: vAbzeichen, rezepte: vRezepte };
   V.routinen = () => vRoutHero() + vRoutinen() + vHabitHeat(); V.koerper = () => vBodyHero() + vKoerper();
   document.documentElement.style.setProperty('--area', `var(--${AREA[t] || 'd-slate'})`);
   const enter = S.ui.enter; S.ui.enter = false;
   if (!enter) { m.classList.remove('enter'); $('#tabs').classList.remove('enter'); }
-  m.innerHTML = (V[t] || vHeute)();
-  if (enter) { m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter'); $('#tabs').classList.add('enter'); countUp(m); clearTimeout(S.ui.enterT); S.ui.enterT = setTimeout(() => { m.classList.remove('enter'); $('#tabs').classList.remove('enter'); }, 1500); }
-  if (S.ui.justAct) { try { const j = m.querySelector(`[data-a="${CSS.escape(S.ui.justAct)}"]`); if (j) j.classList.add('just'); } catch (e) { } }
-  m.querySelectorAll('.hm-wrap').forEach(e => { e.scrollLeft = e.scrollWidth; });
+  const fresh = enter || MO.tab !== t || S.ui.fresh; MO.tab = t; S.ui.fresh = false;
+  moMain(m, (V[t] || vHeute)(), fresh);
+  if (enter) { m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter'); $('#tabs').classList.add('enter'); if (MO.first) countUp(m); clearTimeout(S.ui.enterT); S.ui.enterT = setTimeout(() => { m.classList.remove('enter'); $('#tabs').classList.remove('enter'); }, 1500); }
+  if (S.ui.justAct) { try { const j = m.querySelector(`[data-a="${CSS.escape(S.ui.justAct)}"]`); if (j) { j.classList.remove('just'); void j.offsetWidth; j.classList.add('just'); } } catch (e) { } }
+  if (fresh) m.querySelectorAll('.hm-wrap').forEach(e => { e.scrollLeft = e.scrollWidth; });
+  MO.first = false;
   if (t === 'training') {
     const own = exerciseStats().map(x => x.name), ownK = own.map(exKey);
     const generic = KNOWN_EX.filter(n => { const k = exKey(n); return !ownK.some(o => o.startsWith(k)); });
@@ -4020,7 +4232,9 @@ function setTab(t, focusSel, el) {
   /* Hauptbereiche und der Rückweg aus einer Unterseite landen dort, wo man war; neu geöffnete Unterseiten oben */
   const keep = from !== t && !focusSel && (!SUB[t] || (SUB[from] && !SUB[t])), y = keep ? (scr[t] || 0) : 0;
   const go = () => { S.ui.tab = t; S.ui.enter = !keep; S.ui.enterT = Date.now(); render(); window.scrollTo(0, y); if (keep && y) requestAnimationFrame(() => window.scrollTo(0, y)); if (focusSel) { const f = $(focusSel); if (f) f.focus(); } };
-  if (from !== t && !focusSel) vtRun(go, tabDir(from, t), el && el.closest ? el.closest('.mtile,.tile,.lvl') : null); else go();
+  const dir = tabDir(from, t);
+  if (from !== t && !focusSel && !S.ui.noVT && (dir === 'push' || dir === 'pop')) vtRun(go, dir, null);
+  else { go(); if (from !== t && !S.ui.noVT) moEnter(); }
 }
 
 /* ---------- Hevy import ---------- */
@@ -6117,8 +6331,8 @@ function vEssen() {
 }
 
 /* Hinzufügen-Fenster für Essen */
-function openPick(slot) { S.ui.pick = { slot, q: '', tab: 'recent', sel: null, g: null, form: null }; S.ui.mealForm = emptyMealForm(); S.ui.aiNote = ''; S.ui.photo = null; renderPick(); const p = $('#pick'); p.hidden = false; p.scrollTop = 0; }
-function closePick() { scanClose(); S.ui.pick = null; $('#pick').hidden = true; render(); }
+function openPick(slot) { S.ui.pick = { slot, q: '', tab: 'recent', sel: null, g: null, form: null }; S.ui.mealForm = emptyMealForm(); S.ui.aiNote = ''; S.ui.photo = null; renderPick(); const p = $('#pick'); sheetShow(p); p.hidden = false; p.scrollTop = 0; }
+function closePick(y) { scanClose(); S.ui.pick = null; sheetHide($('#pick'), y); render(); }
 function renderPick() {
   const P = S.ui.pick; if (!P) return;
   const tabs = [['recent', 'Zuletzt'], ['tmpl', 'Mahlzeiten'], ['food', 'Lebensmittel'], ['manual', 'Manuell']];
