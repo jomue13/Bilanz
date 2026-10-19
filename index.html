@@ -2302,6 +2302,9 @@ div.mrow{display:block;padding:0;border-radius:0}
 .mv-ext{margin:0 0 10px;text-decoration:none}
 .mv-del{margin-top:4px}
 .mv-src{margin:14px 4px 0}
+.mv-mode{margin:-4px 0 12px}
+.mv-im small{font:600 11.5px var(--font-c);color:var(--muted);margin-left:4px}
+.mv-ranks{font-size:12.5px;font-weight:700;color:var(--muted)}
 #main[data-tab="medien"]>.hero6{display:none}
 </style>
 </head>
@@ -6217,10 +6220,10 @@ function mvMeta(c) {
   return [yr, c.k === 'serie' ? (c.s ? plu(c.s, 'Staffel', 'Staffeln') : 'Serie') : (c.m ? `${Math.floor(c.m / 60)} h ${c.m % 60} min` : ''), c.g.slice(0, 2).join(', ')].filter(Boolean).join(' · ');
 }
 function mvVotes(v) { return v >= 1e6 ? `${fmt(v / 1e6, 1)} Mio.` : v >= 1000 ? `${fmt(Math.round(v / 1000))}.000` : fmt(v); }
-function mvRowCat(c, rank) {
+function mvRowCat(c, rank, votes) {
   const it = mvItemOf(c), seen = it && it.st === 'seen', want = it && it.st !== 'seen';
   return `<div class="mv-r${seen ? ' seen' : ''}">${rank ? `<span class="mv-rk">${rank}</span>` : ''}<button class="mv-rm" data-a="mv-open:${c.id}">${mvPoster(c)}<span class="mv-rt"><b>${esc(c.t)}</b><small>${esc(mvMeta(c))}</small>${c.o ? `<small class="mv-o">${esc(c.o)}</small>` : ''}</span></button>
-    <span class="mv-ra"><span class="mv-im">${MV_IC.star}${fmt(c.r, 1)}</span><button class="mv-ck${seen ? ' on' : ''}${want ? ' want' : ''}" data-a="mv-ck:${c.id}" aria-pressed="${!!seen}" aria-label="${seen ? 'Gesehen, antippen zum Entfernen' : 'Als gesehen markieren'}">${CHECK_I}</button></span></div>`;
+    <span class="mv-ra"><span class="mv-im">${MV_IC.star}${fmt(c.r, 1)}${votes ? `<small>${mvVotes(c.v)}</small>` : ''}</span><button class="mv-ck${seen ? ' on' : ''}${want ? ' want' : ''}" data-a="mv-ck:${c.id}" aria-pressed="${!!seen}" aria-label="${seen ? 'Gesehen, antippen zum Entfernen' : 'Als gesehen markieren'}">${CHECK_I}</button></span></div>`;
 }
 function mvRowItem(it) {
   const c = it.imdb ? mvCat(it.imdb) : null;
@@ -6228,7 +6231,15 @@ function mvRowItem(it) {
   const when = it.st === 'seen' ? (it.seen ? shortDate(it.seen) : 'früher') : '';
   return `<button class="mv-r mv-ri" data-a="mv-open:${c ? c.id : 'i:' + it.id}">${mvPoster(c || it)}<span class="mv-rt"><b>${esc(it.title)}</b><small>${esc(sub)}</small>${it.r ? `<span class="mv-st">${stars(it.r)}</span>` : ''}</span>${when ? `<span class="mv-when">${esc(when)}</span>` : ''}</button>`;
 }
-function mvTopStat(kind) { if (!MV.L) return null; const T = MV.L.filter(c => c.top && c.k === kind), n = T.filter(c => { const it = mvItemOf(c); return it && it.st === 'seen'; }).length; return { n, of: T.length }; }
+/* Zwei Top-100-Listen: „Meistbewertet“ (die meisten IMDb-Stimmen) und „Beste“ (gewichtete Bewertung wie bei IMDb) */
+function mvTopList(kind, mode) {
+  if (!MV.L) return [];
+  const key = kind + ':' + mode; MV.tl = MV.tl || {};
+  if (!MV.tl[key]) MV.tl[key] = mode === 'best' ? MV.L.filter(c => c.top && c.k === kind).sort((a, b) => a.top - b.top) : MV.L.filter(c => c.k === kind).sort((a, b) => b.v - a.v).slice(0, 100);
+  return MV.tl[key];
+}
+function mvVoteRank(c) { const i = mvTopList(c.k, 'votes').indexOf(c); return i < 0 ? 0 : i + 1; }
+function mvTopStat(kind, mode) { if (!MV.L) return null; const T = mvTopList(kind, mode || 'votes'), n = T.filter(c => { const it = mvItemOf(c); return it && it.st === 'seen'; }).length; return { n, of: T.length }; }
 function mvRing(p, lbl) { const C = 2 * Math.PI * 22; return `<svg class="mv-ring" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="22" class="bg"/>${p > 0 ? `<circle cx="26" cy="26" r="22" class="fg" stroke-dasharray="${(C * p).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 26 26)"/>` : ''}<text x="26" y="30.5" text-anchor="middle">${lbl}</text></svg>`; }
 function vMedien2() {
   if (!MV.L && !MV.p && !MV.err) mvLoad();
@@ -6275,8 +6286,8 @@ function vMvSeen() {
     ${old.length ? `<div class="pl-sec"><h2>Früher gesehen</h2><button class="link" data-a="mv-old" aria-expanded="${showOld}">${showOld ? 'Ausblenden' : `Zeigen (${old.length})`}</button></div>${showOld ? `<section class="panel mv-list">${old.slice().sort((a, b) => (b.r || 0) - (a.r || 0) || a.title.localeCompare(b.title, 'de')).map(mvRowItem).join('')}</section>` : ''}` : ''}`;
 }
 function vMvTopCards() {
-  const f = mvTopStat('film'), s = mvTopStat('serie'); if (!f) return '';
-  const card = (k, l, st) => `<button class="mv-tc" data-a="mv-gotop:${k}">${mvRing(st.of ? st.n / st.of : 0, st.n)}<span><b>${l}</b><small>${st.n} von ${st.of} gesehen</small></span></button>`;
+  const mode = S.ui.mvTopS || 'votes', f = mvTopStat('film', mode), s = mvTopStat('serie', mode); if (!f) return '';
+  const card = (k, l, st) => `<button class="mv-tc" data-a="mv-gotop:${k}">${mvRing(st.of ? st.n / st.of : 0, st.n)}<span><b>${l}</b><small>${st.n} von ${st.of} gesehen · ${mode === 'best' ? 'Beste' : 'Meistbewertet'}</small></span></button>`;
   return `<div class="mv-tcs">${card('film', 'Top 100 Filme', f)}${card('serie', 'Top 100 Serien', s)}</div>`;
 }
 function vMvWant() {
@@ -6286,14 +6297,15 @@ function vMvWant() {
 }
 function vMvTop() {
   if (!MV.L) return `<section class="panel"><p class="small muted" style="margin:0">${MV.err ? 'Die Film-Datenbank konnte nicht geladen werden. Mit Internet klappt es beim nächsten Öffnen.' : 'Lade die Bestenliste …'}</p></section>`;
-  const k = S.ui.mvTopK || 'film', fl = S.ui.mvTopF || 'all';
-  const T = MV.L.filter(c => c.top && c.k === k).sort((a, b) => a.top - b.top), st = mvTopStat(k);
-  const vis = T.filter(c => { const it = mvItemOf(c), s = it && it.st === 'seen'; return fl === 'all' || (fl === 'seen' ? s : !s); });
+  const k = S.ui.mvTopK || 'film', fl = S.ui.mvTopF || 'all', mode = S.ui.mvTopS || 'votes';
+  const T = mvTopList(k, mode), st = mvTopStat(k, mode), what = k === 'film' ? 'Filme' : 'Serien';
+  const vis = T.map((c, i) => [c, i + 1]).filter(([c]) => { const it = mvItemOf(c), s = it && it.st === 'seen'; return fl === 'all' || (fl === 'seen' ? s : !s); });
   return `<div class="seg seg6" role="group" aria-label="Filme oder Serien">${[['film', 'Filme'], ['serie', 'Serien']].map(([x, l]) => `<button class="${k === x ? 'on' : ''}" data-a="mv-topk:${x}" aria-pressed="${k === x}">${l}</button>`).join('')}</div>
+    <div class="seg seg6 mv-mode" role="group" aria-label="Welche Liste">${[['votes', 'Meistbewertet'], ['best', 'Beste']].map(([x, l]) => `<button class="${mode === x ? 'on' : ''}" data-a="mv-tops:${x}" aria-pressed="${mode === x}">${l}</button>`).join('')}</div>
     <section class="panel mv-tp"><div class="mv-tph">${mvRing(st.of ? st.n / st.of : 0, st.n)}<div><b>${st.n} von ${st.of}</b><span>${st.n === st.of ? 'Alle gesehen. Respekt!' : st.n ? `noch ${st.of - st.n} ${k === 'film' ? 'Filme' : 'Serien'} offen` : 'Hak ab, was du schon gesehen hast'}</span></div></div>
-      <p class="small muted" style="margin:10px 0 0">Die 100 am besten bewerteten ${k === 'film' ? 'Filme' : 'Serien'} bei IMDb, gewichtet nach Bewertung und Anzahl der Stimmen.</p></section>
+      <p class="small muted" style="margin:10px 0 0">${mode === 'best' ? `Die 100 am besten bewerteten ${what} bei IMDb, gewichtet nach Bewertung und Anzahl der Stimmen, so wie die IMDb Top 250.` : `Die 100 ${what} mit den meisten Bewertungen bei IMDb, also die bekanntesten.`}</p></section>
     <div class="chips mv-fl">${[['all', 'Alle'], ['open', 'Noch nicht gesehen'], ['seen', 'Gesehen']].map(([x, l]) => `<button class="chip${fl === x ? ' on' : ''}" data-a="mv-topf:${x}">${l}</button>`).join('')}</div>
-    <section class="panel mv-list">${vis.length ? vis.map(c => mvRowCat(c, c.top)).join('') : '<p class="small muted" style="margin:4px 0">Hier ist gerade nichts.</p>'}</section>`;
+    <section class="panel mv-list">${vis.length ? vis.map(([c, r]) => mvRowCat(c, r, mode === 'votes')).join('') : '<p class="small muted" style="margin:4px 0">Hier ist gerade nichts.</p>'}</section>`;
 }
 function vMvDisc() {
   if (!MV.L) return `<section class="panel"><p class="small muted" style="margin:0">${MV.err ? 'Die Film-Datenbank konnte nicht geladen werden.' : 'Lade …'}</p></section>`;
@@ -6318,7 +6330,7 @@ function vMvDetail(key) {
   else { c = mvCat(key); if (!c) return MV.L ? '' : '<section class="panel"><p class="small muted">Lade …</p></section>'; it = mvItemOf(c); }
   const tk = todayKey(), seen = it && it.st === 'seen', want = it && it.st !== 'seen', id = it ? it.id : '';
   const o = c || { t: it.title, k: it.kind, y: it.year, g: String(it.genre || '').split(/,\s*/).filter(Boolean) };
-  let h = `<section class="panel mv-dh">${mvPoster(o, true)}<div class="mv-di"><span class="mv-kind">${o.k === 'serie' ? 'Serie' : 'Film'}${c && c.top ? ` · Platz ${c.top} der Top 100` : ''}</span>
+  let h = `<section class="panel mv-dh">${mvPoster(o, true)}<div class="mv-di"><span class="mv-kind">${o.k === 'serie' ? 'Serie' : 'Film'}</span>${c && (c.top || mvVoteRank(c)) ? `<span class="mv-ranks">${[mvVoteRank(c) ? `Platz ${mvVoteRank(c)} meistbewertet` : '', c.top ? `Platz ${c.top} der besten` : ''].filter(Boolean).join(' · ')}</span>` : ''}
       ${c && c.o ? `<p class="mv-orig">${esc(c.o)}</p>` : ''}
       <p class="mv-meta">${esc(c ? mvMeta(c) : [it.year, it.genre].filter(Boolean).join(' · '))}</p>
       ${c && c.by ? `<p class="mv-by">Regie: ${esc(c.by)}</p>` : ''}
@@ -6377,6 +6389,7 @@ function actFilm(c, args) {
     case 'mv-gotop': S.ui.mvTab = 'top'; S.ui.mvTopK = args[0]; render(); window.scrollTo(0, 0); return true;
     case 'mv-topk': S.ui.mvTopK = args[0]; render(); return true;
     case 'mv-topf': S.ui.mvTopF = args[0]; render(); return true;
+    case 'mv-tops': S.ui.mvTopS = args[0]; render(); return true;
     case 'mv-dk': S.ui.mvDk = args[0]; S.ui.mvDn = 40; S.ui.mvDg = S.ui.mvDg && MV_COL[S.ui.mvDg] ? S.ui.mvDg : ''; render(); return true;
     case 'mv-dg': S.ui.mvDg = args.join(':'); S.ui.mvDn = 40; render(); return true;
     case 'mv-dd': S.ui.mvDd = args[0] || ''; S.ui.mvDn = 40; render(); return true;
