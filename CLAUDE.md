@@ -25,6 +25,8 @@ Persönliche Tracker-App (Training, Essen, Körper, Arbeit/Lohn, Geld, Uni, Foto
 - Alle Nutzerdaten liegen nur auf dem Gerät (IndexedDB `bilanz`, Store `docs`, Schlüssel `data/users/local/<pfad>`), nie im Repository.
 - Datenformat nicht brechen: bestehende Felder weiter lesen können. Backup-Format: `{app:'bilanz', v:1, exported_at, docs:{<pfad>: daten}}`.
 - Fotos sind mit Passwort verschlüsselt (PBKDF2 + AES-GCM); daran nichts ändern, was alte Fotos unlesbar macht.
+- Face ID für Fotos: Der zufällige Fotoschlüssel liegt zusätzlich mit einem Passkey verschlüsselt im Tresor-Dokument (`face: {id, salt, fk}`, WebAuthn PRF, ab iOS 18). Code bzw. Passwort bleiben immer gültig.
+- Abos (`subs`) und Steuer-Sammler (`tax: {items, y}`) liegen im Finanzen-Dokument (`finance`).
 
 ## Daten für den Nutzer vorbereiten
 Claude kommt nicht an die Daten auf dem iPhone. Neue Pläne o. Ä. als Ergänzungsdatei schicken, die der Nutzer unter Einstellungen → Backup einspielen übernimmt, ohne dass andere Daten ersetzt werden:

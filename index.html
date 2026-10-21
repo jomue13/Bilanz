@@ -2733,6 +2733,51 @@ html[data-look="nacht"] .tc-mh h2{font:italic 800 26px/1.1 var(--font-hd);text-t
 .lt.l{font-size:30px}.lt.xl{font-size:27px}
 html[data-look="nacht"] .lt.l{font-size:40px}html[data-look="nacht"] .lt.xl{font-size:34px}
 html[data-look="farbe"] .lt.l{font-size:33px}html[data-look="farbe"] .lt.xl{font-size:29px}
+
+/* ---------- v28: Steuer, Abos, Backup, Face ID ---------- */
+:root{--d-tax:#B45309;--d-abo:#BE185D}
+html[data-look]{--d-tax:#F59E0B;--d-abo:#EC4899}
+.d-abo,.b-abo{background:var(--d-abo)}
+.tx-l{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:8px 0 0;font-size:14px}
+.tx-l span{color:var(--muted);min-width:0}
+.tx-l b{font-family:var(--font-c);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tx-chips{gap:6px}
+.tx-chips .chip{font-size:13px}
+.tx-gh{display:flex;align-items:center;gap:8px;color:var(--ink)}
+.tx-gh i{width:10px;height:10px;border-radius:3px;flex:none}
+.tx-gh span{flex:1;min-width:0}
+.tx-gh b{font-family:var(--font-c);font-variant-numeric:tabular-nums}
+.tx-x{width:34px;height:34px;font-size:20px;color:var(--muted);background:var(--surface2)}
+.tx-x.armed{width:auto;padding:0 10px;font-size:13px;color:#fff;background:var(--d-abo)}
+.abl{display:flex;flex-direction:column}
+.ab-r{display:flex;align-items:center;gap:12px;width:100%;padding:10px 0;border:0;border-top:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.abl>.ab-r:first-child{border-top:0}
+.ab-r>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.ab-r>span:nth-child(2) b{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ab-r small{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ab-a{display:flex;flex-direction:column;align-items:flex-end;gap:1px;flex:none;max-width:42%}
+.ab-a b{font-family:var(--font-c);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ab-a small{font-size:11.5px;text-align:right;white-space:nowrap}
+.ab-sug{cursor:default}
+.crest.ab-lg{width:40px;height:40px;border-radius:12px;box-shadow:none}
+.crest.ab-lg b{font-size:11px}
+.crest.ab-lg img{padding:6px}
+.ab-warn{border:1.5px solid color-mix(in srgb,var(--d-abo) 45%,transparent);background:color-mix(in srgb,var(--d-abo) 8%,var(--surface))}
+.ab-w{display:flex;align-items:center;gap:12px;padding:8px 0}
+.ab-w>span:not(.crest){flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ab-w small{color:var(--muted);font-size:12.5px;line-height:1.35}
+.bkc{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 12px;align-items:center;padding:14px;margin:0 0 12px;border-radius:20px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--d-sky) 40%,transparent);--mc:var(--d-sky)}
+.bkc .m3d{width:48px;height:48px;border-radius:15px}
+.bkc .m3d img{width:36px;height:36px}
+.bkc-t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.bkc-t b{font-size:16px}
+.bkc-t span{font-size:13px;color:var(--muted);line-height:1.4}
+.bkc-b{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+.bkc-b .btn.primary{flex:1}
+.bk-every{margin-top:12px;display:grid;gap:6px}
+.fid-b{display:flex;align-items:center;justify-content:center;gap:8px}
+.fid-b svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.fid-k:disabled{opacity:.5}
 </style>
 </head>
 <body>
@@ -4595,7 +4640,7 @@ function vHeute() {
     if (id === 'brief' && k.slice(5, 7) === '12') { flush(); out += vWrapCard(); }
   }
   flush();
-  return out + `<button class="home-edit-btn" data-a="home-edit">Startseite anpassen</button>`;
+  return bkCard() + out + `<button class="home-edit-btn" data-a="home-edit">Startseite anpassen</button>`;
 }
 function vHomeEdit() {
   const order = homeOrder(), hid = new Set(homeCfg().hidden);
@@ -7326,6 +7371,404 @@ function actTrCal(c, args) {
   return false;
 }
 
+/* ---------- v28: Steuer-Sammler, Abos & Verträge, Backup mit einem Tipp, Face ID für Fotos ---------- */
+ICON.steuer = '<path d="M6 3.5h12v17l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4-2 1.4z"/><path d="M9 8h6M9 11.5h6M9 15h3.5"/>';
+ICON.abos = '<rect x="3" y="6" width="18" height="12.5" rx="2.5"/><path d="M3 10h18M6.5 15h4"/>';
+TR_SUBV.steuer = () => vSteuer();
+TR_SUBV.abos = () => vAbos();
+
+/* Steuer-Sammler: Belege, Fahrten und Homeoffice pro Steuerjahr, gespeichert im Finanzen-Dokument */
+const TAXC = [
+  ['am', 'Arbeitsmittel', 'wk', '#3B82F6', 'Laptop, Bürobedarf, Fachbücher, Software'],
+  ['st', 'Studium & Weiterbildung', 'wk', '#7C3AED', 'Semesterbeitrag, Bücher, Kurse, Druckkosten'],
+  ['rf', 'Weitere Fahrten', 'wk', '#0EA5E9', 'Dienstreisen und Exkursionen, mit dem Auto 0,30 € je km'],
+  ['bw', 'Bewerbungen', 'wk', '#14B8A6', 'Fotos, Mappen, Fahrten zu Gesprächen'],
+  ['kt', 'Kontoführung', 'wk', '#64748B', 'Ohne Nachweis werden meist 16 € im Jahr anerkannt'],
+  ['vs', 'Versicherungen', 'sa', '#8B5CF6', 'Haftpflicht, Berufsunfähigkeit, Unfall'],
+  ['sp', 'Spenden', 'sa', '#EC4899', 'Mit Spendenquittung, bis 300 € reicht der Kontoauszug'],
+  ['hh', 'Handwerker & Haushalt', 'hh', '#F59E0B', 'Nur die Arbeitskosten laut Rechnung, bezahlt per Überweisung'],
+  ['so', 'Sonstiges', 'so', '#94A3B8', '']
+];
+const TAXG = { wk: 'Werbungskosten', sa: 'Sonderausgaben', hh: 'Haushaltsnahe Leistungen', so: 'Sonstiges' };
+const txc = id => TAXC.find(c => c[0] === id) || TAXC[TAXC.length - 1];
+function TX() { const f = S.fin; if (!f.tax || typeof f.tax !== 'object') f.tax = { items: [], y: {} }; if (!Array.isArray(f.tax.items)) f.tax.items = []; if (!f.tax.y || typeof f.tax.y !== 'object') f.tax.y = {}; return f.tax; }
+function txRates(y) {
+  y = +y;
+  const old = k => Math.min(k, 20) * 0.30 + Math.max(0, k - 20) * 0.38;
+  if (y >= 2026) return { km: k => k * 0.38, kmTxt: '0,38 € je Kilometer der einfachen Strecke', ho: 6, hoMax: 1260, pb: 1230 };
+  if (y >= 2023) return { km: old, kmTxt: '0,30 € je Kilometer bis 20 km, danach 0,38 €', ho: 6, hoMax: 1260, pb: 1230 };
+  return { km: old, kmTxt: '0,30 € je Kilometer bis 20 km, danach 0,38 €', ho: 5, hoMax: 600, pb: 1200 };
+}
+const TXA = { key: '', v: null };
+function txAuto(y) {
+  const tk = todayKey(), end = `${y}-12-31` < tk ? `${y}-12-31` : tk, key = `${y}|${end}|${Object.keys(S.days).length}|${(U().slots || []).length}`;
+  if (TXA.key === key && TXA.v && Date.now() - TXA.t < 5000) return TXA.v;
+  let off = 0, ho = 0, uni = 0;
+  for (const k of Object.keys(S.days)) { if (!k.startsWith(y) || k > end) continue; const w = S.days[k].work || []; if (!w.length) continue; if (w.every(e => e.ho)) ho++; else off++; }
+  if (`${y}-01-01` <= end) for (let k = `${y}-01-01`; k <= end; k = addDays(k, 1)) { try { if (uSlotsOn(k).length) uni++; } catch (e) { } }
+  TXA.key = key; TXA.t = Date.now(); TXA.v = { off, ho, uni };
+  return TXA.v;
+}
+function txCalc(y) {
+  const T = TX(), Y = T.y[y] || {}, A = txAuto(y), R = txRates(y);
+  const off = Y.off != null ? +Y.off : A.off, ho = Y.ho != null ? +Y.ho : A.ho, uni = Y.uni != null ? +Y.uni : A.uni;
+  const km = Math.floor(+Y.km || 0), kmU = Math.floor(+Y.kmU || 0);
+  const fA = km ? off * R.km(km) : 0, fU = kmU ? uni * R.km(kmU) : 0, fH = Math.min(ho * R.ho, R.hoMax);
+  const items = T.items.filter(x => String(x.d || '').startsWith(y));
+  const by = {}; for (const x of items) by[x.c] = (by[x.c] || 0) + (+x.a || 0);
+  const g = { wk: 0, sa: 0, hh: 0, so: 0 }; for (const [c, v] of Object.entries(by)) g[txc(c)[2]] += v;
+  return { Y, A, R, off, ho, uni, km, kmU, fA, fU, fH, items, by, g, wk: fA + fU + fH + g.wk };
+}
+function txGuess(text) {
+  const t = nrm(text);
+  if (/semester|hochschule|universit|studierendenwerk|fachbuch|thalia|hugendubel|udemy|coursera/.test(t)) return 'st';
+  if (/versicher|haftpflicht|huk|allianz|ergo|axa|devk|debeka/.test(t)) return 'vs';
+  if (/spende|unicef|caritas|diakonie|wikimedia|rotes kreuz|drk/.test(t)) return 'sp';
+  if (/kontofuehrung|kontoführung|kontopreis|entgelt/.test(t)) return 'kt';
+  return null;
+}
+function txFound(y, q) {
+  q = String(q || '').trim(); if (q.length < 2) return '<p class="small muted" style="margin-top:8px">Tipp ein, wonach du suchst. Gespeichert wird unter der Kategorie, die oben ausgewählt ist.</p>';
+  const used = new Set(TX().items.map(x => x.src).filter(Boolean)), Q = nrm(q);
+  const L = S.fin.tx.filter(t => t.a < 0 && String(t.d).startsWith(y) && !used.has(t.id) && nrm(`${t.p} ${t.n || ''}`).includes(Q)).sort((a, b) => b.d.localeCompare(a.d)).slice(0, 8);
+  if (!L.length) return `<p class="small muted" style="margin-top:8px">Nichts gefunden in ${y}.</p>`;
+  return `<ul class="list" style="margin-top:6px">${L.map(t => `<li><div><b>${esc(pnice(t.p))}</b><small>${shortDate(t.d)}${t.n ? ' · ' + esc(String(t.n).slice(0, 40)) : ''}</small></div><span class="kc">${eur(-t.a)}</span><button class="btn small" data-a="tx-take:${t.id}" aria-label="${esc(pnice(t.p))} übernehmen">+</button></li>`).join('')}</ul>`;
+}
+function vSteuer() {
+  const tk = todayKey(), y = S.ui.txY || tk.slice(0, 4), C = txCalc(y), R = C.R, F = S.ui.txF || {}, fc = F.c || 'am';
+  const over = C.wk - R.pb, pct = Math.min(100, R.pb ? C.wk / R.pb * 100 : 0);
+  const nav = `<div class="datenav"><button class="icon-btn" data-a="tx-y:-1" aria-label="Vorheriges Jahr">‹</button><button class="datenav-l" data-a="tx-y:0">Steuerjahr ${y}</button><button class="icon-btn" data-a="tx-y:1" aria-label="Nächstes Jahr" ${y >= tk.slice(0, 4) ? 'disabled' : ''}>›</button></div>`;
+  const hero = `<section class="hero6" style="--hc:var(--d-tax)"><span class="lbl">Werbungskosten ${y}</span><span class="big">${cnt(Math.round(C.wk))}<small>€</small></span>
+    <div class="h6-bar"><i style="width:${pct.toFixed(0)}%"></i></div>
+    <p>${over > 0 ? `${eur0(over)} über dem Pauschbetrag von ${eur0(R.pb)}. Ab hier zählt jeder Beleg.` : `Noch ${eur0(-over)} bis zum Pauschbetrag von ${eur0(R.pb)}. Den bekommst du auch ohne Belege, erst darüber bringt jeder weitere Euro etwas.`}</p>
+    <div class="h6-row"><div><span>Fahrten</span><b>${eur0(C.fA + C.fU)}</b></div><div><span>Homeoffice</span><b>${eur0(C.fH)}</b></div><div><span>Belege</span><b>${eur0(C.g.wk)}</b></div></div></section>`;
+  const fld = (k, label, val, ph) => `<label class="fld"><span>${label}</span><input inputmode="numeric" data-txs="${y}:${k}" value="${val != null && val !== '' ? esc(String(val)) : ''}" placeholder="${esc(ph)}" autocomplete="off"></label>`;
+  const line = (t, v) => `<p class="tx-l"><span>${t}</span><b>${eur(v)}</b></p>`;
+  const trips = `<section class="panel"><h2>Fahrten und Homeoffice</h2>
+    <h3 class="sub-h">Zur Arbeit</h3><div class="grid2">${fld('km', 'Einfache Strecke in km', C.Y.km, 'z. B. 18')}${fld('off', 'Tage im Betrieb', C.Y.off, `${C.A.off} laut Arbeitszeit`)}</div>
+    ${C.km ? line(`${fmt(C.off)} ${C.off === 1 ? 'Tag' : 'Tage'} × ${fmt(C.km)} km`, C.fA) : '<p class="small muted tx-l">Trag die Strecke ein, dann rechnet die App mit.</p>'}
+    <h3 class="sub-h">Homeoffice</h3><div class="grid2">${fld('ho', 'Tage im Homeoffice', C.Y.ho, `${C.A.ho} laut Arbeitszeit`)}<span></span></div>
+    ${line(`${fmt(C.ho)} ${C.ho === 1 ? 'Tag' : 'Tage'} × ${fmt(R.ho)} €${C.ho * R.ho > R.hoMax ? `, höchstens ${eur0(R.hoMax)}` : ''}`, C.fH)}
+    <h3 class="sub-h">Zur Hochschule</h3><div class="grid2">${fld('kmU', 'Einfache Strecke in km', C.Y.kmU, 'z. B. 15')}${fld('uni', 'Tage an der Hochschule', C.Y.uni, `${C.A.uni} laut Stundenplan`)}</div>
+    ${C.kmU ? line(`${fmt(C.uni)} ${C.uni === 1 ? 'Tag' : 'Tage'} × ${fmt(C.kmU)} km`, C.fU) : ''}
+    <p class="small muted" style="margin-top:10px">${R.kmTxt}. Leere Tage-Felder füllt die App aus Arbeitszeit und Stundenplan, du kannst sie überschreiben. Fahrt und Homeoffice am selben Tag zählen nicht doppelt.</p></section>`;
+  const dflt = y === tk.slice(0, 4) ? tk : `${y}-12-31`;
+  const form = `<section class="panel" id="tx-form"><h2>Beleg eintragen</h2>
+    <div class="chips tx-chips">${TAXC.map(c => `<button class="chip ${fc === c[0] ? 'on' : ''}" data-a="tx-fc:${c[0]}" aria-pressed="${fc === c[0]}">${esc(c[1])}</button>`).join('')}</div>
+    ${txc(fc)[4] ? `<p class="small muted" style="margin:8px 0 2px">${esc(txc(fc)[4])}</p>` : ''}
+    <div class="grid2" style="margin-top:8px"><label class="fld"><span>Was</span><input id="tx-t" value="${esc(F.t || '')}" placeholder="z. B. Laptop" autocomplete="off"></label><label class="fld"><span>Betrag €</span><input id="tx-a" inputmode="decimal" value="${esc(F.a || '')}" autocomplete="off"></label></div>
+    <div class="grid2" style="margin-top:8px"><label class="fld"><span>Datum</span><input id="tx-d" type="date" value="${esc(F.d || dflt)}"></label><label class="fld"><span>Notiz</span><input id="tx-n" value="${esc(F.n || '')}" placeholder="z. B. Rechnung im Ordner" autocomplete="off"></label></div>
+    <button class="btn primary wide" style="margin-top:10px" data-a="tx-add">Speichern</button>
+    ${!C.by.kt ? `<button class="btn wide ghost" style="margin-top:8px" data-a="tx-konto">Kontoführung pauschal 16 € dazu</button>` : ''}</section>`;
+  const fin = S.fin.tx.length ? `<section class="panel"><h2>Aus deinen Umsätzen</h2><input type="search" data-txq="1" placeholder="Suchen, z. B. Semesterbeitrag" value="${esc(S.ui.txQ || '')}" autocomplete="off"><div id="tx-found">${txFound(y, S.ui.txQ)}</div></section>` : '';
+  const groups = TAXC.filter(c => C.by[c[0]] != null).map(c => {
+    const its = C.items.filter(x => x.c === c[0]).sort((a, b) => String(b.d).localeCompare(String(a.d)));
+    return `<h3 class="sub-h tx-gh"><i style="background:${c[3]}"></i><span>${esc(c[1])}</span><b>${eur(C.by[c[0]])}</b></h3><ul class="list">${its.map(x => `<li><div><b>${esc(x.t)}</b><small>${shortDate(x.d)}${x.n ? ' · ' + esc(x.n) : ''}</small></div><span class="kc">${eur(+x.a)}</span><button class="icon-btn tx-x" data-a="tx-del:${x.id}" data-confirm="Löschen" aria-label="${esc(x.t)} löschen">×</button></li>`).join('')}</ul>`;
+  }).join('');
+  const list = C.items.length ? `<section class="panel"><div class="panel-h"><h2>Belege ${y}</h2><span class="small muted">${plu(C.items.length, 'Beleg', 'Belege')}</span></div>${groups}</section>` : '';
+  const more = C.g.sa || C.g.hh ? `<section class="panel"><h2>Außerdem</h2>${C.g.sa ? line('Sonderausgaben', C.g.sa) : ''}${C.g.hh ? line('Handwerker & Haushalt', C.g.hh) + `<p class="small muted">Davon gehen 20 % direkt von der Steuer ab, also etwa ${eur(C.g.hh * 0.2)}.</p>` : ''}</section>` : '';
+  const xp = `<section class="panel"><h2>Für die Steuererklärung</h2><p class="small">Alles für ${y} als Excel-Liste, mit Summen. Damit füllst du ELSTER oder deine Steuer-App aus.</p><button class="btn wide" data-a="tx-xls">Als Excel exportieren</button>
+    <p class="small muted" style="margin-top:10px">Eine Sammlung für deine Steuererklärung, keine Steuerberatung. Pauschalen nach Stand ${y}.</p></section>`;
+  return nav + hero + trips + form + fin + list + more + xp;
+}
+async function txExport(y) {
+  const C = txCalc(y), rows = [['Bereich', 'Kategorie', 'Datum', 'Was', 'Betrag (€)', 'Notiz']];
+  for (const x of C.items.slice().sort((a, b) => String(a.d).localeCompare(String(b.d)))) { const c = txc(x.c); rows.push([TAXG[c[2]], c[1], deDate(x.d), x.t, Math.round((+x.a || 0) * 100) / 100, x.n || '']); }
+  const r2 = v => Math.round(v * 100) / 100;
+  rows.push(['', '', '', '', '', '']);
+  if (C.km) rows.push(['Werbungskosten', 'Fahrten zur Arbeit', '', `${C.off} Tage × ${C.km} km`, r2(C.fA), '']);
+  if (C.fH) rows.push(['Werbungskosten', 'Homeoffice-Pauschale', '', `${C.ho} Tage × ${C.R.ho} €`, r2(C.fH), '']);
+  if (C.kmU) rows.push(['Werbungskosten', 'Fahrten zur Hochschule', '', `${C.uni} Tage × ${C.kmU} km`, r2(C.fU), '']);
+  rows.push(['Summe', 'Werbungskosten', '', '', r2(C.wk), `Pauschbetrag ${C.R.pb} €`]);
+  if (C.g.sa) rows.push(['Summe', 'Sonderausgaben', '', '', r2(C.g.sa), '']);
+  if (C.g.hh) rows.push(['Summe', 'Handwerker & Haushalt', '', '', r2(C.g.hh), 'davon 20 % Steuerermäßigung']);
+  return saveTable(`Steuer-${y}`, rows, `Steuer ${y}`);
+}
+function txSaveForm() { const F = S.ui.txF || (S.ui.txF = {}); const g = id => { const el = $(id); return el ? el.value : undefined; }; const t = g('#tx-t'), a = g('#tx-a'), d = g('#tx-d'), n = g('#tx-n'); if (t != null) F.t = t; if (a != null) F.a = a; if (d != null) F.d = d; if (n != null) F.n = n; return F; }
+
+/* Abos & Verträge */
+const ABC = [['stream', 'Streaming', '#E50914'], ['musik', 'Musik & Hörbücher', '#1DB954'], ['tel', 'Handy & Internet', '#2563EB'], ['mob', 'Mobilität', '#12B886'], ['fit', 'Fitness', '#FF7A45'], ['soft', 'Software & Cloud', '#0EA5E9'], ['vers', 'Versicherung', '#7C3AED'], ['news', 'Lesen & News', '#64748B'], ['sonst', 'Sonstiges', '#94A3B8']];
+const ABR = [[1, 'monatlich', 'im Monat'], [3, 'vierteljährlich', 'im Quartal'], [6, 'halbjährlich', 'im Halbjahr'], [12, 'jährlich', 'im Jahr']];
+const ABK = [['0', 'jederzeit'], ['14d', '14 Tage'], ['1m', '1 Monat'], ['3m', '3 Monate']];
+const AB_KNOWN = [
+  ['netflix', 'netflix.com', 'stream'], ['disney', 'disneyplus.com', 'stream'], ['prime video|amazon prime|prime', 'amazon.de', 'stream'], ['wow', 'wowtv.de', 'stream'], ['sky', 'sky.de', 'stream'], ['dazn', 'dazn.com', 'stream'],
+  ['paramount', 'paramountplus.com', 'stream'], ['joyn', 'joyn.de', 'stream'], ['rtl', 'rtlplus.com', 'stream'], ['youtube', 'youtube.com', 'stream'], ['crunchyroll', 'crunchyroll.com', 'stream'], ['twitch', 'twitch.tv', 'stream'], ['apple tv', 'tv.apple.com', 'stream'],
+  ['spotify', 'spotify.com', 'musik'], ['apple music', 'music.apple.com', 'musik'], ['deezer', 'deezer.com', 'musik'], ['tidal', 'tidal.com', 'musik'], ['audible', 'audible.de', 'musik'],
+  ['telekom|magenta', 'telekom.de', 'tel'], ['vodafone', 'vodafone.de', 'tel'], ['o2', 'o2online.de', 'tel'], ['congstar', 'congstar.de', 'tel'], ['1und1|1&1', '1und1.de', 'tel'], ['fraenk', 'fraenk.de', 'tel'], ['freenet', 'freenet.de', 'tel'],
+  ['deutschlandticket|deutschland-ticket|d-ticket', 'bahn.de', 'mob'], ['bahncard|bahn', 'bahn.de', 'mob'],
+  ['mcfit', 'mcfit.com', 'fit'], ['fitx', 'fitx.de', 'fit'], ['clever fit', 'clever-fit.com', 'fit'], ['urban sports', 'urbansportsclub.com', 'fit'], ['hevy', 'hevyapp.com', 'fit'], ['strava', 'strava.com', 'fit'],
+  ['chatgpt|openai', 'openai.com', 'soft'], ['claude', 'claude.ai', 'soft'], ['icloud', 'icloud.com', 'soft'], ['google one', 'one.google.com', 'soft'], ['microsoft|office', 'microsoft.com', 'soft'], ['adobe', 'adobe.com', 'soft'], ['dropbox', 'dropbox.com', 'soft'],
+  ['notion', 'notion.so', 'soft'], ['github', 'github.com', 'soft'], ['nordvpn', 'nordvpn.com', 'soft'], ['duolingo', 'duolingo.com', 'soft'], ['playstation|ps plus', 'playstation.com', 'soft'], ['xbox|game pass', 'xbox.com', 'soft'], ['nintendo', 'nintendo.com', 'soft'], ['apple', 'apple.com', 'soft'],
+  ['huk', 'huk.de', 'vers'], ['allianz', 'allianz.de', 'vers'], ['adac', 'adac.de', 'vers'], ['ergo', 'ergo.de', 'vers'], ['axa', 'axa.de', 'vers'], ['devk', 'devk.de', 'vers'],
+  ['zeit', 'zeit.de', 'news'], ['spiegel', 'spiegel.de', 'news'], ['kicker', 'kicker.de', 'news'], ['kindle', 'amazon.de', 'news'], ['paypal', 'paypal.com', 'sonst']
+].map(([re, d, c]) => [new RegExp(`(^|[^a-z0-9])(${re.replace(/[.+?^${}()[\]\\]/g, '\\$&')})([^a-z0-9]|$)`), d, c]);
+const abKnown = n => { const t = nrm(n); return AB_KNOWN.find(k => k[0].test(t)) || null; };
+const abc = id => ABC.find(c => c[0] === id) || ABC[ABC.length - 1];
+const abr = r => ABR.find(x => x[0] === +r) || ABR[0];
+function abLogo(x, cls) {
+  const k = abKnown(x.n), u = k ? `https://www.google.com/s2/favicons?domain=${k[1]}&sz=128` : '';
+  return `<span class="crest ab-lg${cls ? ' ' + cls : ''}" style="--ch:${crestHue(x.n)}"><b aria-hidden="true">${esc(crestIni(x.n))}</b>${u ? `<img src="${esc(u)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}</span>`;
+}
+function abAddM(k, n) { const [Y, M, D] = k.split('-').map(Number); const t = new Date(Y, M - 1 + n, 1), last = new Date(t.getFullYear(), t.getMonth() + 1, 0).getDate(); return `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(Math.min(D, last))}`; }
+const abSubs = () => (Array.isArray(S.fin.subs) ? S.fin.subs : (S.fin.subs = []));
+const abOn = (x, k) => !x.off || (k || todayKey()) <= x.off;
+const abList = () => abSubs().filter(x => abOn(x));
+const abMonthly = x => (+x.a || 0) / (+x.r || 1);
+function abNext(x, from) {
+  from = from || todayKey(); if (!/^\d{4}-\d{2}-\d{2}$/.test(x.d || '')) return null; if (x.d >= from) return x.d;
+  const r = +x.r || 1; let i = Math.max(0, Math.floor(daysBetween(x.d, from) / 31 / r) - 1), k = abAddM(x.d, i * r);
+  while (k < from && i < 2400) { i++; k = abAddM(x.d, i * r); }
+  return k;
+}
+function abEndNow(x) {
+  const tk = todayKey(); if (!/^\d{4}-\d{2}-\d{2}$/.test(x.end || '')) return null; if (x.end >= tk) return x.end;
+  if (x.ren !== 'y') return null;
+  let i = 0, e = x.end; while (e < tk && i < 200) { i++; e = abAddM(x.end, 12 * i); } return e;
+}
+function abDeadline(x) { const e = abEndNow(x); if (!e) return null; const f = x.kf || '0'; return f === '14d' ? addDays(e, -14) : f === '1m' ? abAddM(e, -1) : f === '3m' ? abAddM(e, -3) : e; }
+function abTerms(x) {
+  const e = abEndNow(x), f = (ABK.find(k => k[0] === (x.kf || '0')) || ABK[0])[1];
+  if (x.off) return x.off >= todayKey() ? `gekündigt, läuft bis ${shortDate(x.off)}` : `beendet am ${shortDate(x.off)}`;
+  if (e) return `Laufzeit bis ${shortDate(e)}, Frist ${f}`;
+  return x.kf && x.kf !== '0' ? `kündbar mit ${f} Frist` : 'jederzeit kündbar';
+}
+const abPaysOn = k => abSubs().filter(x => abOn(x, k) && x.d && k >= x.d && abNext(x, k) === k);
+function abWarn() { const tk = todayKey(); return abList().map(x => ({ x, dl: abDeadline(x) })).filter(o => o.dl && o.dl >= tk && daysBetween(tk, o.dl) <= 45).sort((a, b) => a.dl.localeCompare(b.dl)); }
+function abTileSub() { const L = abList(); if (!L.length) return 'Was jeden Monat abgeht'; const w = abWarn()[0]; if (w && daysBetween(todayKey(), w.dl) <= 14) return `${w.x.n}: bis ${shortDate(w.dl)} kündigen`; return `${eur0(L.reduce((a, x) => a + abMonthly(x), 0))} im Monat`; }
+function abBrief(out) {
+  const tk = todayKey();
+  for (const { x, dl } of abWarn()) if (daysBetween(tk, dl) <= 14) out.push(['abo', dl === tk ? `Heute ist der letzte Tag, um ${x.n} zu kündigen.` : `${x.n}: bis ${shortDate(dl)} kündigen, sonst verlängert es sich.`]);
+  const p = abPaysOn(tk); if (p.length) out.push(['abo', `Heute ${p.length === 1 ? 'wird' : 'werden'} ${p.map(x => `${x.n} (${eur(+x.a)})`).join(' und ')} abgebucht.`]);
+}
+function abForm(x) {
+  const tk = todayKey(), v = x || {}, sel = (id, opts, cur) => `<select id="${id}" style="max-width:none;width:100%">${opts.map(o => `<option value="${o[0]}" ${String(o[0]) === String(cur) ? 'selected' : ''}>${esc(o[1])}</option>`).join('')}</select>`;
+  return `<section class="panel" id="ab-form"><div class="panel-h"><h2>${x ? esc(x.n) : 'Abo eintragen'}</h2>${x ? '<button class="link" data-a="ab-close">Fertig</button>' : ''}</div>
+    <div class="grid2"><label class="fld"><span>Name</span><input id="ab-n" value="${esc(v.n || '')}" placeholder="z. B. Netflix" autocomplete="off"></label><label class="fld"><span>Betrag €</span><input id="ab-a" inputmode="decimal" value="${v.a != null ? esc(fmt(+v.a, 2)) : ''}" autocomplete="off"></label></div>
+    <div class="grid2" style="margin-top:8px"><label class="fld"><span>Wie oft</span>${sel('ab-r', ABR, v.r || 1)}</label><label class="fld"><span>Nächste Abbuchung</span><input id="ab-d" type="date" value="${esc(v.d ? abNext(v) : tk)}"></label></div>
+    <div class="grid2" style="margin-top:8px"><label class="fld"><span>Kategorie</span>${sel('ab-c', [['', 'Automatisch'], ...ABC], v.c || '')}</label><label class="fld"><span>Kündigungsfrist</span>${sel('ab-kf', ABK, v.kf || '0')}</label></div>
+    <div class="grid2" style="margin-top:8px"><label class="fld"><span>Mindestlaufzeit bis</span><input id="ab-e" type="date" value="${esc(v.end || '')}"></label><label class="fld"><span>Danach</span>${sel('ab-ren', [['m', 'monatlich kündbar'], ['y', 'verlängert sich um 1 Jahr']], v.ren || 'm')}</label></div>
+    ${x && x.off ? `<label class="fld" style="margin-top:8px"><span>Läuft bis</span><input id="ab-off" type="date" value="${esc(x.off)}"></label>` : ''}
+    <label class="fld" style="margin-top:8px"><span>Notiz</span><input id="ab-no" value="${esc(v.note || '')}" placeholder="z. B. Kundennummer, wo kündigen" autocomplete="off"></label>
+    <button class="btn primary wide" style="margin-top:10px" data-a="ab-save${x ? ':' + x.id : ''}">Speichern</button>
+    ${x ? `<div class="row-actions" style="margin-top:8px">${x.off ? `<button class="btn small" data-a="ab-on:${x.id}">Wieder aktiv</button>` : `<button class="btn small" data-a="ab-off:${x.id}">Gekündigt</button>`}<button class="btn small ghost" data-a="ab-del:${x.id}" data-confirm="Wirklich löschen?">Löschen</button></div>` : ''}
+    <p class="small muted" style="margin-top:10px">Leer lassen, wenn es keine Mindestlaufzeit gibt. Neuere Verträge sind nach der Mindestlaufzeit meist monatlich kündbar.</p></section>`;
+}
+function abRow(x, right) {
+  const r = abr(x.r);
+  return `<button class="ab-r" data-a="ab-ed:${x.id}">${abLogo(x)}<span><b>${esc(x.n)}</b><small>${esc(right || `${r[1]} · ${abTerms(x)}`)}</small></span><span class="ab-a"><b>${eur(+x.a)}</b>${+x.r > 1 ? `<small>${eur(abMonthly(x))} im Monat</small>` : ''}</span></button>`;
+}
+function vAbos() {
+  const tk = todayKey(), L = abList(), all = abSubs(), ed = S.ui.abEd && all.find(x => x.id === S.ui.abEd);
+  const mon = L.reduce((a, x) => a + abMonthly(x), 0), nx = L.map(x => ({ x, k: abNext(x) })).filter(o => o.k).sort((a, b) => a.k.localeCompare(b.k));
+  const hero = `<section class="hero6" style="--hc:var(--d-abo)"><span class="lbl">Abos & Verträge</span><span class="big">${cnt(mon, mon >= 100 ? 0 : 2)}<small>€ im Monat</small></span>
+    <p>${L.length ? `Das sind ${eur0(mon * 12)} im Jahr für ${plu(L.length, 'Abo', 'Abos')}.${nx[0] ? ` Als Nächstes: ${esc(nx[0].x.n)} ${nx[0].k === tk ? 'heute' : nx[0].k === addDays(tk, 1) ? 'morgen' : `am ${longDate(nx[0].k)}`}.` : ''}` : 'Trag ein, was regelmäßig abgeht. Die App zeigt dir, was es im Jahr kostet, wann abgebucht wird und bis wann du kündigen musst.'}</p></section>`;
+  const warn = abWarn();
+  const wHtml = warn.length ? `<section class="panel ab-warn"><h2>Kündigen nicht verpassen</h2>${warn.map(({ x, dl }) => { const d = daysBetween(tk, dl); return `<div class="ab-w">${abLogo(x)}<span><b>${esc(x.n)}</b><small>${d === 0 ? 'Heute letzter Tag' : `Noch ${plu(d, 'Tag', 'Tage')}, bis ${longDate(dl)}`}. Sonst ${x.ren === 'y' ? 'ein weiteres Jahr' : 'läuft es weiter'}.</small></span><button class="btn small" data-a="ab-off:${x.id}">Gekündigt</button></div>`; }).join('')}</section>` : '';
+  const soon = nx.filter(o => daysBetween(tk, o.k) <= 30);
+  const sHtml = soon.length ? `<section class="panel"><div class="panel-h"><h2>Nächste 30 Tage</h2><span class="small muted">${eur0(soon.reduce((a, o) => a + (+o.x.a || 0), 0))}</span></div><div class="abl">${soon.map(o => abRow(o.x, o.k === tk ? 'heute' : o.k === addDays(tk, 1) ? 'morgen' : `${WDL[parseKey(o.k).getDay()]}, ${+o.k.slice(8)}. ${MON[+o.k.slice(5, 7) - 1]}`)).join('')}</div></section>` : '';
+  const byC = {}; for (const x of L) byC[x.c || 'sonst'] = (byC[x.c || 'sonst'] || 0) + abMonthly(x);
+  const cats = Object.entries(byC).sort((a, b) => b[1] - a[1]);
+  const dHtml = cats.length > 1 ? `<section class="panel"><h2>Wofür</h2><div class="dn-wrap">${donut(cats.map(([c, v]) => ({ v, c: abc(c)[2] })), { center: eur0(mon), sub: 'im Monat' })}<div class="dn-leg">${cats.map(([c, v]) => `<span class="dn-li"><i style="background:${abc(c)[2]}"></i><span>${esc(abc(c)[1])}</span><b>${eur0(v)}</b></span>`).join('')}</div></div></section>` : '';
+  const aHtml = L.length ? `<section class="panel"><div class="panel-h"><h2>Alle Abos</h2><span class="small muted">nach Kosten</span></div><div class="abl">${L.slice().sort((a, b) => abMonthly(b) - abMonthly(a)).map(x => abRow(x)).join('')}</div></section>` : '';
+  const have = all.map(x => nrm(x.n));
+  const rec = (S.fin.tx.length ? recurring() : []).filter(r => { const p = nrm(pnice(r.p)); return !have.some(h => h && (p.includes(h) || h.includes(p))); }).slice(0, 6);
+  S.ui.abRec = rec;
+  const rHtml = rec.length ? `<section class="panel"><h2>In deinen Umsätzen erkannt</h2><p class="small muted">Das geht jeden Monat ungefähr gleich ab. Mit einem Tipp übernimmst du es.</p><div class="abl">${rec.map((r, i) => `<div class="ab-r ab-sug">${abLogo({ n: pnice(r.p) })}<span><b>${esc(pnice(r.p))}</b><small>${eur(r.a)} im Monat, seit ${r.n} Monaten</small></span><button class="btn small" data-a="ab-take:${i}">Übernehmen</button></div>`).join('')}</div></section>` : '';
+  const offL = all.filter(x => x.off).sort((a, b) => b.off.localeCompare(a.off));
+  const oHtml = offL.length ? `<section class="panel"><h2>Gekündigt</h2><div class="abl">${offL.map(x => abRow(x, abTerms(x))).join('')}</div></section>` : '';
+  const form = ed ? abForm(ed) : S.ui.abNew || !all.length ? abForm(null) : `<button class="btn primary wide" style="margin:4px 0 14px" data-a="ab-new">Abo eintragen</button>`;
+  return hero + (ed ? form : '') + wHtml + sHtml + (ed ? '' : form) + aHtml + dHtml + rHtml + oHtml;
+}
+function abRead(x) {
+  const n = ($('#ab-n')?.value || '').trim().slice(0, 50), a = num($('#ab-a')?.value), d = $('#ab-d')?.value || '';
+  if (!n || a == null || a <= 0) { toast('Name und Betrag brauchst du.'); return null; }
+  const k = abKnown(n), c = $('#ab-c')?.value || (k ? k[2] : 'sonst');
+  const o = Object.assign(x || { id: uid(), t: Date.now() }, { n, a: Math.round(a * 100) / 100, r: +($('#ab-r')?.value || 1), d: /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : todayKey(), c, kf: $('#ab-kf')?.value || '0', end: $('#ab-e')?.value || '', ren: $('#ab-ren')?.value || 'm', note: ($('#ab-no')?.value || '').trim().slice(0, 120) });
+  const off = $('#ab-off'); if (off && /^\d{4}-\d{2}-\d{2}$/.test(off.value)) o.off = off.value;
+  return o;
+}
+
+/* Backup mit einem Tipp: wird im Hintergrund vorbereitet, dann reicht ein Tipp fürs Teilen-Menü */
+const bkEvery = () => { const v = S.profile.settings.bkEvery; return v == null ? 7 : +v; };
+function bkDue() {
+  if (!IS_LOCAL_APP || !bkEvery()) return false;
+  try { if (localStorage.getItem('bilanz.bkSnooze') === todayKey()) return false; } catch (e) { }
+  const last = bkLast(); if (!last) return Object.keys(S.days).length > 3;
+  return daysBetween(last, todayKey()) >= bkEvery();
+}
+function bkWarm(ms) {
+  if (Date.now() - (BK.failAt || 0) < 60e3) return;
+  if (BK.busy || BK.warmT || BK.pending || (BK.ready && Date.now() - (BK.ready.t || 0) < 10 * 60e3)) return;
+  BK.warmT = setTimeout(() => { BK.warmT = null; if (!BK.busy) bkPrepare(); }, ms == null ? 1200 : ms);
+}
+function bkCard() {
+  if (!bkDue()) return '';
+  bkWarm();
+  const last = bkLast(), n = last ? daysBetween(last, todayKey()) : null, R = BK.ready;
+  return `<section class="bkc"><span class="m3d">${i3d('backup')}</span><div class="bkc-t"><b>Zeit für ein Backup</b><span>${n == null ? 'Du hast noch keins gemacht.' : `Das letzte ist ${plu(n, 'Tag', 'Tage')} her.`} Tipp auf „Sichern“ und wähl „In Dateien sichern“, am besten in iCloud Drive.</span></div>
+    <div class="bkc-b"><button class="btn small ghost" data-a="bk-later">Morgen</button><button class="btn small primary" data-a="bk-now" ${R ? '' : 'disabled'}>${R ? `Sichern${R.mb ? ` · ${fmt(Math.max(R.mb, 0.1), 1)} MB` : ''}` : 'Wird vorbereitet …'}</button></div></section>`;
+}
+bkBrief = function (out) { abBrief(out); };
+{
+  const prep0 = bkPrepare;
+  bkPrepare = async function () { await prep0(); if (BK.ready) BK.ready.t = Date.now(); else BK.failAt = Date.now(); if (S.ui.tab === 'heute' && !S.ui.sheet) requestRender(); };
+  const save0 = bkSave;
+  bkSave = async function () { const p = save0(); await p; if (!BK.ready) requestRender(); };
+  const panel0 = bkPanel;
+  bkPanel = function () {
+    if (!BK.pending) bkWarm(150);
+    const ev = bkEvery(), chips = `<div class="bk-every"><span class="small muted">Erinnern auf Start</span><div class="chips">${[[3, 'alle 3 Tage'], [7, 'jede Woche'], [14, 'alle 2 Wochen'], [30, 'jeden Monat'], [0, 'nie']].map(([v, l]) => `<button class="chip ${ev === v ? 'on' : ''}" data-a="bk-every:${v}" aria-pressed="${ev === v}">${l}</button>`).join('')}</div></div>`;
+    return panel0().replace('<input id="bk-input"', chips + '<input id="bk-input"');
+  };
+}
+
+/* Face ID für die Fotos: der Fotoschlüssel wird zusätzlich mit einem Passkey (WebAuthn PRF) verschlüsselt. Code und Passwort bleiben gültig. */
+const FID = { busy: false, err: '', pend: null };
+const FID_IC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5V6.5a2.5 2.5 0 0 1 2.5-2.5h2M15.5 4h2A2.5 2.5 0 0 1 20 6.5v2M20 15.5v2a2.5 2.5 0 0 1-2.5 2.5h-2M8.5 20h-2A2.5 2.5 0 0 1 4 17.5v-2"/><path d="M9 9.2v1.6M15 9.2v1.6M12.2 9.2v4.1h-1M9.4 15.6c1.6 1.3 3.6 1.3 5.2 0"/></svg>';
+const fidOk = () => !!(window.PublicKeyCredential && navigator.credentials && navigator.credentials.get && window.crypto && crypto.subtle);
+async function fidKek(prf) {
+  const base = await crypto.subtle.importKey('raw', prf, 'HKDF', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: new TextEncoder().encode('bilanz-fotos-faceid'), info: new Uint8Array(0) }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+function fidGet(id, salt) {
+  return navigator.credentials.get({ publicKey: { challenge: crypto.getRandomValues(new Uint8Array(32)), allowCredentials: [{ type: 'public-key', id: phB64d(id) }], userVerification: 'required', timeout: 60000, extensions: { prf: { eval: { first: phB64d(salt) } } } } })
+    .then(a => { const r = a && a.getClientExtensionResults ? a.getClientExtensionResults().prf : null; if (!r || !r.results || !r.results.first) throw { code: 'noprf' }; return r.results.first; });
+}
+function fidErr(e) { return e && e.code === 'noprf' ? 'Dein iPhone unterstützt das hier leider nicht. Du brauchst mindestens iOS 18.' : e && e.name === 'NotAllowedError' ? '' : 'Face ID hat nicht geklappt. Versuch es noch mal.'; }
+async function fidStore(prf) {
+  const K = await fidKek(prf), raw = new Uint8Array(await crypto.subtle.exportKey('raw', PH.key));
+  const fk = await phEnc(K, raw); raw.fill(0);
+  const face = { id: FID.pend.id, salt: FID.pend.salt, fk, t: Date.now() };
+  await phRef().update({ face }); PH.meta = { ...PH.meta, face }; FID.pend = null;
+  toast('Face ID ist eingerichtet. Ab jetzt öffnen sich die Fotos mit einem Blick.');
+}
+function fidSetup() {
+  if (!PH.key || FID.busy || !fidOk()) return;
+  const salt = crypto.getRandomValues(new Uint8Array(32));
+  let p;
+  try {
+    p = navigator.credentials.create({ publicKey: { rp: { name: 'Bilanz' }, user: { id: crypto.getRandomValues(new Uint8Array(16)), name: 'Bilanz Fotos', displayName: 'Bilanz Fotos' }, challenge: crypto.getRandomValues(new Uint8Array(32)),
+      pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }], authenticatorSelection: { authenticatorAttachment: 'platform', residentKey: 'preferred', userVerification: 'required' }, timeout: 60000, extensions: { prf: { eval: { first: salt } } } } });
+  } catch (e) { FID.err = fidErr(e); render(); return; }
+  FID.busy = true; FID.err = ''; render();
+  p.then(async cred => {
+    const ext = cred.getClientExtensionResults ? cred.getClientExtensionResults() : {}, prf = ext.prf || {};
+    if (prf.enabled === false) throw { code: 'noprf' };
+    FID.pend = { id: phB64e(cred.rawId), salt: phB64e(salt) };
+    if (prf.results && prf.results.first) await fidStore(prf.results.first);
+  }).catch(e => { FID.pend = null; FID.err = fidErr(e); }).finally(() => { FID.busy = false; render(); });
+}
+function fidConfirm() {
+  const P = FID.pend; if (!P || FID.busy || !PH.key) return;
+  const p = fidGet(P.id, P.salt); FID.busy = true; FID.err = ''; render();
+  p.then(fidStore).catch(e => { FID.err = fidErr(e); }).finally(() => { FID.busy = false; render(); });
+}
+function fidUnlock() {
+  const f = PH.meta && PH.meta.face; if (!f || FID.busy || PH.key || !fidOk()) return;
+  let p; try { p = fidGet(f.id, f.salt); } catch (e) { return; }
+  FID.busy = true; FID.err = ''; if (typeof PIN === 'object') PIN.msg = '';
+  p.then(async prf => {
+    const K = await fidKek(prf), raw = new Uint8Array(await phDec(K, f.fk)), key = await phDataKey(raw); raw.fill(0);
+    await phLoadList(key); PH.key = key; PH.act = Date.now(); try { pinFailSet({}); pinReset(); } catch (e) { }
+  }).catch(e => { FID.err = fidErr(e); if (FID.err && typeof PIN === 'object') PIN.msg = FID.err; }).finally(() => { FID.busy = false; if (S.ui.tab === 'fotos') render(); });
+}
+function fidPanel() {
+  if (!fidOk() || !PH.meta) return '';
+  const f = PH.meta.face, w = PH.meta.pin ? 'Code' : 'Passwort';
+  if (f) return `<section class="panel"><h2>Face ID</h2><p class="small">Die Fotos öffnen sich mit Face ID. Dein ${w} funktioniert weiterhin.</p><button class="btn wide ghost" style="margin-top:8px" data-a="fid-off" data-confirm="Wirklich ausschalten?">Face ID ausschalten</button></section>`;
+  return `<section class="panel fid-p"><h2>Mit Face ID öffnen</h2><p class="small">Statt ${PH.meta.pin ? 'den Code' : 'das Passwort'} einzutippen, schaust du kurz aufs iPhone. Dafür legt dein iPhone einen Passkey für Bilanz an. Dein ${w} bleibt als Ersatz.</p>
+    ${FID.err ? `<p class="ph-err" role="alert">${esc(FID.err)}</p>` : ''}
+    ${FID.pend ? `<button class="btn primary wide fid-b" data-a="fid-confirm" ${FID.busy ? 'disabled' : ''}>${FID_IC}<span>${FID.busy ? 'Einen Moment …' : 'Zum Abschluss noch einmal bestätigen'}</span></button>`
+      : `<button class="btn primary wide fid-b" data-a="fid-setup" ${FID.busy ? 'disabled' : ''}>${FID_IC}<span>${FID.busy ? 'Einen Moment …' : 'Face ID einrichten'}</span></button>`}</section>`;
+}
+{
+  const info0 = phInfo; phInfo = function () { return info0() + fidPanel(); };
+  const pad0 = pinPad;
+  pinPad = function (title, sub, opts = {}) {
+    const h = pad0(title, sub, opts);
+    if (PIN.mode !== 'unlock' || opts.cancel || PH.key || !PH.meta || !PH.meta.face || !fidOk()) return h;
+    return h.replace('<span></span>', `<button class="pin-k fn fid-k" data-a="fid-unlock" aria-label="Mit Face ID entsperren" ${FID.busy ? 'disabled' : ''}>${FID_IC}</button>`);
+  };
+  const fotos0 = vFotos;
+  vFotos = function () {
+    const h = fotos0();
+    if (PH.key || !PH.meta || !PH.meta.face || PH.meta.pin || !fidOk()) return h;
+    return `<section class="panel"><button class="btn primary wide fid-b" data-a="fid-unlock" ${FID.busy ? 'disabled' : ''}>${FID_IC}<span>${FID.busy ? 'Einen Moment …' : 'Mit Face ID öffnen'}</span></button>${FID.err ? `<p class="ph-err" role="alert" style="margin-top:8px">${esc(FID.err)}</p>` : ''}</section>` + h;
+  };
+}
+/* Beim Öffnen der Fotos gleich Face ID anbieten, der Tipp zählt als Bestätigung */
+document.addEventListener('click', e => {
+  const el = e.target && e.target.closest ? e.target.closest('[data-a="tab:fotos"]') : null;
+  if (el && !PH.key && PH.meta && PH.meta.face && !FID.busy) { try { if (!pinWait()) fidUnlock(); } catch (x) { } }
+}, true);
+
+/* Kalender und Start */
+{
+  const rows0 = calRows6, dots0 = calDots6;
+  calRows6 = function (k, row) {
+    const r = rows0(k, row);
+    for (const x of abPaysOn(k)) r.push(row('', 'abo', `${esc(x.n)} wird abgebucht`, eur(+x.a), 'tab:abos'));
+    for (const x of abList()) if (abDeadline(x) === k) r.push(row('', 'abo', `${esc(x.n)} kündigen`, 'letzter Tag, sonst verlängert es sich', 'tab:abos'));
+    return r;
+  };
+  calDots6 = function (k, d) { const r = dots0(k, d); if (abPaysOn(k).length || abList().some(x => abDeadline(x) === k)) r.push('abo'); return r; };
+}
+
+function actV28(c, args) {
+  const tk = todayKey();
+  switch (c) {
+    case 'tx-y': { const cur = +(S.ui.txY || tk.slice(0, 4)), n = +args[0]; S.ui.txY = n ? String(Math.min(+tk.slice(0, 4), cur + n)) : null; render(); return true; }
+    case 'tx-fc': txSaveForm().c = args[0]; render(); return true;
+    case 'tx-add': {
+      const F = txSaveForm(), t = (F.t || '').trim().slice(0, 60), a = num(F.a), d = /^\d{4}-\d{2}-\d{2}$/.test(F.d || '') ? F.d : tk;
+      if (!t || a == null || a <= 0) { toast('Was und Betrag brauchst du.'); return true; }
+      const x = { id: uid(), d, a: Math.round(a * 100) / 100, t, c: F.c || 'am', n: (F.n || '').trim().slice(0, 80) };
+      TX().items.push(x); touch('fin'); S.ui.txF = { c: x.c }; S.ui.txY = d.slice(0, 4) === tk.slice(0, 4) ? null : d.slice(0, 4); render();
+      toast(`${eur(x.a)} unter ${txc(x.c)[1]} gespeichert`, () => { TX().items = TX().items.filter(i => i.id !== x.id); touch('fin'); render(); });
+      return true;
+    }
+    case 'tx-konto': { const y = S.ui.txY || tk.slice(0, 4); TX().items.push({ id: uid(), d: `${y}-12-31`, a: 16, t: 'Kontoführung (pauschal)', c: 'kt', n: '' }); touch('fin'); render(); toast('16 € Kontoführung eingetragen'); return true; }
+    case 'tx-del': { const T = TX(), x = T.items.find(i => i.id === args[0]); if (!x) return true; T.items = T.items.filter(i => i.id !== x.id); touch('fin'); render(); toast('Beleg gelöscht', () => { TX().items.push(x); touch('fin'); render(); }); return true; }
+    case 'tx-take': {
+      const t = S.fin.tx.find(x => x.id === args[0]); if (!t) return true;
+      const F = txSaveForm(), cat = F.c || txGuess(`${t.p} ${t.n || ''}`) || 'am';
+      const x = { id: uid(), d: t.d, a: Math.round(-t.a * 100) / 100, t: pnice(t.p).slice(0, 60), c: cat, n: String(t.n || '').slice(0, 80), src: t.id };
+      TX().items.push(x); touch('fin'); render(); toast(`${eur(x.a)} unter ${txc(cat)[1]} übernommen`); return true;
+    }
+    case 'tx-xls': txExport(S.ui.txY || tk.slice(0, 4)); return true;
+    case 'ab-new': S.ui.abNew = true; S.ui.abEd = null; render(); setTimeout(() => $('#ab-n')?.focus({ preventScroll: true }), 50); return true;
+    case 'ab-ed': S.ui.abEd = S.ui.abEd === args[0] ? null : args[0]; S.ui.abNew = false; render(); setTimeout(() => { const f = $('#ab-form'); if (f) f.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 60); return true;
+    case 'ab-close': S.ui.abEd = null; render(); return true;
+    case 'ab-save': {
+      const x = args[0] ? abSubs().find(i => i.id === args[0]) : null, o = abRead(x); if (!o) return true;
+      if (!x) abSubs().push(o); touch('fin'); S.ui.abEd = null; S.ui.abNew = false; render(); toast(x ? 'Gespeichert' : `${o.n} eingetragen`); return true;
+    }
+    case 'ab-del': { const x = abSubs().find(i => i.id === args[0]); if (!x) return true; S.fin.subs = abSubs().filter(i => i.id !== x.id); touch('fin'); S.ui.abEd = null; render(); toast(`${x.n} gelöscht`, () => { abSubs().push(x); touch('fin'); render(); }); return true; }
+    case 'ab-off': { const x = abSubs().find(i => i.id === args[0]); if (!x) return true; const nx = abNext(x); x.off = abEndNow(x) || (nx ? addDays(nx, -1) : tk); if (x.off < tk) x.off = tk; touch('fin'); render(); toast(`${x.n}: gekündigt, läuft bis ${shortDate(x.off)}`); return true; }
+    case 'ab-on': { const x = abSubs().find(i => i.id === args[0]); if (!x) return true; delete x.off; touch('fin'); render(); return true; }
+    case 'ab-take': {
+      const r = (S.ui.abRec || [])[+args[0]]; if (!r) return true;
+      const n = pnice(r.p).slice(0, 50), k = abKnown(n), last = S.fin.tx.filter(t => t.a < 0 && nrm(pnice(t.p)) === nrm(n)).map(t => t.d).sort().pop();
+      abSubs().push({ id: uid(), t: Date.now(), n, a: Math.round(r.a * 100) / 100, r: 1, d: last ? abAddM(last, 1) : tk, c: k ? k[2] : r.c === 'mob' ? 'mob' : 'sonst', kf: '0', end: '', ren: 'm', note: '' });
+      touch('fin'); render(); toast(`${n} übernommen. Tipp drauf, um Laufzeit und Frist einzutragen.`); return true;
+    }
+    case 'bk-now': if (BK.ready) bkSave(); else bkWarm(0); return true;
+    case 'bk-later': try { localStorage.setItem('bilanz.bkSnooze', tk); } catch (e) { } render(); return true;
+    case 'bk-every': S.profile.settings.bkEvery = +args[0]; touch('profile'); if (S.ui.sheet) renderSheet(); render(); return true;
+    case 'fid-setup': fidSetup(); return true;
+    case 'fid-confirm': fidConfirm(); return true;
+    case 'fid-unlock': fidUnlock(); return true;
+    case 'fid-off': phRef().update({ face: null }).then(() => { PH.meta = { ...PH.meta, face: null }; toast('Face ID ist aus. Den Passkey kannst du in der Passwörter-App löschen.'); render(); }).catch(() => toast('Das hat nicht geklappt.')); return true;
+  }
+  return false;
+}
+document.addEventListener('input', e => {
+  const el = e.target, ds = el && el.dataset; if (!ds) return;
+  if (ds.txs) { const [y, k] = ds.txs.split(':'), T = TX(), Y = T.y[y] || (T.y[y] = {}), v = String(el.value).trim(); if (v === '') delete Y[k]; else { const n = num(v); if (n != null && n >= 0) Y[k] = Math.round(n); } touch('fin'); }
+  else if (ds.txq) { S.ui.txQ = el.value; const L = $('#tx-found'); if (L) L.innerHTML = txFound(S.ui.txY || todayKey().slice(0, 4), el.value); }
+});
+document.addEventListener('change', e => { const ds = e.target && e.target.dataset; if (ds && ds.txs) requestRender(); });
+
 /* ---------- Render ---------- */
 let renderQueued = false;
 const isEditing = () => { const a = document.activeElement; return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && ($('#main').contains(a) || $('#gym').contains(a)); };
@@ -9662,9 +10105,9 @@ const monthDays = ym => { const [y, m] = ym.split('-').map(Number); return new D
 const median = xs => { if (!xs.length) return null; const s = xs.slice().sort((a, b) => a - b), i = s.length >> 1; return s.length % 2 ? s[i] : (s[i - 1] + s[i]) / 2; };
 
 /* Extra-Dokumente: Finanzen und Medien */
-function normFin(f) { f = f && typeof f === 'object' ? clone(f) : {}; return { v: 1, tx: Array.isArray(f.tx) ? f.tx : [], rules: Array.isArray(f.rules) ? f.rules : [] }; }
+function normFin(f) { f = f && typeof f === 'object' ? clone(f) : {}; return { v: 1, tx: Array.isArray(f.tx) ? f.tx : [], rules: Array.isArray(f.rules) ? f.rules : [], subs: Array.isArray(f.subs) ? f.subs : [], tax: f.tax && typeof f.tax === 'object' ? { items: Array.isArray(f.tax.items) ? f.tax.items : [], y: f.tax.y && typeof f.tax.y === 'object' ? f.tax.y : {} } : { items: [], y: {} } }; }
 function normMedia(m) { m = m && typeof m === 'object' ? clone(m) : {}; return { v: 1, items: Array.isArray(m.items) ? m.items : [] }; }
-const XDOCS = { fin: { norm: normFin, path: 'finance', empty: x => !x.tx.length && !x.rules.length }, media: { norm: normMedia, path: 'media', empty: x => !x.items.length } };
+const XDOCS = { fin: { norm: normFin, path: 'finance', empty: x => !x.tx.length && !x.rules.length && !(x.subs || []).length && !((x.tax || {}).items || []).length && !Object.keys((x.tax || {}).y || {}).length }, media: { norm: normMedia, path: 'media', empty: x => !x.items.length } };
 S.fin = normFin(); S.media = normMedia();
 
 /* ---------- Charts ---------- */
@@ -10440,6 +10883,8 @@ function vMehr() {
     T('tab:fotos', 'Fortschrittsfotos', ICON.fotos, phTileSub(), 'd-photo')
   ]) + sec('Geld & Freizeit', [
     T('tab:finanzen', 'Finanzen', ICON.finanzen, S.fin.tx.length ? `${eur0(M.out)} im ${MON[+tk.slice(5, 7) - 1]}` : 'Ausgaben und Budget', 'd-fin'),
+    T('tab:abos', 'Abos & Verträge', ICON.abos, abTileSub(), 'd-abo'),
+    T('tab:steuer', 'Steuer-Sammler', ICON.steuer, (() => { const C = txCalc(todayKey().slice(0, 4)); return C.wk >= 1 ? `${eur0(C.wk)} für ${todayKey().slice(0, 4)}` : 'Belege fürs Finanzamt'; })(), 'd-tax'),
     T('tab:medien', 'Filme & Serien', ICON.medien, `${seenY} gesehen ${tk.slice(0, 4)}`, 'd-media'),
     T('tab:sport', 'Spielplan', ICON.sport, gnx ? `${TEAMS[gnx.t].s}: ${shortDate(gnx.d)}` : 'VfB, Lakers, Fidei', 'd-sport'),
     T('wrap-open', 'Jahresrückblick', ICON.wrap, `${tk.slice(0, 4)} als Story`, 'd-cal')
@@ -10870,7 +11315,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actTrCal(c, args) && !actLook27(c, args) && !actV27(c, args) && !actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actV28(c, args) && !actTrCal(c, args) && !actLook27(c, args) && !actV27(c, args) && !actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -11204,7 +11649,7 @@ async function phKek(pw, salt, iter) {
 }
 async function phEnc(key, bytes) { const iv = crypto.getRandomValues(new Uint8Array(12)); const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, bytes); return { iv: phB64e(iv), ct: phB64e(ct) }; }
 const phDec = (key, o) => crypto.subtle.decrypt({ name: 'AES-GCM', iv: phB64d(o.iv) }, key, phB64d(o.ct));
-const phDataKey = raw => crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt', 'decrypt']);
+const phDataKey = raw => crypto.subtle.importKey('raw', raw, 'AES-GCM', true, ['encrypt', 'decrypt']);
 
 async function phLoadMeta() {
   if (PH.loading || PH.meta !== undefined || Date.now() - PH.failAt < 30000) return;
@@ -12035,6 +12480,10 @@ Object.assign(SUB, { abzeichen: 'Abzeichen', rezepte: 'Rezepte' }); AREA.abzeich
 Object.assign(SUB, { trplan: 'Wochenplan', trmus: 'Körperkarte', trrec: 'Rekorde', trstat: 'Statistik', trhist: 'Verlauf' });
 Object.assign(AREA, { trplan: 'd-train', trmus: 'd-train', trrec: 'd-train', trstat: 'd-train', trhist: 'd-train' });
 Object.assign(SUB, { merk: 'Merkliste', trex: 'Übungen', trcal: 'Trainingskalender' }); AREA.trex = AREA.trcal = 'd-train'; TR_SUBV.trex = () => vProgress() + vRecords(); TR_SUBV.trcal = () => vTrCal(); AREA.merk = 'd-wish'; ICON.merk = MK_IC;
+Object.assign(SUB, { steuer: 'Steuer-Sammler', abos: 'Abos & Verträge' });
+Object.assign(AREA, { steuer: 'd-tax', abos: 'd-abo' });
+Object.assign(I3D_A, { 'tab:steuer': 'steuer', 'tab:abos': 'abos' });
+Object.assign(I3D_T, { steuer: 'steuer', abos: 'abos' });
 Object.assign(SUB, { pack: 'Packliste', ideen: 'Ideen für die App' }); AREA.pack = 'd-pack'; AREA.ideen = 'd-idea'; ICON.pack = PL_IC; ICON.ideen = ID_IC;
 /* ---------- Boot ---------- */
 try { const w = JSON.parse(localStorage.getItem('bilanz.wx') || 'null'); if (w && w.hourly) WX.d = w; } catch (e) { }
