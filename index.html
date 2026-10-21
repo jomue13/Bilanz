@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#F2F3F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A0C0F" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="app-icon-180.png">
+<link rel="icon" href="app-icon-192.png">
 <script src="local.js"></script>
 <script src="vendor/idiomorph.min.js"></script>
 <title>Bilanz</title>
@@ -2661,6 +2661,78 @@ html[data-look="glas"] .mv-dh{background:linear-gradient(160deg,color-mix(in srg
 html[data-look="glas"] .sheet.gym{background:radial-gradient(90% 50% at 10% 0%,rgba(124,92,255,.35),transparent 70%),radial-gradient(80% 45% at 100% 30%,rgba(255,95,162,.22),transparent 70%),#0B0A14;--g-card:rgba(255,255,255,.07);--g-card2:rgba(255,255,255,.11);--g-acc:#A99BFF;--g-good:#3DDC97}
 html[data-look="glas"] .gy-done{background:linear-gradient(135deg,#7C5CFF,#FF5FA2);color:#fff;border-radius:999px;box-shadow:0 14px 34px -14px rgba(124,92,255,.8)}
 html[data-look="glas"] :is(.sheet:not(.gym):not(.wrap):not(.scan)){background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px)}
+
+/* v27b: Tabellen mit Wappen, NBA-Tabelle */
+.lt-tm{display:flex;align-items:center;gap:8px;min-width:0}
+.lt-tm>span{min-width:0;overflow-wrap:anywhere}
+.crest.sm{width:22px;height:22px;border-radius:7px;box-shadow:none}
+.crest.sm b{font-size:7px}
+.crest.sm img{padding:2px}
+.ltab td{vertical-align:middle}
+.ltab tr[class*="z-"] td:first-child{box-shadow:inset 3px 0 0 var(--zc)}
+.ltab .z-cl,.lt-leg .z-cl{--zc:#2563EB}.ltab .z-el,.lt-leg .z-el{--zc:#F59E0B}.ltab .z-ecl,.lt-leg .z-ecl{--zc:#10B981}.ltab .z-rel{--zc:#F97316}.ltab .z-ab,.lt-leg .z-ab{--zc:#E5484D}
+.ltab .z-po,.lt-leg .z-po{--zc:#10B981}.ltab .z-pi,.lt-leg .z-pi{--zc:#F59E0B}
+.ltab tr.me td:first-child{box-shadow:inset 3px 0 0 var(--tc)}
+.lt-leg{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font-size:12px;color:var(--muted);margin:10px 2px 0}
+.lt-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--zc);margin-right:-6px}
+/* v27: Trainingskalender */
+.tc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.tc-st{background:var(--surface);border-radius:var(--r-card);padding:12px 10px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+.tc-st b{font:800 30px/1 var(--font-c);font-variant-numeric:tabular-nums;margin-top:6px}
+.tc-st small{font-size:12px;color:var(--muted);line-height:1.25}
+.tc-i{width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.tc-i img{width:30px;height:30px}
+.tc-moon svg{width:24px;height:24px;fill:#5B8CFF;stroke:none}
+.tc-mode{margin:0 0 10px}
+.tc-leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin:0 4px 10px}
+.tc-leg span{display:inline-flex;align-items:center;gap:6px}
+.tc-leg i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.tc-leg i.tc-pl{background:none;box-shadow:inset 0 0 0 1.5px var(--muted);border:0}
+.tc-wd{position:sticky;top:calc(env(safe-area-inset-top,0px) + 52px);z-index:3;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--bar);-webkit-backdrop-filter:saturate(1.8) blur(20px);backdrop-filter:saturate(1.8) blur(20px);margin:0 -16px 6px;padding:8px 16px;border-bottom:.5px solid var(--line);font-size:12.5px;font-weight:700;color:var(--muted);text-align:center}
+.tc-m{margin:0 0 18px}
+.tc-mh{display:flex;align-items:baseline;justify-content:space-between;margin:6px 4px 10px}
+.tc-mh h2{margin:0;font:700 22px/1.2 var(--font);letter-spacing:-.02em}
+.tc-mh span{font-size:13px;color:var(--muted);font-weight:600}
+.tc-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));row-gap:10px}
+.tc-d{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none;border:0;padding:0;color:var(--ink);font:inherit}
+.tc-n{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 16px var(--font-c);font-variant-numeric:tabular-nums}
+.tc-d small{font-size:10.5px;font-weight:600;color:var(--muted);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1;min-height:12px}
+.tc-d.on .tc-n{background:var(--c);color:#fff;box-shadow:0 6px 14px -8px var(--c)}
+.tc-d.on{transition:transform .35s var(--spring)}
+.tc-d.on:active{transform:scale(.9);transition-duration:.06s}
+.tc-d.pl .tc-n{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c) 70%,transparent);color:var(--c)}
+.tc-d.pl .tc-n{background-image:radial-gradient(circle,transparent 62%,transparent 63%)}
+.tc-d.pl small{color:color-mix(in srgb,var(--c) 80%,var(--muted))}
+.tc-d.fut .tc-n{color:var(--muted)}
+.tc-d.td:not(.on) .tc-n{box-shadow:inset 0 0 0 2.5px var(--accent);color:var(--accent)}
+.tc-d.td.on .tc-n{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--c)}
+html[data-look="nacht"] .tc-d.on .tc-n{box-shadow:0 0 16px -2px var(--c)}
+html[data-look="nacht"] .tc-st b{font-size:36px}
+html[data-look="glas"] .tc-st{-webkit-backdrop-filter:blur(22px) saturate(1.7);backdrop-filter:blur(22px) saturate(1.7);box-shadow:inset 0 0 0 1px var(--glass-bd),var(--glass-sh)}
+html[data-look="farbe"] .tc-st:nth-child(1){background:#FF7A45;color:#fff;--muted:rgba(255,255,255,.85)}
+html[data-look="farbe"] .tc-st:nth-child(2){background:#2F6BFF;color:#fff;--muted:rgba(255,255,255,.85)}
+html[data-look="farbe"] .tc-st:nth-child(3){background:#5B3DF5;color:#fff;--muted:rgba(255,255,255,.85)}
+html[data-look="farbe"] .tc-moon svg{fill:#fff}
+html[data-look="farbe"] .tc-mh h2{font-family:var(--font-hd);font-weight:800}
+html[data-look="nacht"] .tc-mh h2{font:italic 800 26px/1.1 var(--font-hd);text-transform:uppercase}
+/* Jahresansicht */
+.tc-yh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tc-yh>div{text-align:center;display:flex;flex-direction:column}
+.tc-yh b{font:800 24px var(--font-c)}
+.tc-yh small{font-size:13px;color:var(--muted)}
+.tc-ys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 12px}
+.tc-mini{display:flex;flex-direction:column;align-items:stretch;gap:4px;background:none;border:0;padding:0;color:var(--ink);text-align:left;min-width:0}
+.tc-mini b{font-size:13px;font-weight:700}
+.tc-mini small{font-size:11px;color:var(--muted);margin-top:-18px;align-self:flex-end;min-height:13px}
+.tc-mg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2.5px}
+.tc-mg i{aspect-ratio:1;border-radius:50%;background:var(--surface2)}
+.tc-mg i.e{background:none}
+.tc-mg i.on{background:var(--c)}
+.tc-mg i.td{box-shadow:0 0 0 1.5px var(--accent)}
+
+.lt.l{font-size:30px}.lt.xl{font-size:27px}
+html[data-look="nacht"] .lt.l{font-size:40px}html[data-look="nacht"] .lt.xl{font-size:34px}
+html[data-look="farbe"] .lt.l{font-size:33px}html[data-look="farbe"] .lt.xl{font-size:29px}
 </style>
 </head>
 <body>
@@ -5323,7 +5395,8 @@ function ltHead(t) {
     return `<header class="lt-h"><div><p class="lt-e">${WDL[d.getDay()]}, ${d.getDate()}. ${MON[d.getMonth()]}</p><h1 class="lt">Heute</h1></div>${wx}</header>`;
   }
   const ic = (t === 'medien' && S.ui.mvT) || (t === 'pack' && S.ui.plT) ? '' : I3D_T[t];
-  return `<header class="lt-h${ic ? ' has3d' : ''}"><h1 class="lt">${esc(ltTitle(t))}</h1>${ic ? i3d(ic, 'lt-3d') : ''}</header>`;
+  const tl = ltTitle(t), L = tl.length;
+  return `<header class="lt-h${ic ? ' has3d' : ''}"><h1 class="lt${L > 15 ? ' xl' : L > 11 ? ' l' : ''}">${esc(tl)}</h1>${ic ? i3d(ic, 'lt-3d') : ''}</header>`;
 }
 (() => {
   let raf = 0;
@@ -6005,7 +6078,7 @@ function vTrChart() {
 function vTrDash() {
   const ws = allWorkouts(); if (!ws.length) return '';
   const T = (a, ic, l) => `<button class="trd-b" data-a="${a}"><svg viewBox="0 0 24 24" aria-hidden="true">${TD_IC[ic]}</svg><span>${l}</span></button>`;
-  return `<div class="tr-sec"><h2>Auswertung</h2></div><div class="trd">${T('tab:trstat', 'stat', 'Statistik')}${T('tab:trex', 'ex', 'Übungen')}${T('tab:trmus', 'mus', 'Körperkarte')}${T('tab:trcal', 'cal', 'Trainingstage')}${T('tab:trrec', 'rec', 'Rekorde')}${T('tab:trplan', 'plan', 'Wochenplan')}</div>`;
+  return `<div class="tr-sec"><h2>Auswertung</h2></div><div class="trd">${T('tab:trstat', 'stat', 'Statistik')}${T('tab:trex', 'ex', 'Übungen')}${T('tab:trmus', 'mus', 'Körperkarte')}${T('tab:trcal', 'cal', 'Kalender')}${T('tab:trrec', 'rec', 'Rekorde')}${T('tab:trplan', 'plan', 'Wochenplan')}</div>`;
 }
 function vTrFeed() {
   const ws = allWorkouts(); if (!ws.length) return '';
@@ -7191,6 +7264,66 @@ function actLook27(c, args) {
   const k = LOOKS[args[0] || ''] !== undefined ? (args[0] || '') : '';
   S.profile.settings.look = k; touch('profile'); applyTheme(); render(); if (S.ui.sheet) renderSheet();
   toast(`Look: ${LOOKS[k]}`); return true;
+}
+
+/* ---------- v27: Trainingskalender (Monate untereinander, Trainingstage als Kreise mit Namen, Serie und Ruhetage) ---------- */
+function trCat(n) { n = nrm(n); return /push|brust|chest|druck/.test(n) ? 'push' : /pull|rucken|back|zug/.test(n) ? 'pull' : /bein|leg|unterkorper|lower|squat/.test(n) ? 'legs' : /ganz|full|oberkorper|upper/.test(n) ? 'full' : 'oth'; }
+var TRC = { push: ['Push', '#FF7A45'], pull: ['Pull', '#3B82F6'], legs: ['Beine', '#12B886'], full: ['Ganzkörper', '#A855F7'], oth: ['Sonstiges', '#8B93A1'] };
+function trWeekStreak(days) {
+  const has = m => { for (let i = 0; i < 7; i++) if (days.has(addDays(m, i))) return true; return false; };
+  let m = mondayOf(todayKey()), n = 0; if (!has(m)) m = addDays(m, -7);
+  while (has(m)) { n++; m = addDays(m, -7); }
+  return n;
+}
+function trShort(n) { n = String(n || 'Training').trim(); return n.length > 10 ? n.split(/\s+/)[0].slice(0, 10) : n; }
+function vTrCal() {
+  const tk = todayKey(), ws = allWorkouts(), byD = {}, mode = S.ui.tcM === 'year' ? 'year' : 'month';
+  for (const w of ws) (byD[w.date] ||= []).push(w);
+  const days = new Set(Object.keys(byD)), streak = trWeekStreak(days), ym0 = tk.slice(0, 7);
+  let rest = 0; for (let k = ym0 + '-01'; k <= tk; k = addDays(k, 1)) if (!byD[k]) rest++;
+  const mN = Object.keys(byD).filter(k => k.startsWith(ym0)).length, first = ws.length ? ws[ws.length - 1].date : tk;
+  const used = new Set(ws.map(w => trCat(w.name)));
+  const head = `<section class="tc-stats"><div class="tc-st"><span class="tc-i">${i3d('feuer')}</span><b>${streak}</b><small>${streak === 1 ? 'Woche' : 'Wochen'} in Folge</small></div><div class="tc-st"><span class="tc-i">${i3d('training')}</span><b>${mN}</b><small>Trainings im ${MON[+tk.slice(5, 7) - 1]}</small></div><div class="tc-st"><span class="tc-i tc-moon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></span><b>${rest}</b><small>Ruhetage im ${MON[+tk.slice(5, 7) - 1]}</small></div></section>
+    <div class="seg seg6 tc-mode" role="group" aria-label="Ansicht">${[['month', 'Monate'], ['year', 'Jahr']].map(([k, l]) => `<button class="${mode === k ? 'on' : ''}" data-a="tc-m:${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div>
+    <div class="tc-leg">${Object.keys(TRC).filter(c => used.has(c)).map(c => `<span><i style="background:${TRC[c][1]}"></i>${TRC[c][0]}</span>`).join('')}<span><i class="tc-pl"></i>geplant</span></div>`;
+  if (mode === 'year') {
+    const y = S.ui.tcY || +tk.slice(0, 4), nY = ws.filter(w => w.date.startsWith(y + '')).length;
+    const mini = mo => {
+      const ym = `${y}-${String(mo).padStart(2, '0')}`, d1 = ym + '-01', lead = (parseKey(d1).getDay() + 6) % 7, n = new Date(y, mo, 0).getDate();
+      let c = ''; for (let i = 0; i < lead; i++) c += '<i class="e"></i>';
+      for (let d = 1; d <= n; d++) { const k = `${ym}-${String(d).padStart(2, '0')}`, w = byD[k]; c += `<i class="${w ? 'on' : ''}${k === tk ? ' td' : ''}"${w ? ` style="--c:${TRC[trCat(w[0].name)][1]}"` : ''}></i>`; }
+      const cnt = Object.keys(byD).filter(k => k.startsWith(ym)).length;
+      return `<button class="tc-mini" data-a="tc-goto:${ym}"><b>${MON[mo - 1].slice(0, 3)}</b><small>${cnt || ''}</small><span class="tc-mg">${c}</span></button>`;
+    };
+    return head + `<section class="panel tc-year"><div class="tc-yh"><button class="icon-btn" data-a="tc-y:-1" aria-label="Vorheriges Jahr">‹</button><div><b>${y}</b><small>${nY} ${nY === 1 ? 'Training' : 'Trainings'}</small></div><button class="icon-btn" data-a="tc-y:1" aria-label="Nächstes Jahr" ${y >= +tk.slice(0, 4) ? 'disabled' : ''}>›</button></div><div class="tc-ys">${Array.from({ length: 12 }, (_, i) => mini(i + 1)).join('')}</div></section>`;
+  }
+  const N = S.ui.tcN || 4, months = [];
+  for (let i = 0; i < N; i++) { const ym = addMonths(ym0, -i); if (ym < first.slice(0, 7) && i > 0) break; months.push(ym); }
+  const plan = k => k > tk && k <= addDays(tk, 13) ? planFor(k) : (k === tk && !byD[k] ? planFor(k) : '');
+  const month = ym => {
+    const [y, mo] = ym.split('-').map(Number), d1 = ym + '-01', lead = (parseKey(d1).getDay() + 6) % 7, n = new Date(y, mo, 0).getDate();
+    let c = ''; for (let i = 0; i < lead; i++) c += '<span class="tc-e"></span>';
+    for (let d = 1; d <= n; d++) {
+      const k = `${ym}-${String(d).padStart(2, '0')}`, w = byD[k], p = !w && plan(k);
+      if (w) { const ct = trCat(w[0].name); c += `<button class="tc-d on${k === tk ? ' td' : ''}" style="--c:${TRC[ct][1]}" data-a="tr-hist:${w[0].id}" aria-label="${longDate(k)}: ${esc(w.map(x => x.name).join(', '))}"><span class="tc-n">${d}</span><small>${esc(trShort(w[0].name))}${w.length > 1 ? ` +${w.length - 1}` : ''}</small></button>`; }
+      else if (p) c += `<button class="tc-d pl${k === tk ? ' td' : ''}" style="--c:${TRC[trCat(p)][1]}" data-a="tc-plan:${k}" aria-label="${longDate(k)}: geplant ${esc(p)}"><span class="tc-n">${d}</span><small>${esc(trShort(p))}</small></button>`;
+      else c += `<span class="tc-d${k === tk ? ' td' : ''}${k > tk ? ' fut' : ''}"><span class="tc-n">${d}</span></span>`;
+    }
+    const cnt = Object.keys(byD).filter(k => k.startsWith(ym)).length;
+    return `<section class="tc-m" id="tc-${ym}"><div class="tc-mh"><h2>${MON[mo - 1]} ${y}</h2><span>${cnt} ${cnt === 1 ? 'Training' : 'Trainings'}</span></div><div class="tc-g">${c}</div></section>`;
+  };
+  return head + `<div class="tc-wd" aria-hidden="true">${['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map(x => `<span>${x}</span>`).join('')}</div>` + months.map(month).join('')
+    + (months.length === N && addMonths(ym0, -N) >= first.slice(0, 7) ? `<button class="btn wide" data-a="tc-more">Ältere Monate zeigen</button>` : '');
+}
+function actTrCal(c, args) {
+  switch (c) {
+    case 'tc-m': S.ui.tcM = args[0]; render(); return true;
+    case 'tc-y': S.ui.tcY = (S.ui.tcY || +todayKey().slice(0, 4)) + +args[0]; render(); return true;
+    case 'tc-more': S.ui.tcN = (S.ui.tcN || 4) + 6; render(); return true;
+    case 'tc-goto': { const ym = args[0], tk = todayKey(); let i = 0; while (addMonths(tk.slice(0, 7), -i) > ym && i < 400) i++; S.ui.tcM = 'month'; S.ui.tcN = Math.max(S.ui.tcN || 4, i + 1); render(); requestAnimationFrame(() => { const el = document.getElementById('tc-' + ym); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' }); }); return true; }
+    case 'tc-plan': toast(`Laut Plan: ${planFor(args[0])}, ${relDay(args[0])}`); return true;
+  }
+  return false;
 }
 
 /* ---------- Render ---------- */
@@ -10737,7 +10870,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actLook27(c, args) && !actV27(c, args) && !actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actTrCal(c, args) && !actLook27(c, args) && !actV27(c, args) && !actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -10962,9 +11095,20 @@ const gKey = g => `${g.t}|${g.d}|${nrm(g.o).slice(0, 30)}`;
 function vTables(sel) {
   const T = (SP.d && SP.d.tables) || {}, keys = Object.keys(TEAMS).filter(t => T[t] && (!sel || t === sel) && Array.isArray(T[t].rows) && T[t].rows.length);
   if (!keys.length) return '';
-  return keys.map(t => { const tb = T[t], me = TEAMS[t].n;
-    return `<section class="panel"><div class="panel-h"><h2>Tabelle ${esc(tb.name || '')}</h2><span class="small muted">${tb.note ? esc(tb.note) : ''}</span></div><table class="ltab"><thead><tr><td>#</td><td>Team</td><td>Sp</td><td>Tore</td><td>Pkt</td></tr></thead><tbody>${tb.rows.map(r => `<tr class="${nrm(r[1]) === nrm(me) || (t === 'vfb' && /stuttgart/i.test(r[1])) || (t === 'lakers' && /lakers/i.test(r[1])) ? 'me t-' + t : ''}"><td>${esc(r[0])}</td><td>${esc(String(r[1]).replace(/​/g, ''))}</td><td>${esc(r[2])}</td><td>${esc(r[6] ?? '')}</td><td><b>${esc(r[8] ?? '')}</b></td></tr>`).join('')}</tbody></table></section>`; }).join('');
+  return keys.map(t => {
+    const tb = T[t], me = TEAMS[t].n, nba = tb.kind === 'nba' || t === 'lakers', n = tb.rows.length;
+    const isMe = r => nrm(r[1]) === nrm(me) || (t === 'vfb' && /stuttgart/i.test(r[1])) || (t === 'lakers' && /lakers/i.test(r[1]));
+    const zone = (r, i) => { const p = nba ? i + 1 : +r[0] || i + 1; if (nba) return p <= 6 ? 'z-po' : p <= 10 ? 'z-pi' : ''; if (t !== 'vfb' || n < 18) return ''; return p <= 4 ? 'z-cl' : p === 5 ? 'z-el' : p === 6 ? 'z-ecl' : p === 16 ? 'z-rel' : p >= 17 ? 'z-ab' : ''; };
+    const nm = r => esc(String(r[1]).replace(/\u200b/g, ''));
+    const tm = r => `<span class="lt-tm">${crest(r[1], 'sm')}<span>${nba ? esc(nbaNick(r[1])) : nm(r)}</span></span>`;
+    const head = nba ? '<tr><td>#</td><td>Team</td><td>S</td><td>N</td><td>Quote</td><td>Rück.</td></tr>' : '<tr><td>#</td><td>Team</td><td>Sp</td><td>Tore</td><td>Pkt</td></tr>';
+    const row = (r, i) => `<tr class="${isMe(r) ? 'me t-' + t : ''} ${zone(r, i)}"><td>${esc(r[0])}</td><td>${tm(r)}</td>${nba ? `<td>${esc(r[2] ?? '')}</td><td>${esc(r[3] ?? '')}</td><td>${esc(r[4] ?? '')}</td><td>${esc(r[5] ?? '')}</td>` : `<td>${esc(r[2])}</td><td>${esc(r[6] ?? '')}</td><td><b>${esc(r[8] ?? '')}</b></td>`}</tr>`;
+    const leg = nba ? '<p class="lt-leg"><i class="z-po"></i>Playoffs <i class="z-pi"></i>Play-in</p>' : t === 'vfb' && n >= 18 ? '<p class="lt-leg"><i class="z-cl"></i>Champions League <i class="z-el"></i>Europa League <i class="z-ab"></i>Abstieg</p>' : '';
+    return `<section class="panel"><div class="panel-h"><h2>Tabelle ${esc(tb.name || '')}</h2><span class="small muted">${tb.note ? esc(tb.note) : ''}</span></div><table class="ltab${nba ? ' nba' : ''}"><thead>${head}</thead><tbody>${tb.rows.map(row).join('')}</tbody></table>${leg}</section>`;
+  }).join('');
 }
+var NBA_CITY = ['Los Angeles', 'Golden State', 'New Orleans', 'New York', 'Oklahoma City', 'San Antonio', 'Portland', 'Sacramento', 'Minnesota', 'Memphis', 'Denver', 'Dallas', 'Houston', 'Phoenix', 'Utah', 'Atlanta', 'Boston', 'Brooklyn', 'Charlotte', 'Chicago', 'Cleveland', 'Detroit', 'Indiana', 'Miami', 'Milwaukee', 'Orlando', 'Philadelphia', 'Toronto', 'Washington'];
+function nbaNick(n) { n = String(n || ''); for (const c of NBA_CITY) if (n.startsWith(c + ' ')) return n.slice(c.length + 1); return n; }
 
 /* ---------- v7: Jahresrückblick ---------- */
 function wrapSlides(y) {
@@ -11890,7 +12034,7 @@ document.addEventListener('visibilitychange', () => {
 Object.assign(SUB, { abzeichen: 'Abzeichen', rezepte: 'Rezepte' }); AREA.abzeichen = 'd-badge'; AREA.rezepte = 'd-food'; ICON.abzeichen = BDG_IC.trophy; ICON.rezepte = RZ_IC;
 Object.assign(SUB, { trplan: 'Wochenplan', trmus: 'Körperkarte', trrec: 'Rekorde', trstat: 'Statistik', trhist: 'Verlauf' });
 Object.assign(AREA, { trplan: 'd-train', trmus: 'd-train', trrec: 'd-train', trstat: 'd-train', trhist: 'd-train' });
-Object.assign(SUB, { merk: 'Merkliste', trex: 'Übungen', trcal: 'Trainingstage' }); AREA.trex = AREA.trcal = 'd-train'; TR_SUBV.trex = () => vProgress() + vRecords(); TR_SUBV.trcal = () => vTrainHeat(); AREA.merk = 'd-wish'; ICON.merk = MK_IC;
+Object.assign(SUB, { merk: 'Merkliste', trex: 'Übungen', trcal: 'Trainingskalender' }); AREA.trex = AREA.trcal = 'd-train'; TR_SUBV.trex = () => vProgress() + vRecords(); TR_SUBV.trcal = () => vTrCal(); AREA.merk = 'd-wish'; ICON.merk = MK_IC;
 Object.assign(SUB, { pack: 'Packliste', ideen: 'Ideen für die App' }); AREA.pack = 'd-pack'; AREA.ideen = 'd-idea'; ICON.pack = PL_IC; ICON.ideen = ID_IC;
 /* ---------- Boot ---------- */
 try { const w = JSON.parse(localStorage.getItem('bilanz.wx') || 'null'); if (w && w.hourly) WX.d = w; } catch (e) { }
