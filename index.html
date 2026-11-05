@@ -2778,6 +2778,9 @@ html[data-look]{--d-tax:#F59E0B;--d-abo:#EC4899}
 .fid-b{display:flex;align-items:center;justify-content:center;gap:8px}
 .fid-b svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .fid-k:disabled{opacity:.5}
+.wdur{margin:10px 0 4px;padding:12px;border-radius:14px;background:var(--surface2);display:grid;gap:10px}
+.wdur .row-actions{margin:0}
+.wdur .chip:not(.on){background:var(--surface)}
 </style>
 </head>
 <body>
@@ -3653,7 +3656,7 @@ function vHistory() {
       <span class="hist-name">${esc(w.name)}${(w.ex || []).some(e => prSet.has(w.date + '|' + exKey(e.name))) ? '<span class="badge">Rekord</span>' : ''}<small>${sub}</small></span>
       <span class="hist-vol">${vol ? `${fmt(vol)} kg<small>Volumen</small>` : km ? `${fmt(km, 1)} km<small>Strecke</small>` : ''}</span></button>
       ${open ? `<div class="hist-detail">${(w.ex || []).map(e => `<p><b>${esc(e.name)}</b>${prSet.has(w.date + '|' + exKey(e.name)) ? '<span class="badge">Rekord</span>' : ''}: ${(e.sets || []).map(fmtSet).join(', ')}</p>`).join('')}
-        <div class="row-actions"><button class="btn small" data-a="w-setloc:${w.date}:${w.id}">Ort: ${w.loc === 'gym' ? 'Gym' : 'Zuhause'}</button>${!S.profile.active ? `<button class="btn small" data-a="w-repeat:${w.date}:${w.id}">Wiederholen</button>` : ''}<button class="btn small ghost danger" data-a="w-del:${w.date}:${w.id}" data-confirm="Wirklich löschen?">Löschen</button></div></div>` : ''}</li>`;
+        ${S.ui.wDur === w.id ? wDurForm(w) : ''}<div class="row-actions"><button class="btn small" data-a="w-dur:${w.date}:${w.id}">Dauer: ${dur ? fmtDur(dur * 60000) : 'eintragen'}</button><button class="btn small" data-a="w-setloc:${w.date}:${w.id}">Ort: ${w.loc === 'gym' ? 'Gym' : 'Zuhause'}</button>${!S.profile.active ? `<button class="btn small" data-a="w-repeat:${w.date}:${w.id}">Wiederholen</button>` : ''}<button class="btn small ghost danger" data-a="w-del:${w.date}:${w.id}" data-confirm="Wirklich löschen?">Löschen</button></div></div>` : ''}</li>`;
   }).join('')}</ul>${ws.length > n ? `<button class="btn ghost wide" data-a="hist-more">Ältere anzeigen</button>` : ''}</section>`;
 }
 function vTraining() {
@@ -3950,7 +3953,7 @@ function actGym(c, args) {
       gymAudio();
       for (const [f] of gymF(ex)) if (getF(s, f) == null) { const g = gymVal(ex, i, f); if (g.v != null) setF(s, f, g.v); }
       if (!hasVal(s)) { toast('Trag zuerst Gewicht oder Wiederholungen ein.'); return true; }
-      s.done = true; GYM.sel = null;
+      s.done = true; s.at = Date.now(); GYM.sel = null;
       const pr = !s.warm && checkPR(ex, s), xi = A.ex.indexOf(ex), more = ex.sets.some(x => !x.done), nx = more ? ex : gymNextEx(A, xi);
       if (nx) { gymNewRest(A, ex, s.warm ? Math.min(60, gymRestFor(ex)) : 0); if (!more) A.gymEx = nx.id; } else A.rest = null;
       touch('profile'); renderGym(); $('#gym').scrollTop = 0;
@@ -7330,13 +7333,13 @@ function vTrCal() {
   const used = new Set(ws.map(w => trCat(w.name)));
   const head = `<section class="tc-stats"><div class="tc-st"><span class="tc-i">${i3d('feuer')}</span><b>${streak}</b><small>${streak === 1 ? 'Woche' : 'Wochen'} in Folge</small></div><div class="tc-st"><span class="tc-i">${i3d('training')}</span><b>${mN}</b><small>Trainings im ${MON[+tk.slice(5, 7) - 1]}</small></div><div class="tc-st"><span class="tc-i tc-moon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></span><b>${rest}</b><small>Ruhetage im ${MON[+tk.slice(5, 7) - 1]}</small></div></section>
     <div class="seg seg6 tc-mode" role="group" aria-label="Ansicht">${[['month', 'Monate'], ['year', 'Jahr']].map(([k, l]) => `<button class="${mode === k ? 'on' : ''}" data-a="tc-m:${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div>
-    <div class="tc-leg">${Object.keys(TRC).filter(c => used.has(c)).map(c => `<span><i style="background:${TRC[c][1]}"></i>${TRC[c][0]}</span>`).join('')}<span><i class="tc-pl"></i>geplant</span></div>`;
+    <div class="tc-leg"><span><i style="background:var(--accent)"></i>Training</span><span><i class="tc-pl"></i>geplant</span></div>`;
   if (mode === 'year') {
     const y = S.ui.tcY || +tk.slice(0, 4), nY = ws.filter(w => w.date.startsWith(y + '')).length;
     const mini = mo => {
       const ym = `${y}-${String(mo).padStart(2, '0')}`, d1 = ym + '-01', lead = (parseKey(d1).getDay() + 6) % 7, n = new Date(y, mo, 0).getDate();
       let c = ''; for (let i = 0; i < lead; i++) c += '<i class="e"></i>';
-      for (let d = 1; d <= n; d++) { const k = `${ym}-${String(d).padStart(2, '0')}`, w = byD[k]; c += `<i class="${w ? 'on' : ''}${k === tk ? ' td' : ''}"${w ? ` style="--c:${TRC[trCat(w[0].name)][1]}"` : ''}></i>`; }
+      for (let d = 1; d <= n; d++) { const k = `${ym}-${String(d).padStart(2, '0')}`, w = byD[k]; c += `<i class="${w ? 'on' : ''}${k === tk ? ' td' : ''}"${w ? ' style="--c:var(--accent)"' : ''}></i>`; }
       const cnt = Object.keys(byD).filter(k => k.startsWith(ym)).length;
       return `<button class="tc-mini" data-a="tc-goto:${ym}"><b>${MON[mo - 1].slice(0, 3)}</b><small>${cnt || ''}</small><span class="tc-mg">${c}</span></button>`;
     };
@@ -7350,8 +7353,8 @@ function vTrCal() {
     let c = ''; for (let i = 0; i < lead; i++) c += '<span class="tc-e"></span>';
     for (let d = 1; d <= n; d++) {
       const k = `${ym}-${String(d).padStart(2, '0')}`, w = byD[k], p = !w && plan(k);
-      if (w) { const ct = trCat(w[0].name); c += `<button class="tc-d on${k === tk ? ' td' : ''}" style="--c:${TRC[ct][1]}" data-a="tr-hist:${w[0].id}" aria-label="${longDate(k)}: ${esc(w.map(x => x.name).join(', '))}"><span class="tc-n">${d}</span><small>${esc(trShort(w[0].name))}${w.length > 1 ? ` +${w.length - 1}` : ''}</small></button>`; }
-      else if (p) c += `<button class="tc-d pl${k === tk ? ' td' : ''}" style="--c:${TRC[trCat(p)][1]}" data-a="tc-plan:${k}" aria-label="${longDate(k)}: geplant ${esc(p)}"><span class="tc-n">${d}</span><small>${esc(trShort(p))}</small></button>`;
+      if (w) { const ct = trCat(w[0].name); c += `<button class="tc-d on${k === tk ? ' td' : ''}" style="--c:var(--accent)" data-a="tr-hist:${w[0].id}" aria-label="${longDate(k)}: ${esc(w.map(x => x.name).join(', '))}"><span class="tc-n">${d}</span><small>${esc(trShort(w[0].name))}${w.length > 1 ? ` +${w.length - 1}` : ''}</small></button>`; }
+      else if (p) c += `<button class="tc-d pl${k === tk ? ' td' : ''}" style="--c:var(--accent)" data-a="tc-plan:${k}" aria-label="${longDate(k)}: geplant ${esc(p)}"><span class="tc-n">${d}</span><small>${esc(trShort(p))}</small></button>`;
       else c += `<span class="tc-d${k === tk ? ' td' : ''}${k > tk ? ' fut' : ''}"><span class="tc-n">${d}</span></span>`;
     }
     const cnt = Object.keys(byD).filter(k => k.startsWith(ym)).length;
@@ -7768,6 +7771,40 @@ document.addEventListener('input', e => {
   else if (ds.txq) { S.ui.txQ = el.value; const L = $('#tx-found'); if (L) L.innerHTML = txFound(S.ui.txY || todayKey().slice(0, 4), el.value); }
 });
 document.addEventListener('change', e => { const ds = e.target && e.target.dataset; if (ds && ds.txs) requestRender(); });
+
+/* ---------- v29: Trainingsdauer anpassen, vergessenen Timer erkennen ---------- */
+function fmtDur(ms) { const m = Math.max(0, Math.round(ms / 60000)); return m < 60 ? `${m} min` : `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')} h`; }
+function wEndGuess(A) {
+  const now = Date.now(), at = A.ex.flatMap(e => e.sets.filter(s => s.done && s.at).map(s => s.at));
+  if (!at.length) return { end: now, cut: 0 };
+  const last = Math.max(...at), gap = now - last;
+  if (gap < 20 * 60e3) return { end: now, cut: 0 };
+  const end = last + 3 * 60e3; return { end, cut: now - end };
+}
+const wdHM = t => { const d = new Date(t); return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
+function wDurForm(w) {
+  const m = w.end && w.start ? Math.round((w.end - w.start) / 60000) : 60, st = w.start ? wdHM(w.start) : '18:00';
+  return `<div class="wdur"><div class="grid2"><label class="fld"><span>Beginn</span><input type="time" id="wd-s" value="${st}"></label><label class="fld"><span>Dauer in Minuten</span><input id="wd-m" inputmode="numeric" value="${m}" autocomplete="off"></label></div>
+    <div class="chips wdur-q">${[45, 60, 75, 90].map(v => `<button class="chip ${m === v ? 'on' : ''}" data-a="w-durq:${v}">${v} min</button>`).join('')}</div>
+    <div class="row-actions"><button class="btn small primary" data-a="w-dursave:${w.date}:${w.id}">Speichern</button><button class="btn small ghost" data-a="w-dur:x">Abbrechen</button></div></div>`;
+}
+function actV29(c, args) {
+  switch (c) {
+    case 'w-dur': S.ui.wDur = args[0] === 'x' || S.ui.wDur === args[1] ? null : args[1]; render(); return true;
+    case 'w-durq': { const i = $('#wd-m'); if (i) i.value = args[0]; document.querySelectorAll('.wdur-q .chip').forEach(b => b.classList.toggle('on', b.dataset.a === 'w-durq:' + args[0])); return true; }
+    case 'w-dursave': {
+      const d = S.days[args[0]], w = d && d.workouts.find(x => x.id === args[1]); if (!w) return true;
+      const m = Math.round(num($('#wd-m')?.value)), s = ($('#wd-s')?.value || '').match(/^(\d{2}):(\d{2})$/);
+      if (!m || m < 1 || m > 600) { toast('Gib eine Dauer zwischen 1 und 600 Minuten ein.'); return true; }
+      const base = parseKey(args[0]); if (s) base.setHours(+s[1], +s[2], 0, 0); else if (w.start) { const o = new Date(w.start); base.setHours(o.getHours(), o.getMinutes(), 0, 0); }
+      const old = { start: w.start, end: w.end }; w.start = base.getTime(); w.end = w.start + m * 60000;
+      touch('day:' + args[0]); S.ui.wDur = null; render();
+      toast(`Dauer: ${fmtDur(m * 60000)}`, () => { w.start = old.start; w.end = old.end; touch('day:' + args[0]); render(); });
+      return true;
+    }
+  }
+  return false;
+}
 
 /* ---------- Render ---------- */
 let renderQueued = false;
@@ -11315,7 +11352,7 @@ function act6(c, args, el) {
     case 'sp-res': S.ui.spEdit = decodeURIComponent(args.join(':')); render(); setTimeout(() => $('#sr-h')?.focus(), 0); break;
     case 'sp-res-cancel': S.ui.spEdit = null; render(); break;
     case 'sp-res-save': { const key = decodeURIComponent(args.join(':')), h = num($('#sr-h')?.value), a = num($('#sr-a')?.value); S.profile.sres = { ...(S.profile.sres || {}) }; if (h == null || a == null) delete S.profile.sres[key]; else S.profile.sres[key] = `${Math.round(h)}:${Math.round(a)}`; S.ui.spEdit = null; touch('profile'); render(); toast(h == null || a == null ? 'Ergebnis entfernt' : 'Ergebnis gespeichert'); break; }
-    default: if (!actV28(c, args) && !actTrCal(c, args) && !actLook27(c, args) && !actV27(c, args) && !actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
+    default: if (!actV29(c, args) && !actV28(c, args) && !actTrCal(c, args) && !actLook27(c, args) && !actV27(c, args) && !actFilm(c, args) && !actPack(c, args) && !actIdea(c, args) && !actLook(c, args) && !actMerk(c, args) && !actAlc(c, args) && !actFood(c, args) && !actTrain(c, args) && !actDesign(c, args, el) && !actRez(c, args) && !actUni2(c, args) && !actGym(c, args) && !actPin(c, args) && !actScan(c, args) && !actFoto(c, args) && !actFoods(c, args) && !actBackup(c)) actUni(c, args); break;
     case 'xport': if (args[0] === 'arbeit') azExport(S.ui.workMonth || monthKey(tk)); else exportV6(args[0]); break;
   }
 }
@@ -12234,7 +12271,7 @@ function act(a, el) {
         const last = lastSetsFor(ex.name), ph = last ? (last.sets[i] || last.sets[last.sets.length - 1]) : null;
         for (const [f] of KINDS[ex.kind || (last && last.kind) || 'reps'] || KINDS.reps) if (getF(s, f) == null && getF(ph, f) != null) setF(s, f, getF(ph, f));
         if (!hasVal(s)) { toast('Trag zuerst einen Wert ein.'); break; }
-        s.done = true;
+        s.done = true; s.at = Date.now();
         if (!S.profile.active.gymOn) gymNewRest(S.profile.active, ex, s.warm ? 60 : 0);
         if (checkPR(ex, s)) { touch('profile'); render(); celebrate(); toast(`Neuer Rekord! ${ex.name}: ${fmtSet(s)}`); break; }
       } else { s.done = false; delete s.pr; }
@@ -12246,7 +12283,9 @@ function act(a, el) {
       const ex = A.ex.map(e => ({ name: e.name, sets: e.sets.filter(hasVal).map(s => { const o = {}; for (const f of SET_F) if (s[f] != null) o[f] = s[f]; if (s.pr) o.pr = true; if (s.warm) o.warm = true; return o; }) })).filter(e => e.sets.length);
       if (!ex.length) { toast('Trag mindestens einen Satz ein oder verwirf das Training.'); break; }
       const k = keyOf(new Date(A.start));
-      ensureDay(k).workouts.push({ id: A.id, name: (A.name || '').trim() || 'Training', loc: A.loc, start: A.start, end: Date.now(), ex });
+      const endG = wEndGuess(A), wNew = { id: A.id, name: (A.name || '').trim() || 'Training', loc: A.loc, start: A.start, end: endG.end, ex };
+      ensureDay(k).workouts.push(wNew);
+      if (endG.cut) setTimeout(() => toast(`Nach dem letzten Satz lief der Timer noch ${fmtDur(endG.cut)}. Gespeichert sind ${fmtDur(endG.end - A.start)}.`, () => { wNew.end = Date.now(); touch('day:' + k); render(); }), 1800);
       S.profile.planAsk = planDiff(A);
       S.profile.active = null; touch('day:' + k); touch('profile'); toast('Training gespeichert'); render(); window.scrollTo(0, 0); break;
     }
@@ -12500,7 +12539,7 @@ initCaps();
 <script>
 if ('serviceWorker' in navigator) {
   const t0 = Date.now(); let had = !!navigator.serviceWorker.controller, reloaded = false;
-  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => { setInterval(() => r.update().catch(() => {}), 3600e3); document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') r.update().catch(() => {}); }); }).catch(() => {});
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => { setInterval(() => r && r.update().catch(() => {}), 3600e3); document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && r) r.update().catch(() => {}); }); }).catch(() => {});
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (!had) { had = true; return; }
     if (reloaded) return;

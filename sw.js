@@ -1,5 +1,5 @@
 /* Bilanz Offline: hält die App auf dem Gerät, damit sie ohne Internet startet. */
-const VERSION = '20261021-69c0a175';
+const VERSION = '20261105-d8c25542';
 const CACHE = 'bilanz-' + VERSION;
 /* Große Datendateien (Produkte, Filme) liegen in eigenen Speichern und werden nur neu geladen, wenn sie sich ändern. */
 const FOODS_VER = 'feecaef5';
